@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite" parallel="tests" thread-count="5">
+
+
+	<test name="Parameter Test one">
+		<parameter name="ScenarioName1" value="TS_SM_MIS_AgencyProfile_Regression_001" />
+		<classes>
+			<class name="KeywordDriverUtil.KeywordTestNG">
+				<methods>
+					<include name="ExecuteTest1" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	<test name="Parameter Test two">
+		<parameter name="ScenarioName1" value="TS_SM_COA_CashFundProfile_Regression_01" />
+		<classes>
+			<class name="KeywordDriverUtil.KeywordTestNG">
+				<methods>
+					<include name="ExecuteTest1" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	<test name="Parameter Test three">
+		<parameter name="ScenarioName1" value="TS_SM_FOU_PcaGroupProfile_Regression_001" />
+		<classes>
+			<class name="KeywordDriverUtil.KeywordTestNG">
+				<methods>
+					<include name="ExecuteTest1" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	<test name="Parameter Test four">
+		<parameter name="ScenarioName1" value="TS_SM_FOU_NacuboSourceProfile_Regression_001" />
+		<classes>
+			<class name="KeywordDriverUtil.KeywordTestNG">
+				<methods>
+					<include name="ExecuteTest1" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	<test name="Parameter Test five">
+		<parameter name="ScenarioName1" value="TS_PM_COA_SEC_AgencyCode1_Regression_001" />
+		<classes>
+			<class name="KeywordDriverUtil.KeywordTestNG">
+				<methods>
+					<include name="ExecuteTest1" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+		<test name="Parameter Test six">
+		<parameter name="ScenarioName1" value="TS_PM_COA_SEC_AgencyCode2_Regression_001" />
+		<classes>
+			<class name="KeywordDriverUtil.KeywordTestNG">
+				<methods>
+					<include name="ExecuteTest1" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	<test name="Parameter Test seven">
+		<parameter name="ScenarioName1" value="TS_PM_COA_SEC_AgencyCode3_Regression_001" />
+		<classes>
+			<class name="KeywordDriverUtil.KeywordTestNG">
+				<methods>
+					<include name="ExecuteTest1" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	<test name="Parameter Test eight">
+		<parameter name="ScenarioName1" value="TS_PM_COA_SEC_AgencyObjectGroupProfile_Regression_001" />
+		<classes>
+			<class name="KeywordDriverUtil.KeywordTestNG">
+				<methods>
+					<include name="ExecuteTest1" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	<test name="Parameter Test nine">
+		<parameter name="ScenarioName1" value="TS_PM_COA_SEC_OrganizationCodeProfile_Regression_001" />
+		<classes>
+			<class name="KeywordDriverUtil.KeywordTestNG">
+				<methods>
+					<include name="ExecuteTest1" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+	<test name="Parameter Test ten">
+		<parameter name="ScenarioName1" value="TS_SM_FOU_GAAPFundGroupProfile_Regression_001" />
+		<classes>
+			<class name="KeywordDriverUtil.KeywordTestNG">
+				<methods>
+					<include name="ExecuteTest1" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+	<test name="Parameter Test eleven">
+		<parameter name="ScenarioName1" value="TS_SM_FOU_GAAPSourceObjectProfile_Regression_001" />
+		<classes>
+			<class name="KeywordDriverUtil.KeywordTestNG">
+				<methods>
+					<include name="ExecuteTest1" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+	<test name="Parameter Test twelve">
+		<parameter name="ScenarioName1" value="TS_PM_COA_SEC_AgencyGLAccountProfile_Regression_001" />
+		<classes>
+			<class name="KeywordDriverUtil.KeywordTestNG">
+				<methods>
+					<include name="ExecuteTest1" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+	<test name="Parameter Test thirteen">
+		<parameter name="ScenarioName1" value="TS_PM_COA_SEC_ProgramCodeProfile_Regression_001" />
+		<classes>
+			<class name="KeywordDriverUtil.KeywordTestNG">
+				<methods>
+					<include name="ExecuteTest1" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+	<test name="Parameter Test fourteen">
+		<parameter name="ScenarioName1" value="TS_PM_COA_SEC_AgencyObjectProfile_Regression_001" />
+		<classes>
+			<class name="KeywordDriverUtil.KeywordTestNG">
+				<methods>
+					<include name="ExecuteTest1" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+	<test name="Parameter Test fifteen">
+		<parameter name="ScenarioName1" value="TS_PM_APFA_DebtInvestmentProfile_Regression_001" />
+		<classes>
+			<class name="KeywordDriverUtil.KeywordTestNG">
+				<methods>
+					<include name="ExecuteTest1" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+	<test name="Parameter Test sixteen">
+		<parameter name="ScenarioName1" value="TS_PM_COA_SEC_FundProfile_Regression_001" />
+		<classes>
+			<class name="KeywordDriverUtil.KeywordTestNG">
+				<methods>
+					<include name="ExecuteTest1" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+	<test name="Parameter Test seventeen">
+		<parameter name="ScenarioName1" value="TS_SM_COA_AppropriationNumberProfile_Regression_01" />
+		<classes>
+			<class name="KeywordDriverUtil.KeywordTestNG">
+				<methods>
+					<include name="ExecuteTest1" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+	<test name="Parameter Test eighteen">
+		<parameter name="ScenarioName1" value="TS_PM_COA_SEC_ProjectTypeProfile_Regression_001" />
+		<classes>
+			<class name="KeywordDriverUtil.KeywordTestNG">
+				<methods>
+					<include name="ExecuteTest1" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+	<test name="Parameter Test nineteen">
+		<parameter name="ScenarioName1" value="TS_SM_COA_ObjectProfile_Regression_001" />
+		<classes>
+			<class name="KeywordDriverUtil.KeywordTestNG">
+				<methods>
+					<include name="ExecuteTest1" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+	<test name="Parameter Test twenty">
+		<parameter name="ScenarioName1" value="TS_SM_FOU_GAAPCategoryProfile_Regression_001" />
+		<classes>
+			<class name="KeywordDriverUtil.KeywordTestNG">
+				<methods>
+					<include name="ExecuteTest1" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	<test name="Parameter Test Twenty One">
+		<parameter name="ScenarioName1" value="TS_SM_COA_ComptrollerObjectProfile_Regression_01" />
+		<classes>
+			<class name="KeywordDriverUtil.KeywordTestNG">
+				<methods>
+					<include name="ExecuteTest1" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	<test name="Parameter Test Twenty Two">
+		<parameter name="ScenarioName1" value="TS_SM_FOU_ComptrollerSourceGroupProfile_Regression_001" />
+		<classes>
+			<class name="KeywordDriverUtil.KeywordTestNG">
+				<methods>
+					<include name="ExecuteTest1" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+</suite> <!-- Suite -->

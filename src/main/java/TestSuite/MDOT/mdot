@@ -1,0 +1,5 @@
+radio_nacubo=id:BYFUNC
+radio_wait=xpath://input[@name="BYFUNC"]
+
+txt_last_proc_date=xpath://label[contains(text()," Last Proc Date: ")]
+date_last_proc=xpath://span[@class="ng-star-inserted"]
