@@ -234,4 +234,14 @@
 			</class>
 		</classes>
 	</test>
+	<test name="Parameter Test Twenty Three">
+		<parameter name="ScenarioName1" value="TS_SM_FOU_GAAPGLAccountClassProfile_Regression_001" />
+		<classes>
+			<class name="KeywordDriverUtil.KeywordTestNG">
+				<methods>
+					<include name="ExecuteTest1" />
+				</methods>
+			</class>
+		</classes>
+	</test>
 </suite> <!-- Suite -->

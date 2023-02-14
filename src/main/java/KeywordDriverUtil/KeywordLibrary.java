@@ -762,7 +762,7 @@ public class KeywordLibrary extends WebDriverHelper {
 					//driver.findElement(By.xpath("@id='"+keywordModel.objectID+"'")).click();
 					driver.findElement(By.xpath("//div[contains(@class,'ng-option')]/span[contains(text(),'" + keywordModel.dataValue + "')]")).click();
 
-					driver.findElement(By.xpath("//mat-option/span[contains(text(),'" + keywordModel.dataValue + "')]")).click();
+//					driver.findElement(By.xpath("//mat-option/span[contains(text(),'" + keywordModel.dataValue + "')]")).click();
 
 					ReportUtilities.Log(driver,"Selecting by visible text in the dropdown " + keywordModel.objectName,
 							"Selected the value " + keywordModel.dataValue + " in the select box ", Status.PASS , keywordModel);
