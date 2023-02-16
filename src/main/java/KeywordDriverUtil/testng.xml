@@ -276,4 +276,14 @@
 			</class>
 		</classes>
 	</test>
+	<test name="Parameter Test twenty seven">
+		<parameter name="ScenarioName1" value="TS_SM_TE_BalanceTypeProfile_Regression_01" />
+		<classes>
+			<class name="KeywordDriverUtil.KeywordTestNG">
+				<methods>
+					<include name="ExecuteTest1" />
+				</methods>
+			</class>
+		</classes>
+	</test>
 </suite> <!-- Suite -->
