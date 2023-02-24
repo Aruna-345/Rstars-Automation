@@ -288,10 +288,44 @@
 			</class>
 		</classes>
 	</test>
-
 	
 	<test name="Parameter Test twenty Eight">
 		<parameter name="ScenarioName1" value="TS_PM_APFA_ContractProfile_Regression_001" />
+
+		<classes>
+			<class name="KeywordDriverUtil.KeywordTestNG">
+				<methods>
+					<include name="ExecuteTest1" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+	<test name="Parameter Test twenty nine">
+		<parameter name="ScenarioName1" value="TS_PM_COA_PRI_GrantControlProfile_Regression_001" />
+
+		<classes>
+			<class name="KeywordDriverUtil.KeywordTestNG">
+				<methods>
+					<include name="ExecuteTest1" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+
+<test name="Parameter Test thirty">
+		<parameter name="ScenarioName1" value="TS_SM_FOU_NacuboGLAccountCategoryProfile_Regression_001" />
+
+		<classes>
+			<class name="KeywordDriverUtil.KeywordTestNG">
+				<methods>
+					<include name="ExecuteTest1" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	<test name="Parameter Test thirty one">
+		<parameter name="ScenarioName1" value="TS_SM_FOU_NacuboGLAccountClassProfile_Regression_001" />
 
 		<classes>
 			<class name="KeywordDriverUtil.KeywordTestNG">
