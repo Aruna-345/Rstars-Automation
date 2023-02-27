@@ -7285,7 +7285,10 @@ public  void verifyAPMedicalRFI(WebDriver driver, KeywordModel keywordModel) thr
 						
 		try {
 			String[] actualObject=keywordModel.objectID.split(":"); 
-			driver.findElement(By.xpath("//*[@id='"+actualObject[1]+"']//child::*[@value='"+keywordModel.dataValue+"']")).click();
+			
+			//*[@id='BYFUNC']//child::*[@value='N']//parent::span[@class="mat-radio-container"]
+			driver.findElement(By.xpath("//*[@id='"+actualObject[1]+"']//child::*[@value='"+keywordModel.dataValue+"']//parent::span[@class=\"mat-radio-container\"]")).click();
+//			driver.findElement(By.xpath("//*[@id='"+actualObject[1]+"']//child::*[@value='"+keywordModel.dataValue+"']")).click();
 			ReportUtilities.Log(driver,"Selecting by visible text in the radio button " + keywordModel.objectName,
 					"Selected the value " + keywordModel.dataValue + " in the options ", Status.PASS , keywordModel);
 							
