@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -44,14 +45,16 @@ public class WebDriverHelper {	//The static WebDriver object
 				WebDriverManager.chromedriver().setup();
 		    	ChromeOptions options= new ChromeOptions();    	
 		    	options.setAcceptInsecureCerts(true);
-		    	options.addArguments("start-maximized"); // open Browser in maximized mode
+//		    	options.addArguments("start-maximized"); // open Browser in maximized mode
 		    	options.addArguments("disable-infobars"); // disabling infobars
 		    	options.addArguments("--disable-extensions"); // disabling extensions
 		    	options.addArguments("--disable-gpu"); // applicable to windows os only
 		    	options.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
 		    	options.addArguments("--no-sandbox"); // Bypass OS security model  
 		    	driver= new ChromeDriver(options);
+		    	driver.manage().window().setSize(new Dimension(1920,1000));
 		    	driver.manage().deleteAllCookies();
+		    	
 				
 				
 			}

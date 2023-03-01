@@ -67,8 +67,6 @@ import utilities.NavigationTimeHelper;
 
 import java.text.SimpleDateFormat;
 
-
-
 import com.deque.html.axecore.selenium.AxeBuilder;
 import com.deque.html.axecore.selenium.AxeReporter;
 import com.deque.html.axecore.selenium.ResultType;
@@ -79,14 +77,14 @@ import static org.testng.Assert.assertTrue;
 
 public class KeywordLibrary extends WebDriverHelper {
 	DriverSession sessionManager = new DriverSession();
+
 //	ReusableFunctions reusableFunctions = new ReusableFunctions();
 //	MSSQLUtilities dbUtil = new MSSQLUtilities();
-	public KeywordLibrary()
-	{
-		
+	public KeywordLibrary() {
+
 	}
-	
-	public WebElement findElementByType(WebDriver driver,KeywordModel keywordModel) {
+
+	public WebElement findElementByType(WebDriver driver, KeywordModel keywordModel) {
 		keywordModel.inputXPath = "";
 		keywordModel.optionXPath = "";
 		WebElement object = null;
@@ -110,7 +108,8 @@ public class KeywordLibrary extends WebDriverHelper {
 			String finalObjectID = "";
 			for (int i = 0; i < splittedString.length; i++) {
 				if (splittedString[i].startsWith("getMappingID=")) {
-					splittedString[i] = KeywordUtilities.getObjectMappingSheet((splittedString[i]).split("getMappingID=")[1]);
+					splittedString[i] = KeywordUtilities
+							.getObjectMappingSheet((splittedString[i]).split("getMappingID=")[1]);
 				}
 				finalObjectID = finalObjectID + splittedString[i];
 			}
@@ -121,14 +120,10 @@ public class KeywordLibrary extends WebDriverHelper {
 			for (int i = 0; i < splittedString.length; i++) {
 				if (splittedString[i].startsWith("getData=")) {
 					try {
-						splittedString[i] = KeywordUtilities.getData(
-								driver, 
-								keywordModel.testCaseFileName, 
-								keywordModel.testCase, 
-								(splittedString[i]).split("getData=")[1],
+						splittedString[i] = KeywordUtilities.getData(driver, keywordModel.testCaseFileName,
+								keywordModel.testCase, (splittedString[i]).split("getData=")[1],
 								keywordModel.currentIteration);
 
-								
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -140,7 +135,7 @@ public class KeywordLibrary extends WebDriverHelper {
 
 		}
 
-		object = getWebElement(driver,identifier, actualObjectID);
+		object = getWebElement(driver, identifier, actualObjectID);
 		keywordModel.inputXPath = actualObjectID;
 		keywordModel.optionXPath = actualObjectID;
 		// System.out.println("Object ID is "+keywordModel.inputXPath);
@@ -148,7 +143,6 @@ public class KeywordLibrary extends WebDriverHelper {
 
 	}
 
-	
 	public static List findElementsByType(WebDriver driver, KeywordModel keywordModel) {
 		keywordModel.inputXPath = "";
 		keywordModel.optionXPath = "";
@@ -177,7 +171,8 @@ public class KeywordLibrary extends WebDriverHelper {
 				String finalObjectID = "";
 				for (int i = 0; i < splittedString.length; i++) {
 					if (splittedString[i].startsWith("getMappingID=")) {
-						splittedString[i] = KeywordUtilities.getObjectMappingSheet((splittedString[i]).split("getMappingID=")[1]);
+						splittedString[i] = KeywordUtilities
+								.getObjectMappingSheet((splittedString[i]).split("getMappingID=")[1]);
 					}
 					finalObjectID = finalObjectID + splittedString[i];
 				}
@@ -189,11 +184,8 @@ public class KeywordLibrary extends WebDriverHelper {
 				for (int i = 0; i < splittedString.length; i++) {
 					if (splittedString[i].startsWith("getData=")) {
 						try {
-							splittedString[i] =  KeywordUtilities.getData(
-									driver, 
-									keywordModel.testCaseFileName, 
-									keywordModel.testCase, 
-									(splittedString[i]).split("getData=")[1],
+							splittedString[i] = KeywordUtilities.getData(driver, keywordModel.testCaseFileName,
+									keywordModel.testCase, (splittedString[i]).split("getData=")[1],
 									keywordModel.currentIteration);
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
@@ -205,7 +197,7 @@ public class KeywordLibrary extends WebDriverHelper {
 				actualObjectID = finalObjectID;
 			}
 
-			object = getWebElementList(driver,identifier, actualObjectID);
+			object = getWebElementList(driver, identifier, actualObjectID);
 			keywordModel.inputXPath = actualObjectID;
 			keywordModel.optionXPath = actualObjectID;
 			System.out.println("FindByelements...." + actualObjectID);
@@ -218,13 +210,12 @@ public class KeywordLibrary extends WebDriverHelper {
 
 	}
 
-
-	private static WebElement getWebElement(WebDriver driver,String identifier, String elementId) {
+	private static WebElement getWebElement(WebDriver driver, String identifier, String elementId) {
 		By bySelector = getSelector(identifier, elementId);
 		return driver.findElement(bySelector);
 	}
 
-	private static List<WebElement> getWebElementList(WebDriver driver,String identifier, String elementId) {
+	private static List<WebElement> getWebElementList(WebDriver driver, String identifier, String elementId) {
 		By bySelector = getSelector(identifier, elementId);
 		return driver.findElements(bySelector);
 	}
@@ -249,7 +240,6 @@ public class KeywordLibrary extends WebDriverHelper {
 		return bySelector;
 	}
 
-	
 //	public  void click(WebDriver driver, KeywordModel keywordModel ) {
 //		if (keywordModel.dynaElement != null) {
 //			try {
@@ -282,18 +272,16 @@ public class KeywordLibrary extends WebDriverHelper {
 //
 //	
 
-	
 	/**
 	 * 
-	 * Method Name: ScrollToElement Description:
-	 * This method scrolls to an element present on screen
+	 * Method Name: ScrollToElement Description: This method scrolls to an element
+	 * present on screen
 	 */
-	public void scrollToElement(WebDriver driver, KeywordModel keywordModel) 
-	{
-		WebElement elementSelected= findElementByType(driver, keywordModel);
+	public void scrollToElement(WebDriver driver, KeywordModel keywordModel) {
+		WebElement elementSelected = findElementByType(driver, keywordModel);
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", elementSelected);
 	}
-	
+
 	/**
 	 * Method Name: Clear_text Return Type: Nothing Description: This method get the
 	 * Web-element text and remove the specified text.
@@ -305,22 +293,22 @@ public class KeywordLibrary extends WebDriverHelper {
 			jsExecutor.executeScript(
 					"$(document.querySelector('#HtmlCommentsText')).data(\'kendoEditor\').value('Deleted for Automation')");
 
-			ReportUtilities.Log(driver,"Clear the text and Entering text in the text box " + keywordModel.objectName,
-					"Entered the text " + keywordModel.dataValue, Status.PASS , keywordModel);
+			ReportUtilities.Log(driver, "Clear the text and Entering text in the text box " + keywordModel.objectName,
+					"Entered the text " + keywordModel.dataValue, Status.PASS, keywordModel);
 		} catch (NoSuchElementException p) {
 			keywordModel.error = true;
 			keywordModel.displayError = true;
 			System.out.println(p);
-			ReportUtilities.Log(driver,"Cannot Clear the text enter text on the object.",
-					"The Element " + keywordModel.objectName + " is  Not displayed on the current screen" + keywordModel.ScreenName,
-					Status.FAIL , keywordModel);
+			ReportUtilities.Log(
+					driver, "Cannot Clear the text enter text on the object.", "The Element " + keywordModel.objectName
+							+ " is  Not displayed on the current screen" + keywordModel.ScreenName,
+					Status.FAIL, keywordModel);
 		}
 	}
 
-
 	/**
-	 * Method Name: clear Return Type: Nothing Description: This method clears
-	 * the text in the field
+	 * Method Name: clear Return Type: Nothing Description: This method clears the
+	 * text in the field
 	 */
 	public void clear(WebDriver driver, KeywordModel keywordModel) {
 		if (keywordModel.dynaElement != null) {
@@ -328,16 +316,18 @@ public class KeywordLibrary extends WebDriverHelper {
 				if (keywordModel.dynaElement.isDisplayed()) {
 					keywordModel.dynaElement.click();
 					keywordModel.dynaElement.sendKeys(Keys.CONTROL + "a");
-					keywordModel.dynaElement.sendKeys(Keys.DELETE); 
-				
-					ReportUtilities.Log(driver,"Entering text in the text box " + keywordModel.objectName,
-							"Entered the text " + keywordModel.dataValue, Status.PASS , keywordModel);
+					keywordModel.dynaElement.sendKeys(Keys.DELETE);
+
+					ReportUtilities.Log(driver, "Entering text in the text box " + keywordModel.objectName,
+							"Entered the text " + keywordModel.dataValue, Status.PASS, keywordModel);
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot enter text on the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot enter text on the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		} else {
@@ -345,23 +335,22 @@ public class KeywordLibrary extends WebDriverHelper {
 				if (findElementByType(driver, keywordModel).isDisplayed()) {
 					findElementByType(driver, keywordModel).click();
 					findElementByType(driver, keywordModel).sendKeys(Keys.CONTROL + "a");
-					findElementByType(driver, keywordModel).sendKeys(Keys.DELETE); 
-				
+					findElementByType(driver, keywordModel).sendKeys(Keys.DELETE);
 
-					ReportUtilities.Log(driver,"Entering text in the text box " + keywordModel.objectName,
-							"Entered the text " + keywordModel.dataValue, Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Entering text in the text box " + keywordModel.objectName,
+							"Entered the text " + keywordModel.dataValue, Status.PASS, keywordModel);
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot enter text on the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot enter text on the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		}
 	}
-
-
 
 	/**
 	 * Method Name: enter_text Return Type: Nothing Description: This method enters
@@ -373,39 +362,43 @@ public class KeywordLibrary extends WebDriverHelper {
 				if (keywordModel.dynaElement.isDisplayed()) {
 					// keywordModel.dynaElement.click();
 					// keywordModel.dynaElement.sendKeys(Keys.CONTROL + "a");
-					// keywordModel.dynaElement.sendKeys(Keys.DELETE); 
-				//	Driver.dynaElement.clear();
+					// keywordModel.dynaElement.sendKeys(Keys.DELETE);
+					// Driver.dynaElement.clear();
 					keywordModel.dynaElement.clear();
-					//	Thread.sleep(200);
+					// Thread.sleep(200);
 					keywordModel.dynaElement.sendKeys(keywordModel.dataValue);
-					ReportUtilities.Log(driver,"Entering text in the text box " + keywordModel.objectName,
-							"Entered the text " + keywordModel.dataValue, Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Entering text in the text box " + keywordModel.objectName,
+							"Entered the text " + keywordModel.dataValue, Status.PASS, keywordModel);
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot enter text on the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot enter text on the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		} else {
 			try {
 				if (findElementByType(driver, keywordModel).isDisplayed()) {
-				//	findElementByType(driver, keywordModel).click();
-				//	findElementByType(driver, keywordModel).sendKeys(Keys.CONTROL + "a");
-				//	findElementByType(driver, keywordModel).sendKeys(Keys.DELETE); 
+					// findElementByType(driver, keywordModel).click();
+					// findElementByType(driver, keywordModel).sendKeys(Keys.CONTROL + "a");
+					// findElementByType(driver, keywordModel).sendKeys(Keys.DELETE);
 					findElementByType(driver, keywordModel).clear();
-					//	Thread.sleep(200);
+					// Thread.sleep(200);
 					findElementByType(driver, keywordModel).sendKeys(keywordModel.dataValue);
 
-					ReportUtilities.Log(driver,"Entering text in the text box " + keywordModel.objectName,
-							"Entered the text " + keywordModel.dataValue, Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Entering text in the text box " + keywordModel.objectName,
+							"Entered the text " + keywordModel.dataValue, Status.PASS, keywordModel);
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot enter text on the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot enter text on the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		}
@@ -416,50 +409,52 @@ public class KeywordLibrary extends WebDriverHelper {
 			try {
 				if (keywordModel.dynaElement.isDisplayed()) {
 					keywordModel.dynaElement.click();
-					//Driver.dynaElement.sendKeys(Keys.CONTROL + "a");
-					//Driver.dynaElement.sendKeys(Keys.DELETE); 
-					//Driver.dynaElement.clear();
+					// Driver.dynaElement.sendKeys(Keys.CONTROL + "a");
+					// Driver.dynaElement.sendKeys(Keys.DELETE);
+					// Driver.dynaElement.clear();
 					keywordModel.dynaElement.clear();
 					keywordModel.dynaElement.click();
-					//	Thread.sleep(200);
+					// Thread.sleep(200);
 					keywordModel.dynaElement.sendKeys(keywordModel.dataValue);
-					ReportUtilities.Log(driver,"Entering text in the text box " + keywordModel.objectName,
-							"Entered the text " + keywordModel.dataValue, Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Entering text in the text box " + keywordModel.objectName,
+							"Entered the text " + keywordModel.dataValue, Status.PASS, keywordModel);
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot enter text on the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot enter text on the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		} else {
 			try {
 				if (findElementByType(driver, keywordModel).isDisplayed()) {
 					findElementByType(driver, keywordModel).click();
-				//	findElementByType().sendKeys(Keys.CONTROL + "a");
-				//	findElementByType().sendKeys(Keys.DELETE); 
+					// findElementByType().sendKeys(Keys.CONTROL + "a");
+					// findElementByType().sendKeys(Keys.DELETE);
 					findElementByType(driver, keywordModel).clear();
 					findElementByType(driver, keywordModel).click();
-					//	Thread.sleep(200);
+					// Thread.sleep(200);
 					findElementByType(driver, keywordModel).sendKeys(keywordModel.dataValue);
 
-					ReportUtilities.Log(driver,"Entering text in the text box " + keywordModel.objectName,
-							"Entered the text " + keywordModel.dataValue, Status.PASS , keywordModel);
-					
+					ReportUtilities.Log(driver, "Entering text in the text box " + keywordModel.objectName,
+							"Entered the text " + keywordModel.dataValue, Status.PASS, keywordModel);
+
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot enter text on the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot enter text on the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		}
 	}
-	
-	
-	
+
 	/*
 	 * Method Name: enter_RandomName Return Type: Nothing Description: This method
 	 * enters the Random text with the length of the value that is mentioned in
@@ -468,7 +463,6 @@ public class KeywordLibrary extends WebDriverHelper {
 	 */
 
 	public void enter_RandomName(WebDriver driver, KeywordModel keywordModel) throws InterruptedException {
-
 
 		if (keywordModel.dynaElement != null) {
 			try {
@@ -484,14 +478,16 @@ public class KeywordLibrary extends WebDriverHelper {
 					String str = builder.toString();
 					// str = "Automation"+str;
 					keywordModel.dynaElement.sendKeys(str);
-					ReportUtilities.Log(driver,"Entering text in the text box " + keywordModel.objectName, "Entered the text " + str,
-							Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Entering text in the text box " + keywordModel.objectName,
+							"Entered the text " + str, Status.PASS, keywordModel);
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot enter text on the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot enter text on the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 
@@ -509,24 +505,26 @@ public class KeywordLibrary extends WebDriverHelper {
 					String str = builder.toString();
 					// str = "Automation"+str;
 					findElementByType(driver, keywordModel).sendKeys(str);
-					ReportUtilities.Log(driver,"Entering text in the text box " + keywordModel.objectName, "Entered the text " + str,
-							Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Entering text in the text box " + keywordModel.objectName,
+							"Entered the text " + str, Status.PASS, keywordModel);
 				}
 
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot enter text on the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot enter text on the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		}
 	}
 
 	/*
-	 * Method Name: enter_RandomAddress Return Type: Nothing Description: This method
-	 * enters the Random text with the length of the value that is mentioned in
-	 * KeyInData column of Test case in the field specified as ObjectId in
+	 * Method Name: enter_RandomAddress Return Type: Nothing Description: This
+	 * method enters the Random text with the length of the value that is mentioned
+	 * in KeyInData column of Test case in the field specified as ObjectId in
 	 * TestScript sheet
 	 */
 
@@ -537,7 +535,7 @@ public class KeywordLibrary extends WebDriverHelper {
 			try {
 				if (keywordModel.dynaElement.isDisplayed()) {
 					keywordModel.dynaElement.clear();
-					
+
 					String Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 					StringBuilder builder = new StringBuilder();
 					int len = Integer.parseInt(keywordModel.dataValue);
@@ -546,16 +544,18 @@ public class KeywordLibrary extends WebDriverHelper {
 						builder.append(Chars.charAt(character));
 					}
 					String str = builder.toString();
-					str = Auto_text+str;
+					str = Auto_text + str;
 					keywordModel.dynaElement.sendKeys(str);
-					ReportUtilities.Log(driver,"Entering text in the text box " + keywordModel.objectName, "Entered the text " + str,
-							Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Entering text in the text box " + keywordModel.objectName,
+							"Entered the text " + str, Status.PASS, keywordModel);
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot enter text on the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot enter text on the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 
@@ -571,23 +571,24 @@ public class KeywordLibrary extends WebDriverHelper {
 						builder.append(Chars.charAt(character));
 					}
 					String str = builder.toString();
-					str = Auto_text+str;
+					str = Auto_text + str;
 					findElementByType(driver, keywordModel).sendKeys(str);
-					ReportUtilities.Log(driver,"Entering text in the text box " + keywordModel.objectName, "Entered the text " + str,
-							Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Entering text in the text box " + keywordModel.objectName,
+							"Entered the text " + str, Status.PASS, keywordModel);
 				}
 
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot enter text on the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot enter text on the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		}
 	}
 
-	
 	/**
 	 * Method Name: enter_RandomName Return Type: Nothing Description: This method
 	 * enters the Random text with the length of the value that is mentioned in
@@ -597,7 +598,7 @@ public class KeywordLibrary extends WebDriverHelper {
 
 	public void enter_RandomSSN1(WebDriver driver, KeywordModel keywordModel) {
 
-	//	findElementByType().clear();
+		// findElementByType().clear();
 		String Chars = "012345";
 		StringBuilder builder = new StringBuilder();
 		int len = Chars.length();
@@ -607,10 +608,10 @@ public class KeywordLibrary extends WebDriverHelper {
 			int character = (int) (Math.random() * Chars.length());
 			if (character == 0) {
 				do {
-					System.out.println("0 comes  :"+character);
+					System.out.println("0 comes  :" + character);
 					character = (int) (Math.random() * Chars.length());
-					System.out.println(" After changing  :"+character);
-				}while (character== 0); 
+					System.out.println(" After changing  :" + character);
+				} while (character == 0);
 			}
 			builder.append(Chars.charAt(character));
 			System.out.println("ssn " + builder.toString());
@@ -618,11 +619,10 @@ public class KeywordLibrary extends WebDriverHelper {
 		findElementByType(driver, keywordModel).click();
 		findElementByType(driver, keywordModel).sendKeys(builder.toString());
 		System.out.println("SSN given in Individual info is" + builder.toString());
-		ReportUtilities.Log(driver,"Entering text in the text box " + keywordModel.objectName, "Entered the text " + keywordModel.dataValue,
-				Status.PASS , keywordModel);
+		ReportUtilities.Log(driver, "Entering text in the text box " + keywordModel.objectName,
+				"Entered the text " + keywordModel.dataValue, Status.PASS, keywordModel);
 	}
-	
-	
+
 	public void enter_RandomSSN(WebDriver driver, KeywordModel keywordModel) {
 		findElementByType(driver, keywordModel).clear();
 		String Chars = "0123456789";
@@ -641,8 +641,8 @@ public class KeywordLibrary extends WebDriverHelper {
 		}
 		findElementByType(driver, keywordModel).sendKeys(builder.toString());
 		System.out.println("SSN given in Individual info is" + builder.toString());
-		ReportUtilities.Log(driver,"Entering text in the text box " + keywordModel.objectName, "Entered the text " + keywordModel.dataValue,
-				Status.PASS , keywordModel);
+		ReportUtilities.Log(driver, "Entering text in the text box " + keywordModel.objectName,
+				"Entered the text " + keywordModel.dataValue, Status.PASS, keywordModel);
 	}
 
 	/**
@@ -655,8 +655,9 @@ public class KeywordLibrary extends WebDriverHelper {
 		findElementByType(driver, keywordModel).clear();
 		String res2 = decode(keywordModel.dataValue);
 		findElementByType(driver, keywordModel).sendKeys(res2);
-		//		System.out.println( res1 + " string --> "  + res2);
-		ReportUtilities.Log(driver,"Entering text in the text box " + keywordModel.objectName, "Entered the text " + res2, Status.PASS , keywordModel);
+		// System.out.println( res1 + " string --> " + res2);
+		ReportUtilities.Log(driver, "Entering text in the text box " + keywordModel.objectName,
+				"Entered the text " + res2, Status.PASS, keywordModel);
 	}
 
 	public static String decode(String value) throws Exception {
@@ -673,211 +674,121 @@ public class KeywordLibrary extends WebDriverHelper {
 		WebElement webElementObjectId = driver.findElement(By.xpath(keywordModel.objectID.split(":")[1]));
 		String dataValue = keywordModel.dataValue;
 		findElementByType(driver, keywordModel).click();
-		JavascriptExecutor js = (JavascriptExecutor)driver;
+		JavascriptExecutor js = (JavascriptExecutor) driver;
 
-		js.executeScript("arguments[0].value='"+dataValue+"';", webElementObjectId);
-		ReportUtilities.Log(driver,"Entering text(JS) in the text box " + keywordModel.objectName, "Entered the text " + keywordModel.dataValue,
-				Status.PASS , keywordModel);
+		js.executeScript("arguments[0].value='" + dataValue + "';", webElementObjectId);
+		ReportUtilities.Log(driver, "Entering text(JS) in the text box " + keywordModel.objectName,
+				"Entered the text " + keywordModel.dataValue, Status.PASS, keywordModel);
 	}
-	
-	
-	
-	
-	
+
 	/**
 	 * Method Name: selectByVisibleText Return Type: Nothing Description: This
 	 * method selects the visible text specified in KeyInData column of Test case in
 	 * a select box
-	 * @throws InterruptedException 
+	 * 
+	 * @throws InterruptedException
 	 */
-	public  void selectByVisibleText(WebDriver driver, KeywordModel keywordModel) throws InterruptedException {
+
+	public void selectByVisibleTextKendoUI(WebDriver driver, KeywordModel keywordModel) throws InterruptedException {
+
 		if (keywordModel.dynaElement != null) {
+			keywordModel.inputXPath = keywordModel.inputXPath + "/preceding-sibling::span/child::input";
+			System.out.println("XPath to inputbox: " + keywordModel.inputXPath);
 			try {
-				if (keywordModel.dynaElement.isDisplayed()) {
-					findElementByType(driver, keywordModel).click();
-					Thread.sleep(1000);
-					driver.findElement(By.xpath("//mat-option/span[contains(text(),'" + keywordModel.dataValue + "')]")).click();
-					//Select selectBox = new Select(keywordModel.dynaElement);
-					//selectBox.selectByVisibleText(keywordModel.dataValue);
-					ReportUtilities.Log(driver,"Selecting by visible text in the dropdown " + keywordModel.objectName,
-							"Selected the value " + keywordModel.dataValue + " in the select box ", Status.PASS , keywordModel);
+				WebElement selectInputBox = driver.findElement(By.xpath(keywordModel.inputXPath));
+				if (selectInputBox.isDisplayed()) {
+					// Select selectBox = new Select(keywordModel.dynaElement);
+					// selectBox.selectByVisibleText(keywordModel.dataValue);
+					selectInputBox.click();
+					// Thread.sleep(1000);
+					selectInputBox.sendKeys(Keys.CONTROL + "a");
+					selectInputBox.sendKeys(Keys.DELETE);
+					// selectInputBox.clear();
+
+					selectInputBox.sendKeys(keywordModel.dataValue);
+					Thread.sleep(500);
+					selectInputBox.sendKeys(Keys.TAB);
+
+					ReportUtilities.Log(driver, "Selecting by visible text in the dropdown " + keywordModel.objectName,
+							"Selected the value " + keywordModel.dataValue + " in the select box ", Status.PASS,
+							keywordModel);
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot select any value on the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot select any value on the object.", "The input box for " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		} else {
+			findElementByType(driver, keywordModel);
+			String ddXpath = keywordModel.inputXPath;
+			int ddCount = 0;
+			int ddPosition = 0;
+			int selectedDDCount = 0;
+			keywordModel.inputXPath = keywordModel.inputXPath + "/preceding-sibling::span/child::input";
+			String optionList = ddXpath + "/option";
+			List<WebElement> ddOptions = driver.findElements(By.xpath(optionList));
+			ddCount = ddOptions.size();
 			try {
-				if (findElementByType(driver, keywordModel).isDisplayed()) {
-					//Select selectBox = new Select(findElementByType(driver, keywordModel));
-					//selectBox.selectByVisibleText(keywordModel.dataValue);
-					findElementByType(driver, keywordModel).click();
-					Thread.sleep(1000);
-					//driver.findElement(By.xpath("@id='"+keywordModel.objectID+"'")).click();
+				WebElement selectInputBox = driver.findElement(By.xpath(keywordModel.inputXPath));
+				if (selectInputBox.isDisplayed()) {
+					// Select selectBox = new Select(findElementByType(driver, keywordModel));
+					// selectBox.selectByVisibleText(keywordModel.dataValue);
 
-					driver.findElement(By.xpath("//mat-option/span[contains(text(),'"+keywordModel.dataValue+"')]")).click();
-					ReportUtilities.Log(driver,"Selecting by visible text in the dropdown " + keywordModel.objectName,
-							"Selected the value " + keywordModel.dataValue + " in the select box ", Status.PASS , keywordModel);
+					selectInputBox.click();
+					selectInputBox.sendKeys(Keys.CONTROL + "a");
+					selectInputBox.sendKeys(Keys.DELETE);
+					selectInputBox.clear();
+					selectInputBox.sendKeys(keywordModel.dataValue);
+					Thread.sleep(300);
+					String selectedOptionList = ddXpath + "/option";
+					List<WebElement> selectedDDOptions = driver.findElements(By.xpath(selectedOptionList));
+					selectedDDCount = selectedDDOptions.size();
+
+					System.out.println(selectedDDCount);
+					if (selectedDDCount == 1) {
+						Thread.sleep(200);
+						selectInputBox.sendKeys(Keys.ARROW_DOWN);
+						selectInputBox.sendKeys(Keys.TAB);
+					}
+
+					else {
+						selectInputBox.click();
+						selectInputBox.sendKeys(Keys.ENTER);
+
+						while (ddCount != 0
+								&& (!selectInputBox.getAttribute("value").equalsIgnoreCase(keywordModel.dataValue))) {
+
+							selectInputBox.sendKeys(Keys.ARROW_DOWN);
+							if (selectInputBox.getAttribute("value").equalsIgnoreCase(keywordModel.dataValue)) {
+								break;
+							}
+							ddCount--;
+						}
+					}
+
+					ReportUtilities.Log(driver, "Selecting by visible text in the dropdown " + keywordModel.objectName,
+							"Selected the value " + keywordModel.dataValue + " in the select box ", Status.PASS,
+							keywordModel);
 				}
-			} catch (NoSuchElementException p) {
+			}
+
+			catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot select any value on the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot select any value on the object.", "The input box for " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		}
 	}
-	public  void selectByVisibleTextInput(WebDriver driver, KeywordModel keywordModel) throws InterruptedException {
-		if (keywordModel.dynaElement != null) {
-			try {
-				if (keywordModel.dynaElement.isDisplayed()) {
-					findElementByType(driver, keywordModel).click();
-					Thread.sleep(1000);
-//					driver.findElement(By.xpath("//mat-option/span[contains(text(),'" + keywordModel.dataValue + "')]")).click();
-					driver.findElement(By.xpath("//div[contains(@class,'ng-option')]/span[contains(text(),'" + keywordModel.dataValue + "')]")).click();
-					
-					//Select selectBox = new Select(keywordModel.dynaElement);
-					//selectBox.selectByVisibleText(keywordModel.dataValue);
-					ReportUtilities.Log(driver,"Selecting by visible text in the dropdown " + keywordModel.objectName,
-							"Selected the value " + keywordModel.dataValue + " in the select box ", Status.PASS , keywordModel);
-				}
-			} catch (NoSuchElementException p) {
-				keywordModel.error = true;
-				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot select any value on the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
-				throw new RuntimeException(p);
-			}
-		} else {
-			try {
-				if (findElementByType(driver, keywordModel).isDisplayed()) {
-					//Select selectBox = new Select(findElementByType(driver, keywordModel));
-					//selectBox.selectByVisibleText(keywordModel.dataValue);
-					findElementByType(driver, keywordModel).click();
-					Thread.sleep(1000);
-					//driver.findElement(By.xpath("@id='"+keywordModel.objectID+"'")).click();
-					driver.findElement(By.xpath("//div[contains(@class,'ng-option')]/span[contains(text(),'" + keywordModel.dataValue + "')]")).click();
 
-//					driver.findElement(By.xpath("//mat-option/span[contains(text(),'" + keywordModel.dataValue + "')]")).click();
-
-					ReportUtilities.Log(driver,"Selecting by visible text in the dropdown " + keywordModel.objectName,
-							"Selected the value " + keywordModel.dataValue + " in the select box ", Status.PASS , keywordModel);
-				}
-			} catch (NoSuchElementException p) {
-				keywordModel.error = true;
-				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot select any value on the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
-				throw new RuntimeException(p);
-			}
-		}
-	}
-		
-	public  void selectByVisibleTextKendoUI(WebDriver driver, KeywordModel keywordModel) throws InterruptedException {
-
-        if (keywordModel.dynaElement != null) {
-        	keywordModel.inputXPath = keywordModel.inputXPath + "/preceding-sibling::span/child::input";
-               System.out.println("XPath to inputbox: " + keywordModel.inputXPath);
-               try {
-                     WebElement selectInputBox = driver.findElement(By.xpath(keywordModel.inputXPath));
-                     if (selectInputBox.isDisplayed()) {
-                            //                               Select selectBox = new Select(keywordModel.dynaElement);  
-                            //                               selectBox.selectByVisibleText(keywordModel.dataValue);
-                            selectInputBox.click();
-                            //Thread.sleep(1000);
-                            selectInputBox.sendKeys(Keys.CONTROL + "a");
-                            selectInputBox.sendKeys(Keys.DELETE); 
-                            //selectInputBox.clear();
-
-                            selectInputBox.sendKeys(keywordModel.dataValue);
-                            Thread.sleep(500);
-                            selectInputBox.sendKeys(Keys.TAB);
-
-                            ReportUtilities.Log(driver,"Selecting by visible text in the dropdown " + keywordModel.objectName,
-                                         "Selected the value " + keywordModel.dataValue + " in the select box ", Status.PASS , keywordModel);
-                     }
-               } catch (NoSuchElementException p) {
-                     keywordModel.error = true;
-                     keywordModel.displayError = true;
-                     ReportUtilities.Log(driver,"Cannot select any value on the object.", "The input box for " + keywordModel.objectName
-                                  + " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
-                     throw new RuntimeException(p);
-               }
-        } else  {
-               findElementByType(driver, keywordModel);
-               String ddXpath = keywordModel.inputXPath;
-               int ddCount=0;
-               int ddPosition = 0;
-               int selectedDDCount=0;
-               keywordModel.inputXPath = keywordModel.inputXPath + "/preceding-sibling::span/child::input";
-               String optionList = ddXpath + "/option";
-               List<WebElement> ddOptions = driver.findElements(By.xpath(optionList));
-               ddCount = ddOptions.size();
-               try {
-                     WebElement selectInputBox = driver.findElement(By.xpath(keywordModel.inputXPath));
-                     if (selectInputBox.isDisplayed()) {
-                            //                         Select selectBox = new Select(findElementByType(driver, keywordModel)); 
-                            //                         selectBox.selectByVisibleText(keywordModel.dataValue);
-                     
-                                   selectInputBox.click();
-                                   selectInputBox.sendKeys(Keys.CONTROL + "a");
-                                   selectInputBox.sendKeys(Keys.DELETE); 
-                                   selectInputBox.clear();
-                                   selectInputBox.sendKeys(keywordModel.dataValue);
-                                   Thread.sleep(300);
-                                   String selectedOptionList = ddXpath + "/option";
-                                   List<WebElement> selectedDDOptions = driver.findElements(By.xpath(selectedOptionList));
-                                   selectedDDCount = selectedDDOptions.size();       
-                           
-                           System.out.println(selectedDDCount);
-                           if(selectedDDCount==1)
-                           {
-                        	   Thread.sleep(200);
-                               selectInputBox.sendKeys(Keys.ARROW_DOWN);
-                               selectInputBox.sendKeys(Keys.TAB);
-                           } 
-                           
-                           
-                            else
-                            {      
-	                                 selectInputBox.click();
-	                                 selectInputBox.sendKeys(Keys.ENTER);
-	                          
-		                           while(ddCount!=0 && (!selectInputBox.getAttribute("value").equalsIgnoreCase(keywordModel.dataValue)))
-		                           {
-		                                   
-		                                       selectInputBox.sendKeys(Keys.ARROW_DOWN);
-					                           if(selectInputBox.getAttribute("value").equalsIgnoreCase(keywordModel.dataValue))
-					                                   {
-					                                         break; 
-					                                   }      
-					                                   ddCount--;
-					               }
-                           }
-                           
-                            
-                            
-                            ReportUtilities.Log(driver,"Selecting by visible text in the dropdown " + keywordModel.objectName,
-                                         "Selected the value " + keywordModel.dataValue + " in the select box ", Status.PASS , keywordModel);
-                     }
-               }      
-               
-               catch (NoSuchElementException p) {
-                     keywordModel.error = true;
-                     keywordModel.displayError = true;
-                     ReportUtilities.Log(driver,"Cannot select any value on the object.", "The input box for " + keywordModel.objectName
-                                  + " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
-                     throw new RuntimeException(p);
-               }
-        }
-  }
-
-
-	public  void verifyDropdownText(WebDriver driver, KeywordModel keywordModel) {
+	public void verifyDropdownText(WebDriver driver, KeywordModel keywordModel) {
 		Select selectBox = new Select(findElementByType(driver, keywordModel));
 		// List<WebElement> Array = selectBox.getOptions();
 		// String StringText= Array.get(0).getText();
@@ -886,45 +797,48 @@ public class KeywordLibrary extends WebDriverHelper {
 		if (keywordModel.checkBoolean.equalsIgnoreCase("")) {
 
 			if (StringText.equals(keywordModel.dataValue))
-				// if(findElementByType(driver, keywordModel).getText().equals(keywordModel.dataValue))
+			// if(findElementByType(driver,
+			// keywordModel).getText().equals(keywordModel.dataValue))
 			{
-				ReportUtilities.Log(driver,"Verifying the Text of the object " + keywordModel.objectName,
-						"The element " + keywordModel.objectName + " has the text " + keywordModel.dataValue, Status.PASS , keywordModel);
+				ReportUtilities.Log(driver, "Verifying the Text of the object " + keywordModel.objectName,
+						"The element " + keywordModel.objectName + " has the text " + keywordModel.dataValue,
+						Status.PASS, keywordModel);
 			} else if (StringText.equals(keywordModel.sessionid)) {
-				ReportUtilities.Log(driver,"Verifying the Text of the object " + keywordModel.objectName,
-						"The element " + keywordModel.objectName + " has the text " + keywordModel.sessionid, Status.PASS , keywordModel);
+				ReportUtilities.Log(driver, "Verifying the Text of the object " + keywordModel.objectName,
+						"The element " + keywordModel.objectName + " has the text " + keywordModel.sessionid,
+						Status.PASS, keywordModel);
 			} else {
-				ReportUtilities.Log(driver,"Verifying the Text of the object " + keywordModel.objectName,
+				ReportUtilities.Log(driver, "Verifying the Text of the object " + keywordModel.objectName,
 						"The element " + keywordModel.objectName + " does not have the text " + keywordModel.dataValue,
-						Status.FAIL , keywordModel);
+						Status.FAIL, keywordModel);
 			}
 		}
 
 	}
-	
-	
-	
-	
+
 	/**
 	 * Method Name: selectByIndex Return Type: Nothing Description: This method
 	 * selects the visible text specified in KeyInData column of Test case in a
 	 * select box
 	 */
-	public  void selectByIndex(WebDriver driver, KeywordModel keywordModel) {
+	public void selectByIndex(WebDriver driver, KeywordModel keywordModel) {
 		if (keywordModel.dynaElement != null) {
 			try {
 				if (keywordModel.dynaElement.isDisplayed()) {
 					Select selectBox = new Select(keywordModel.dynaElement);
 					selectBox.selectByIndex((int) Float.parseFloat(keywordModel.dataValue));
-					ReportUtilities.Log(driver,"Selecting by index in the dropdown " + keywordModel.objectName,
-							"Selected the index " + (int) Float.parseFloat(keywordModel.dataValue) + " in the select box",
-							Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Selecting by index in the dropdown " + keywordModel.objectName,
+							"Selected the index " + (int) Float.parseFloat(keywordModel.dataValue)
+									+ " in the select box",
+							Status.PASS, keywordModel);
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot select any value on the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot select any value on the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		} else {
@@ -932,16 +846,19 @@ public class KeywordLibrary extends WebDriverHelper {
 				if (findElementByType(driver, keywordModel).isDisplayed()) {
 					Select selectBox = new Select(findElementByType(driver, keywordModel));
 					selectBox.selectByIndex((int) Float.parseFloat(keywordModel.dataValue));
-					ReportUtilities.Log(driver,"Selecting by index in the dropdown " + keywordModel.objectName,
-							"Selected the index " + (int) Float.parseFloat(keywordModel.dataValue) + " in the select box",
-							Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Selecting by index in the dropdown " + keywordModel.objectName,
+							"Selected the index " + (int) Float.parseFloat(keywordModel.dataValue)
+									+ " in the select box",
+							Status.PASS, keywordModel);
 				}
 
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot select any value on the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot select any value on the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		}
@@ -951,9 +868,10 @@ public class KeywordLibrary extends WebDriverHelper {
 	 * Method Name: selectByIndexKendoUI Return Type: Nothing Description: This
 	 * method selects the visible text specified in KeyInData column of Test case in
 	 * a Kendo Box
-	 * @throws InterruptedException 
+	 * 
+	 * @throws InterruptedException
 	 */
-	public  void selectByIndexKendoUI(WebDriver driver, KeywordModel keywordModel) throws InterruptedException {
+	public void selectByIndexKendoUI(WebDriver driver, KeywordModel keywordModel) throws InterruptedException {
 
 		if (keywordModel.dynaElement != null) {
 			keywordModel.inputXPath = keywordModel.inputXPath + "/preceding-sibling::span/child::input";
@@ -980,15 +898,18 @@ public class KeywordLibrary extends WebDriverHelper {
 					selectInputBox.sendKeys(indexValue);
 					Thread.sleep(500);
 					selectInputBox.sendKeys(Keys.TAB);
-					ReportUtilities.Log(driver,"Selecting by index in the dropdown " + keywordModel.objectName,
-							"Selected the index " + (int) Float.parseFloat(keywordModel.dataValue) + " in the select box",
-							Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Selecting by index in the dropdown " + keywordModel.objectName,
+							"Selected the index " + (int) Float.parseFloat(keywordModel.dataValue)
+									+ " in the select box",
+							Status.PASS, keywordModel);
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot select any value on the object.", "The Input Box for Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(driver, "Cannot select any value on the object.",
+						"The Input Box for Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		} else {
@@ -1018,16 +939,19 @@ public class KeywordLibrary extends WebDriverHelper {
 					selectInputBox.sendKeys(indexValue);
 					Thread.sleep(500);
 					selectInputBox.sendKeys(Keys.TAB);
-					ReportUtilities.Log(driver,"Selecting by index in the dropdown " + keywordModel.objectName,
-							"Selected the index " + (int) Float.parseFloat(keywordModel.dataValue) + " in the select box",
-							Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Selecting by index in the dropdown " + keywordModel.objectName,
+							"Selected the index " + (int) Float.parseFloat(keywordModel.dataValue)
+									+ " in the select box",
+							Status.PASS, keywordModel);
 				}
 
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot select any value on the object.", "The input Box for Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(driver, "Cannot select any value on the object.",
+						"The input Box for Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		}
@@ -1038,21 +962,24 @@ public class KeywordLibrary extends WebDriverHelper {
 	 * selects the visible text specified in KeyInData column of Test case in a
 	 * select box
 	 */
-	public  void selectByValue(WebDriver driver, KeywordModel keywordModel) {
+	public void selectByValue(WebDriver driver, KeywordModel keywordModel) {
 		if (keywordModel.dynaElement != null) {
 			try {
 				if (keywordModel.dynaElement.isDisplayed()) {
 					Select selectBox = new Select(keywordModel.dynaElement);
 					selectBox.selectByValue(keywordModel.dataValue);
-					ReportUtilities.Log(driver,"Selecting by index in the dropdown " + keywordModel.objectName,
-							"Selected the index " + (int) Float.parseFloat(keywordModel.dataValue) + " in the select box",
-							Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Selecting by index in the dropdown " + keywordModel.objectName,
+							"Selected the index " + (int) Float.parseFloat(keywordModel.dataValue)
+									+ " in the select box",
+							Status.PASS, keywordModel);
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot select any value on the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot select any value on the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		} else {
@@ -1060,16 +987,19 @@ public class KeywordLibrary extends WebDriverHelper {
 				if (findElementByType(driver, keywordModel).isDisplayed()) {
 					Select selectBox = new Select(findElementByType(driver, keywordModel));
 					selectBox.selectByValue(keywordModel.dataValue);
-					ReportUtilities.Log(driver,"Selecting by value in the dropdown " + keywordModel.objectName,
-							"Selected the value " + keywordModel.dataValue + " in the select box", Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Selecting by value in the dropdown " + keywordModel.objectName,
+							"Selected the value " + keywordModel.dataValue + " in the select box", Status.PASS,
+							keywordModel);
 				}
 			}
 
 			catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot select any value on the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot select any value on the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		}
@@ -1079,9 +1009,10 @@ public class KeywordLibrary extends WebDriverHelper {
 	 * Method Name: selectByValueKendoUI Return Type: Nothing Description: This
 	 * method selects the visible text specified in KeyInData column of Test case in
 	 * a Kendo Box
-	 * @throws InterruptedException 
+	 * 
+	 * @throws InterruptedException
 	 */
-	public  void selectByValueKendoUI(WebDriver driver, KeywordModel keywordModel) throws InterruptedException {
+	public void selectByValueKendoUI(WebDriver driver, KeywordModel keywordModel) throws InterruptedException {
 		String dataValue = "";
 
 		if (keywordModel.dynaElement != null) {
@@ -1114,16 +1045,17 @@ public class KeywordLibrary extends WebDriverHelper {
 					selectInputBox.clear();
 					selectInputBox.sendKeys(dataValue);
 
-
-
-					ReportUtilities.Log(driver,"Selecting by value in the dropdown " + keywordModel.objectName,
-							"Selected the value " + keywordModel.dataValue + " in the select box", Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Selecting by value in the dropdown " + keywordModel.objectName,
+							"Selected the value " + keywordModel.dataValue + " in the select box", Status.PASS,
+							keywordModel);
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot select any value on the object.", "The Input Box for Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(driver, "Cannot select any value on the object.",
+						"The Input Box for Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		} else {
@@ -1157,17 +1089,20 @@ public class KeywordLibrary extends WebDriverHelper {
 					}
 					selectInputBox.clear();
 					selectInputBox.sendKeys(dataValue);
-					//		Thread.sleep(2000);
+					// Thread.sleep(2000);
 					selectInputBox.sendKeys(Keys.ENTER);
-					ReportUtilities.Log(driver,"Selecting by value in the dropdown " + keywordModel.objectName,
-							"Selected the value " + keywordModel.dataValue + " in the select box", Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Selecting by value in the dropdown " + keywordModel.objectName,
+							"Selected the value " + keywordModel.dataValue + " in the select box", Status.PASS,
+							keywordModel);
 				}
 
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot select any value on the object.", "The input Box for Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(driver, "Cannot select any value on the object.",
+						"The input Box for Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		}
@@ -1178,138 +1113,155 @@ public class KeywordLibrary extends WebDriverHelper {
 	 * object specified in the Object Repository and referred in the Object ID
 	 * column
 	 */
-	public  void click(WebDriver driver, KeywordModel keywordModel) {
-	//	JavascriptExecutor js =(JavascriptExecutor) driver;
+	public void click(WebDriver driver, KeywordModel keywordModel) {
+		// JavascriptExecutor js =(JavascriptExecutor) driver;
 		if (keywordModel.dynaElement != null) {
 			try {
 				if (keywordModel.dynaElement.isDisplayed()) {
 					keywordModel.dynaElement.click();
-				//	js.executeScript("arguments[0].click();",keywordModel.dynaElement);
-					ReportUtilities.Log(driver,"Clicking on the Element " + keywordModel.objectName, "Clicked on the object", Status.PASS , keywordModel);
+					// js.executeScript("arguments[0].click();",keywordModel.dynaElement);
+					ReportUtilities.Log(driver, "Clicking on the Element " + keywordModel.objectName,
+							"Clicked on the object", Status.PASS, keywordModel);
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot Click on the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot Click on the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		} else {
 			try {
 				if (findElementByType(driver, keywordModel).isDisplayed()) {
 					findElementByType(driver, keywordModel).click();
-				//	js.executeScript("arguments[0].click();",keywordModel.dynaElement);
-					ReportUtilities.Log(driver,"Clicking on the Element " + keywordModel.objectName, "Clicked on the object", Status.PASS , keywordModel);
+					// js.executeScript("arguments[0].click();",keywordModel.dynaElement);
+					ReportUtilities.Log(driver, "Clicking on the Element " + keywordModel.objectName,
+							"Clicked on the object", Status.PASS, keywordModel);
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot Click on the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot Click on the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		}
 	}
 	// For debugging purpose
-	
-	public  void navigateToNextPage(WebDriver driver, KeywordModel keywordModel) throws InterruptedException {
-		//	JavascriptExecutor js =(JavascriptExecutor) driver;
-		
-		NavigationTimeHelper navigationTimeHelper = new NavigationTimeHelper(); 
-		
-		long StartTime= System.currentTimeMillis();
-    	
-    	UIPerfModel uiPerfModel = new UIPerfModel();
-    	
-    	String getHeaderBeforeClick ="";
-    	String getHeaderAfterClick="";
-    	
-    
-    	try {
-    		
-    		getHeaderBeforeClick = driver.findElement(By.xpath("//div[@class=\"title-1\" or @class=\"title-1 ng-star-inserted\"]")).getText();
-    		
-    	}catch (Exception e){
-    		
-    		System.out.println("Unable to fetch Header");
-    		
-    	}
-    
-    	
+
+	public void navigateToNextPage(WebDriver driver, KeywordModel keywordModel) throws InterruptedException {
+		// JavascriptExecutor js =(JavascriptExecutor) driver;
+
+		NavigationTimeHelper navigationTimeHelper = new NavigationTimeHelper();
+
+		long StartTime = System.currentTimeMillis();
+
+		UIPerfModel uiPerfModel = new UIPerfModel();
+
+		String getHeaderBeforeClick = "";
+		String getHeaderAfterClick = "";
+
+		try {
+
+			getHeaderBeforeClick = driver
+					.findElement(By.xpath("//div[@class=\"title-1\" or @class=\"title-1 ng-star-inserted\"]"))
+					.getText();
+
+		} catch (Exception e) {
+
+			System.out.println("Unable to fetch Header");
+
+		}
+
 		if (keywordModel.dynaElement != null) {
 			try {
 				if (keywordModel.dynaElement.isDisplayed()) {
-					JavascriptExecutor executor = (JavascriptExecutor)driver;
+					JavascriptExecutor executor = (JavascriptExecutor) driver;
 					executor.executeScript("arguments[0].click();", keywordModel.dynaElement);
-					ReportUtilities.Log(driver,"Clicking on the Element " + keywordModel.objectName, "Clicked on the object", Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Clicking on the Element " + keywordModel.objectName,
+							"Clicked on the object", Status.PASS, keywordModel);
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot Click on the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot Click on the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		} else {
 			try {
 				if (findElementByType(driver, keywordModel).isDisplayed()) {
 					WebElement ele = findElementByType(driver, keywordModel);
-					JavascriptExecutor executor = (JavascriptExecutor)driver;
+					JavascriptExecutor executor = (JavascriptExecutor) driver;
 					executor.executeScript("arguments[0].click();", ele);
-					
-				//	Thread.sleep(60000);
-					
-		
-					
+
+					// Thread.sleep(60000);
+
 					try {
-			    		
-			    		getHeaderAfterClick = driver.findElement(By.xpath("//div[@class=\"title-1\" or @class=\"title-1 ng-star-inserted\"]")).getText();
-			    		
-			    	}catch (Exception e){
-			    		
-			    		System.out.println("Unable to fetch Header");
-			    		
-			    	}
-					
-					if(getHeaderBeforeClick.equals("")==false  && getHeaderAfterClick.equals("")==false) {
-						String timing=navigationTimeHelper.getAllTiming(driver);
-						
-				    	uiPerfModel= uiPerfModel.AddUIPerfModel(getHeaderBeforeClick, getHeaderAfterClick,  keywordModel.ScreenName, keywordModel.scenario, keywordModel.browser, StartTime, timing);
-				    	
-				    	UIPerfConstants uiPerfConstants = new UIPerfConstants();
-				    	
-				    	uiPerfConstants.addUpdatePerfData(getHeaderBeforeClick, getHeaderAfterClick, uiPerfModel);
-				    	
-						ReportUtilities.Log(driver,"Clicking on the Element " + keywordModel.objectName, "Clicked on the object", Status.PASS , keywordModel);
-					
-					} 
-					
+
+						getHeaderAfterClick = driver
+								.findElement(
+										By.xpath("//div[@class=\"title-1\" or @class=\"title-1 ng-star-inserted\"]"))
+								.getText();
+
+					} catch (Exception e) {
+
+						System.out.println("Unable to fetch Header");
+
+					}
+
+					if (getHeaderBeforeClick.equals("") == false && getHeaderAfterClick.equals("") == false) {
+						String timing = navigationTimeHelper.getAllTiming(driver);
+
+						uiPerfModel = uiPerfModel.AddUIPerfModel(getHeaderBeforeClick, getHeaderAfterClick,
+								keywordModel.ScreenName, keywordModel.scenario, keywordModel.browser, StartTime,
+								timing);
+
+						UIPerfConstants uiPerfConstants = new UIPerfConstants();
+
+						uiPerfConstants.addUpdatePerfData(getHeaderBeforeClick, getHeaderAfterClick, uiPerfModel);
+
+						ReportUtilities.Log(driver, "Clicking on the Element " + keywordModel.objectName,
+								"Clicked on the object", Status.PASS, keywordModel);
+
+					}
+
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot Click on the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot Click on the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		}
 	}
-	
-	public  void VerifyAndClickCheckBox(WebDriver driver, KeywordModel keywordModel) {
+
+	public void VerifyAndClickCheckBox(WebDriver driver, KeywordModel keywordModel) {
 		if (keywordModel.dynaElement != null) {
 			try {
 				if (keywordModel.dynaElement.isDisplayed()) {
 					if ((keywordModel.dynaElement.getAttribute("checked")) == null) {
 						keywordModel.dynaElement.click();
-						ReportUtilities.Log(driver,"Clicking on the Element " + keywordModel.objectName, "Clicked on the object",
-								Status.PASS , keywordModel);
+						ReportUtilities.Log(driver, "Clicking on the Element " + keywordModel.objectName,
+								"Clicked on the object", Status.PASS, keywordModel);
 					}
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot Click on the object.", "The check box " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot Click on the object.", "The check box " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		} else {
@@ -1317,28 +1269,28 @@ public class KeywordLibrary extends WebDriverHelper {
 				if (findElementByType(driver, keywordModel).isDisplayed()) {
 					if ((findElementByType(driver, keywordModel).getAttribute("checked") == null)) {
 						findElementByType(driver, keywordModel).click();
-						ReportUtilities.Log(driver,"Clicking on the Element " + keywordModel.objectName, "Clicked on the object",
-								Status.PASS , keywordModel);
+						ReportUtilities.Log(driver, "Clicking on the Element " + keywordModel.objectName,
+								"Clicked on the object", Status.PASS, keywordModel);
 					}
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot Click on the object.", "The check box " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot Click on the object.", "The check box " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		}
 	}
-	
-	
-	
+
 	/**
 	 * Method Name: selectMultipleByVisibleText Return Type: Nothing Description:
 	 * This method selects the multiple text's specified in KeyInData column of Test
 	 * case in a select box
 	 */
-	public  void selectMultipleByVisibleText(WebDriver driver, KeywordModel keywordModel) {
+	public void selectMultipleByVisibleText(WebDriver driver, KeywordModel keywordModel) {
 		String[] dataValuesArr = keywordModel.dataValue.split(";");
 		if (dataValuesArr != null && dataValuesArr.length > 0) {
 			Select selectBox = new Select(findElementByType(driver, keywordModel));
@@ -1346,36 +1298,29 @@ public class KeywordLibrary extends WebDriverHelper {
 				selectBox.selectByVisibleText(dataValuesArr[i].trim());
 			}
 		}
-		ReportUtilities.Log(driver,"Selecting by visible text in the select box " + keywordModel.objectName,
-				"Selected the value " + keywordModel.dataValue + " in the select box ", Status.PASS , keywordModel);
-	}
-	
-	
-	
-	
-	
-	public void getCaseNumberFromExcel(WebDriver driver, KeywordModel keywordModel)
-	{
-		keywordModel.caseNumber = keywordModel.dataValue;
-	}
-	
-	public void getCaseDataExcel(WebDriver driver, KeywordModel keywordModel)
-	{
-		String[] casedata  = new String[10];
-				casedata =	keywordModel.dataValue.split(";");
-				keywordModel.caseNumber = casedata[0];
-				keywordModel.individualID = casedata[1];
-				
+		ReportUtilities.Log(driver, "Selecting by visible text in the select box " + keywordModel.objectName,
+				"Selected the value " + keywordModel.dataValue + " in the select box ", Status.PASS, keywordModel);
 	}
 
-	//Method : 	EnterCaseNumber
-	//Description: Enter the AP case number to quicksearch
-	public  void EnterCaseNumber(WebDriver driver, KeywordModel keywordModel) {
+	public void getCaseNumberFromExcel(WebDriver driver, KeywordModel keywordModel) {
+		keywordModel.caseNumber = keywordModel.dataValue;
+	}
+
+	public void getCaseDataExcel(WebDriver driver, KeywordModel keywordModel) {
+		String[] casedata = new String[10];
+		casedata = keywordModel.dataValue.split(";");
+		keywordModel.caseNumber = casedata[0];
+		keywordModel.individualID = casedata[1];
+
+	}
+
+	// Method : EnterCaseNumber
+	// Description: Enter the AP case number to quicksearch
+	public void EnterCaseNumber(WebDriver driver, KeywordModel keywordModel) {
 		findElementByType(driver, keywordModel).sendKeys(keywordModel.caseNumber);
 	}
 
-
-	public  void getApplicationNumber(WebDriver driver, KeywordModel keywordModel) {
+	public void getApplicationNumber(WebDriver driver, KeywordModel keywordModel) {
 		try {
 			if (findElementByType(driver, keywordModel).isDisplayed()) {
 				WebElement webElement = findElementByType(driver, keywordModel);
@@ -1386,9 +1331,10 @@ public class KeywordLibrary extends WebDriverHelper {
 		} catch (NoSuchElementException p) {
 			keywordModel.error = true;
 			keywordModel.displayError = true;
-			ReportUtilities.Log(driver,"Cannot get Data from the object.",
-					"The element " + keywordModel.objectName + " is NOT displayed on the current screen" + keywordModel.ScreenName,
-					Status.FAIL , keywordModel);
+			ReportUtilities.Log(
+					driver, "Cannot get Data from the object.", "The element " + keywordModel.objectName
+							+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+					Status.FAIL, keywordModel);
 			throw new RuntimeException(p);
 		}
 
@@ -1415,16 +1361,15 @@ public class KeywordLibrary extends WebDriverHelper {
 //		return keywordModel.sessionid;
 //	}
 
-	
-	
 	/**
 	 * Method Name: enterKeyBoard Return Type: Nothing Description: This method
 	 * clicks on an object specified in the Object Repository and referred in the
 	 * Object ID column
 	 */
-	public  void enterKeyBoard(WebDriver driver, KeywordModel keywordModel) {
+	public void enterKeyBoard(WebDriver driver, KeywordModel keywordModel) {
 		findElementByType(driver, keywordModel).sendKeys(Keys.ENTER);
-		ReportUtilities.Log(driver,"Clicking on the Element " + keywordModel.objectName, "Clicked on the object", Status.PASS , keywordModel);
+		ReportUtilities.Log(driver, "Clicking on the Element " + keywordModel.objectName, "Clicked on the object",
+				Status.PASS, keywordModel);
 	}
 
 	/**
@@ -1432,35 +1377,40 @@ public class KeywordLibrary extends WebDriverHelper {
 	 * except that this method uses Selenium WebDriver JavaScript API to click the
 	 * object. The selector must be ID selector.
 	 */
-	public  void jsClick(WebDriver driver, KeywordModel keywordModel) 
-{
+	public void jsClick(WebDriver driver, KeywordModel keywordModel) {
 		if (keywordModel.dynaElement != null) {
 			try {
 				if (keywordModel.dynaElement.isDisplayed()) {
-					JavascriptExecutor executor = (JavascriptExecutor)driver;
+					JavascriptExecutor executor = (JavascriptExecutor) driver;
 					executor.executeScript("arguments[0].click();", keywordModel.dynaElement);
-					ReportUtilities.Log(driver,"Clicking on the Element " + keywordModel.objectName, "Clicked on the object", Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Clicking on the Element " + keywordModel.objectName,
+							"Clicked on the object", Status.PASS, keywordModel);
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot Click on the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot Click on the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		} else {
 			try {
 				if (findElementByType(driver, keywordModel).isDisplayed()) {
 					WebElement ele = findElementByType(driver, keywordModel);
-					JavascriptExecutor executor = (JavascriptExecutor)driver;
+					JavascriptExecutor executor = (JavascriptExecutor) driver;
 					executor.executeScript("arguments[0].click();", ele);
-					ReportUtilities.Log(driver,"Clicking on the Element " + keywordModel.objectName, "Clicked on the object", Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Clicking on the Element " + keywordModel.objectName,
+							"Clicked on the object", Status.PASS, keywordModel);
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot Click on the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot Click on the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		}
@@ -1469,28 +1419,29 @@ public class KeywordLibrary extends WebDriverHelper {
 	/*
 	 * Convenient method to execute Java Script
 	 */
-	private  void executeJavaScript(String jsStatement, WebDriver driver, KeywordModel keywordModel) {
+	private void executeJavaScript(String jsStatement, WebDriver driver, KeywordModel keywordModel) {
 
 		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
 		jsExecutor.executeScript(jsStatement);
 	}
-	
+
 	/**
 	 * Method Name: doubleClick Return Type: Nothing Description: This method double
 	 * clicks on an object specified in the Object Repository and referred in the
 	 * Object ID column
 	 */
-	public  void doubleClick(WebDriver driver, KeywordModel keywordModel) {
+	public void doubleClick(WebDriver driver, KeywordModel keywordModel) {
 		Actions ac1 = new Actions(driver);
 		ac1.doubleClick(findElementByType(driver, keywordModel)).perform();
-		ReportUtilities.Log(driver,"Double Clicking on the Element " + keywordModel.objectName, "Double clicked on the object", Status.PASS , keywordModel);
+		ReportUtilities.Log(driver, "Double Clicking on the Element " + keywordModel.objectName,
+				"Double clicked on the object", Status.PASS, keywordModel);
 	}
-	
+
 	/**
 	 * Method Name: delay Return Type: Nothings Description: This method inserts a
 	 * sleep time of timeout value specified in the WebDriverHelper class
 	 */
-	public  void delay(WebDriver driver, KeywordModel keywordModel) {
+	public void delay(WebDriver driver, KeywordModel keywordModel) {
 		try {
 			Thread.sleep(Long.parseLong(Integer.toString(((int) Float.parseFloat(keywordModel.dataValue)))));
 		} catch (InterruptedException e) {
@@ -1503,7 +1454,7 @@ public class KeywordLibrary extends WebDriverHelper {
 	 * Method Name: longDelay Return Type: Nothings Description: This method inserts
 	 * a sleep time of timeout value specified in the WebDriverHelper class
 	 */
-	public  void longDelay(String dataValue, WebDriver driver, KeywordModel keywordModel) {
+	public void longDelay(String dataValue, WebDriver driver, KeywordModel keywordModel) {
 		try {
 			Thread.sleep(Long.parseLong(Integer.toString(((int) Float.parseFloat(dataValue)))));
 		} catch (InterruptedException e) {
@@ -1517,17 +1468,19 @@ public class KeywordLibrary extends WebDriverHelper {
 	 * method writes data to Output INI file
 	 */
 	/*
-	 * public  void WriteDataToOutputFile(){ String columnValue =
-	 * keywordModel.dataValue; String data = columnValue.split(";")[0].trim(); String key
-	 * = columnValue.split(";")[1].trim();
+	 * public void WriteDataToOutputFile(){ String columnValue =
+	 * keywordModel.dataValue; String data = columnValue.split(";")[0].trim();
+	 * String key = columnValue.split(";")[1].trim();
 	 * 
 	 * if(data.startsWith("getData=")){ try { data =
-	 * KeywordUtilities.getData(data.split("getData=")[1].trim()); } catch (Exception e) { //
-	 * TODO Auto-generated catch block e.printStackTrace(); } KeywordUtilities.setDataINI(key,
-	 * data); }else if(data.startsWith("ObjectText")){ try { data =
-	 * findElementByType(driver, keywordModel).getText().toString(); } catch (Exception e) { // TODO
-	 * Auto-generated catch block e.printStackTrace(); } KeywordUtilities.setDataINI(key, data);
-	 * } else{ KeywordUtilities.setDataINI(key, data); } }
+	 * KeywordUtilities.getData(data.split("getData=")[1].trim()); } catch
+	 * (Exception e) { // TODO Auto-generated catch block e.printStackTrace(); }
+	 * KeywordUtilities.setDataINI(key, data); }else
+	 * if(data.startsWith("ObjectText")){ try { data = findElementByType(driver,
+	 * keywordModel).getText().toString(); } catch (Exception e) { // TODO
+	 * Auto-generated catch block e.printStackTrace(); }
+	 * KeywordUtilities.setDataINI(key, data); } else{
+	 * KeywordUtilities.setDataINI(key, data); } }
 	 */
 
 	// ------------------------Verifying keywords
@@ -1536,26 +1489,28 @@ public class KeywordLibrary extends WebDriverHelper {
 	 * Method Name: verifyElementPresent Return Type: Nothing Description: This
 	 * method verifies for the existence of an object
 	 */
-	public  void verifyElementPresent(WebDriver driver, KeywordModel keywordModel) {
+	public void verifyElementPresent(WebDriver driver, KeywordModel keywordModel) {
 		if (findElementsByType(driver, keywordModel).size() != 0) {
 			if (!keywordModel.checkBoolean.equalsIgnoreCase("false")) {
 				if (!keywordModel.onPassLog.equalsIgnoreCase("")) {
-					ReportUtilities.Log(driver,"Verifying the Presence of Element " + keywordModel.objectName, keywordModel.onPassLog, Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Verifying the Presence of Element " + keywordModel.objectName,
+							keywordModel.onPassLog, Status.PASS, keywordModel);
 					keywordModel.elementPresence = true;
 				} else {
-					ReportUtilities.Log(driver,"Verifying the Presence of Element " + keywordModel.objectName,
-							"The Element " + keywordModel.objectName + " is present", Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Verifying the Presence of Element " + keywordModel.objectName,
+							"The Element " + keywordModel.objectName + " is present", Status.PASS, keywordModel);
 					keywordModel.elementPresence = true;
 				}
 			}
 		} else {
 			if (keywordModel.checkBoolean.equalsIgnoreCase("")) {
 				if (!keywordModel.onFailLog.equalsIgnoreCase("")) {
-					ReportUtilities.Log(driver,"Verifying the Presence of Element " + keywordModel.objectName, keywordModel.onFailLog, Status.FAIL , keywordModel);
+					ReportUtilities.Log(driver, "Verifying the Presence of Element " + keywordModel.objectName,
+							keywordModel.onFailLog, Status.FAIL, keywordModel);
 					keywordModel.elementPresence = false;
 				} else {
-					ReportUtilities.Log(driver,"Verifying the Presence of Element " + keywordModel.objectName,
-							"The Element " + keywordModel.objectName + " is  not present", Status.FAIL , keywordModel);
+					ReportUtilities.Log(driver, "Verifying the Presence of Element " + keywordModel.objectName,
+							"The Element " + keywordModel.objectName + " is  not present", Status.FAIL, keywordModel);
 					keywordModel.elementPresence = false;
 					throw new RuntimeException();
 				}
@@ -1567,153 +1522,55 @@ public class KeywordLibrary extends WebDriverHelper {
 	 * Method Name: verifyElementNotPresent Return Type: Nothing Description: This
 	 * method verifies for the non-existence of an object
 	 */
-	public  void verifyElementNotPresent(WebDriver driver, KeywordModel keywordModel) {
+	public void verifyElementNotPresent(WebDriver driver, KeywordModel keywordModel) {
 		if (findElementsByType(driver, keywordModel).size() == 0) {
 			if (!keywordModel.checkBoolean.equalsIgnoreCase("false")) {
 				if (!keywordModel.onPassLog.equalsIgnoreCase("")) {
-					ReportUtilities.Log(driver,"Verifying that " + keywordModel.objectName + " Element is not present", keywordModel.onPassLog,
-							Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Verifying that " + keywordModel.objectName + " Element is not present",
+							keywordModel.onPassLog, Status.PASS, keywordModel);
 				} else {
-					ReportUtilities.Log(driver,"Verifying that " + keywordModel.objectName + " Element is not present",
-							"The Element " + keywordModel.objectName + " is not present", Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Verifying that " + keywordModel.objectName + " Element is not present",
+							"The Element " + keywordModel.objectName + " is not present", Status.PASS, keywordModel);
 				}
 			}
 
 		} else {
 			if (!keywordModel.onFailLog.equalsIgnoreCase("")) {
-				ReportUtilities.Log(driver,"Verifying that " + keywordModel.objectName + " Element is not present", keywordModel.onFailLog,
-						Status.FAIL , keywordModel);
+				ReportUtilities.Log(driver, "Verifying that " + keywordModel.objectName + " Element is not present",
+						keywordModel.onFailLog, Status.FAIL, keywordModel);
 				throw new RuntimeException();
 			} else {
-				ReportUtilities.Log(driver,"Verifying that " + keywordModel.objectName + " Element is not present",
-						"The Element " + keywordModel.objectName + " is  present", Status.FAIL , keywordModel);
+				ReportUtilities.Log(driver, "Verifying that " + keywordModel.objectName + " Element is not present",
+						"The Element " + keywordModel.objectName + " is  present", Status.FAIL, keywordModel);
 				throw new RuntimeException();
 			}
 		}
 	}
-	 private static String reportPath = System.getProperty("user.dir") + "\\src\\test\\java\\reports\\";
 
-	public void checkAccessibility(WebDriver driver, KeywordModel keywordModel) throws FileNotFoundException {
-		System.out.println(keywordModel.scenario + "Adarsh");
+	private static String reportPath = System.getProperty("user.dir") + "\\src\\test\\java\\reports\\";
 
-		
-		String strHelp = "";
-		String strImpact = "";
-		String strDescription = "";
-		String strHelpUrl = "";
-		String strId = "";
-		String strTags = "";
-		String strNodeHTLML;
-		String strNodeTarget;
-		StringBuilder axeResults = new StringBuilder();
-		String screenName=keywordModel.objectName;
-		String folderName=keywordModel.scenario;
-//		String isItEnabled = Commons.getProperty("config", "axeutility");
-
-//		if (Commons.getProperty("config", "axeutility").equalsIgnoreCase("enabled")) {
-//			Commons.waitTillPageLoad(driver, wait);
-//			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-			AxeBuilder builder = new AxeBuilder();
-//			String timeoutFilePath = Constants.PROJECT_DIRECTORY + "\\src\\test\\resources\\axe.min.js";
-			axeResults.append("Screen Name,Help,Impact,Description,Help Url,Id,Tags");
-			axeResults.append(System.lineSeparator());
-			//				FileAxeScriptProvider axeScriptProvider;
-			//				axeScriptProvider = new FileAxeScriptProvider(timeoutFilePath);
-			//				builder.setAxeScriptProvider(axeScriptProvider);
-							Results result = builder.analyze(driver);
-							List<Rule> violations = result.getViolations();
-							
-							String url=driver.getCurrentUrl();
-							String PageID = url.substring(url.lastIndexOf("/") + 1, url.length());
-				
-							System.out.println("Violation of the Screen "+screenName+":"+violations.size());
-			
-							if (violations.size() == 0) {
-			//					assertTrue("No violations found", true);
-			//					logger.log(Status.PASS, "No violations found: " + screenName + " with PageID: " + PageID);
-								System.out.println("No violations found: " + screenName);
-							} 
-							else {
-			//					logger.log(Status.FAIL, "ADA violations exists on the page: " + screenName + " with PageID: " + PageID);
-								System.out.println("ADA violations exists on the page: " + screenName+ PageID);
-							}
-			
-							for (Rule element : violations) {
-								strHelp = element.getHelp();
-								strImpact = element.getImpact();
-								strDescription = "\"" + element.getDescription() + "\"";
-								strHelpUrl = element.getHelpUrl();
-								strId = element.getId();
-								strTags = "\"" + String.join(",", element.getTags()) + "\"";
-								;
-								axeResults.append(screenName + "," + strHelp + "," + strImpact + "," + strDescription + ","
-										+ strHelpUrl + "," + strId + "," + strTags);
-								axeResults.append(System.lineSeparator());
-								if (element.getNodes() != null && !element.getNodes().isEmpty()) {
-									for (CheckedNode item : element.getNodes()) {
-										if (item.getHtml().trim().length() > 0 && item.getTarget().toString().trim().length() > 0) {
-											axeResults.append(screenName + "," + strHelp + "," + strImpact + "," + strDescription
-													+ "," + strHelpUrl + "," + "\"" + item.getHtml() + "\"" + "," + "\""
-													+ item.getTarget() + "\"");
-											axeResults.append(System.lineSeparator());
-										}
-									}
-								}
-							}
-			//				File directory = new File(Constants.PROJECT_DIRECTORY + "\\ADA Results\\JSON Format\\"
-			//						+ Commons.enterRequiredDate(0, 0, 0).replace("/", ""));
-							File directory = new File(reportPath+ folderName );
-							if (!directory.exists()) {
-								directory.mkdir();
-							}
-							BufferedWriter writer = null;
-							System.out
-									.println(reportPath + "AccessibilityReport_"
-											+ screenName + "_"  + ".csv");
-							File file = new File(
-									reportPath +folderName+"//" + screenName+".csv");
-							try {
-								writer = new BufferedWriter(new FileWriter(file));
-								writer.write(axeResults.toString());
-							} catch (Exception e1) {
-			
-							} finally {
-								if (writer != null) {
-									try {
-										writer.close();
-									} catch (IOException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}
-								}
-							}
-
-		}
-	
-
-		
 	/**
 	 * Method Name: verifyElementDisplayed Return Type: Nothing Description: This
 	 * method verifies if the object is present in the Page structure, and is also
 	 * displayed on the screen.
 	 */
 
-	public  void verifyElementDisplayed(WebDriver driver, KeywordModel keywordModel) {
+	public void verifyElementDisplayed(WebDriver driver, KeywordModel keywordModel) {
 		if (keywordModel.dynaElement != null) {
 			if (keywordModel.dynaElement.isDisplayed()) {
-				ReportUtilities.Log(driver,"Verifying that " + keywordModel.objectName + " Element is displayed",
-						"The Element " + keywordModel.objectName + " is  displayed", Status.PASS , keywordModel);
+				ReportUtilities.Log(driver, "Verifying that " + keywordModel.objectName + " Element is displayed",
+						"The Element " + keywordModel.objectName + " is  displayed", Status.PASS, keywordModel);
 			} else {
-				ReportUtilities.Log(driver,"Verifying that " + keywordModel.objectName + " Element is displayed",
-						"The Element " + keywordModel.objectName + " is  Not displayed", Status.FAIL , keywordModel);
+				ReportUtilities.Log(driver, "Verifying that " + keywordModel.objectName + " Element is displayed",
+						"The Element " + keywordModel.objectName + " is  Not displayed", Status.FAIL, keywordModel);
 			}
 		} else {
 			if (findElementByType(driver, keywordModel).isDisplayed()) {
-				ReportUtilities.Log(driver,"Verifying that " + keywordModel.objectName + " Element is displayed",
-						"The Element " + keywordModel.objectName + " is  displayed", Status.PASS , keywordModel);
+				ReportUtilities.Log(driver, "Verifying that " + keywordModel.objectName + " Element is displayed",
+						"The Element " + keywordModel.objectName + " is  displayed", Status.PASS, keywordModel);
 			} else {
-				ReportUtilities.Log(driver,"Verifying that " + keywordModel.objectName + " Element is displayed",
-						"The Element " + keywordModel.objectName + " is  Not displayed", Status.FAIL , keywordModel);
+				ReportUtilities.Log(driver, "Verifying that " + keywordModel.objectName + " Element is displayed",
+						"The Element " + keywordModel.objectName + " is  Not displayed", Status.FAIL, keywordModel);
 			}
 
 		}
@@ -1726,28 +1583,30 @@ public class KeywordLibrary extends WebDriverHelper {
 	 * displayed on the screen.
 	 */
 
-	public  void verifyElementNotDisplayed(WebDriver driver, KeywordModel keywordModel) {
+	public void verifyElementNotDisplayed(WebDriver driver, KeywordModel keywordModel) {
 		if (keywordModel.dynaElement != null) {
 			if (keywordModel.dynaElement.isDisplayed()) {
-				ReportUtilities.Log(driver,"Verifying that " + keywordModel.objectName + " Element is not displayed",
-						"The Element " + keywordModel.objectName + " is  displayed", Status.FAIL , keywordModel);
+				ReportUtilities.Log(driver, "Verifying that " + keywordModel.objectName + " Element is not displayed",
+						"The Element " + keywordModel.objectName + " is  displayed", Status.FAIL, keywordModel);
 			} else {
-				ReportUtilities.Log(driver,"Verifying that " + keywordModel.objectName + " Element is not displayed",
-						"The Element " + keywordModel.objectName + " is  Not displayed", Status.PASS , keywordModel);
+				ReportUtilities.Log(driver, "Verifying that " + keywordModel.objectName + " Element is not displayed",
+						"The Element " + keywordModel.objectName + " is  Not displayed", Status.PASS, keywordModel);
 			}
 		} else {
 			if (findElementByType(driver, keywordModel).isDisplayed()) {
-				ReportUtilities.Log(driver,"Verifying that " + keywordModel.objectName + " Element is not displayed",
-						"The Element " + keywordModel.objectName + " is  displayed", Status.FAIL , keywordModel);
+				ReportUtilities.Log(driver, "Verifying that " + keywordModel.objectName + " Element is not displayed",
+						"The Element " + keywordModel.objectName + " is  displayed", Status.FAIL, keywordModel);
 			} else {
-				ReportUtilities.Log(driver,"Verifying that " + keywordModel.objectName + " Element is not displayed",
-						"The Element " + keywordModel.objectName + " is  Not displayed", Status.PASS , keywordModel);
+				ReportUtilities.Log(driver, "Verifying that " + keywordModel.objectName + " Element is not displayed",
+						"The Element " + keywordModel.objectName + " is  Not displayed", Status.PASS, keywordModel);
 			}
 		}
 
 	}
-	/*Method :fetchIndName
-	 * Description : This method fetches name of individual2 from right pane */
+	/*
+	 * Method :fetchIndName Description : This method fetches name of individual2
+	 * from right pane
+	 */
 
 //	public  void fetchIndName(WebDriver driver, KeywordModel keywordModel) {
 //		String IndID = findElementByType(driver, keywordModel).getText();
@@ -1764,8 +1623,10 @@ public class KeywordLibrary extends WebDriverHelper {
 //		CompareName(IndIDNotice);
 //
 //	}
-	/*Method :CompareName
-	 * Description : This method compares the name in notice reason to the name of ind2 in right pane*/
+	/*
+	 * Method :CompareName Description : This method compares the name in notice
+	 * reason to the name of ind2 in right pane
+	 */
 //	public  void CompareName(String indName, WebDriver driver, KeywordModel keywordModel) {
 //
 //		if(xpathIndName.contains(indName))
@@ -1780,13 +1641,13 @@ public class KeywordLibrary extends WebDriverHelper {
 //		}
 //	}
 
-	
 	/**
 	 * Method Name: verifyElementText Return Type: Nothing Description: This method
 	 * verifies for the text of the element
-	 * @throws InterruptedException 
+	 * 
+	 * @throws InterruptedException
 	 */
-	public  void verifyElementText(WebDriver driver, KeywordModel keywordModel) throws InterruptedException {
+	public void verifyElementText(WebDriver driver, KeywordModel keywordModel) throws InterruptedException {
 		if (keywordModel.dynaElement != null) {
 			try {
 				if (keywordModel.dynaElement.isDisplayed()) {
@@ -1794,29 +1655,35 @@ public class KeywordLibrary extends WebDriverHelper {
 					if (keywordModel.checkBoolean.equalsIgnoreCase("")) {
 						if (keywordModel.dynaElement.getText().trim().contains(keywordModel.dataValue)) {
 							System.out.println(keywordModel.dataValue);
-							ReportUtilities.Log(driver,"Verifying the Text of the object " + keywordModel.objectName,
-									"The element " + keywordModel.objectName + " has the text " + keywordModel.dataValue,
-									Status.PASS , keywordModel);
+							ReportUtilities.Log(driver, "Verifying the Text of the object " + keywordModel.objectName,
+									"The element " + keywordModel.objectName + " has the text "
+											+ keywordModel.dataValue,
+									Status.PASS, keywordModel);
 						} else if (keywordModel.dynaElement.getText().contains(keywordModel.sessionid)) {
 							System.out.println(keywordModel.sessionid);
-							ReportUtilities.Log(driver,"Verifying the Text of the object " + keywordModel.objectName,
-									"The element " + keywordModel.objectName + " has the text " + keywordModel.sessionid, Status.PASS , keywordModel);
+							ReportUtilities.Log(driver, "Verifying the Text of the object " + keywordModel.objectName,
+									"The element " + keywordModel.objectName + " has the text "
+											+ keywordModel.sessionid,
+									Status.PASS, keywordModel);
 						} else {
-							ReportUtilities.Log(driver,"Verifying the Text of the object " + keywordModel.objectName,
-									"The element " + keywordModel.objectName + " does not have the text " + keywordModel.dataValue
-									+ ". Text found: " + keywordModel.dynaElement.getText(),
-									Status.FAIL , keywordModel);
+							ReportUtilities.Log(driver, "Verifying the Text of the object " + keywordModel.objectName,
+									"The element " + keywordModel.objectName + " does not have the text "
+											+ keywordModel.dataValue + ". Text found: "
+											+ keywordModel.dynaElement.getText(),
+									Status.FAIL, keywordModel);
 							storeEDMResult(driver, keywordModel);
 							throw new RuntimeException();
-						//	driver.wait();
+							// driver.wait();
 						}
 					}
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot Verify text for the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot Verify text for the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		} else {
@@ -1824,44 +1691,54 @@ public class KeywordLibrary extends WebDriverHelper {
 				if (findElementByType(driver, keywordModel).isDisplayed()) {
 					if (keywordModel.checkBoolean.equalsIgnoreCase("")) {
 						if (findElementByType(driver, keywordModel).getText().trim().contains(keywordModel.dataValue)) {
-							System.out.println("Verifying the Text of the object " + keywordModel.objectName+
-									"The element " + keywordModel.objectName + " has the text " + keywordModel.dataValue);
-							ReportUtilities.Log(driver,"Verifying the Text of the object " + keywordModel.objectName,
-									"The element " + keywordModel.objectName + " has the text " + keywordModel.dataValue,
-									Status.PASS , keywordModel);
-						} else if (findElementByType(driver, keywordModel).getText().contains(keywordModel.sessionid) && keywordModel.sessionid != "" && keywordModel.sessionid != null) {
-							System.out.println("Verifying the Text of the object " + keywordModel.objectName+
-									"The element " + keywordModel.objectName + " has the text " + keywordModel.sessionid);
-							ReportUtilities.Log(driver,"Verifying the Text of the object " + keywordModel.objectName,
-									"The element " + keywordModel.objectName + " has the text " + keywordModel.sessionid, Status.PASS , keywordModel);
+							System.out.println(
+									"Verifying the Text of the object " + keywordModel.objectName + "The element "
+											+ keywordModel.objectName + " has the text " + keywordModel.dataValue);
+							ReportUtilities.Log(driver, "Verifying the Text of the object " + keywordModel.objectName,
+									"The element " + keywordModel.objectName + " has the text "
+											+ keywordModel.dataValue,
+									Status.PASS, keywordModel);
+						} else if (findElementByType(driver, keywordModel).getText().contains(keywordModel.sessionid)
+								&& keywordModel.sessionid != "" && keywordModel.sessionid != null) {
+							System.out.println(
+									"Verifying the Text of the object " + keywordModel.objectName + "The element "
+											+ keywordModel.objectName + " has the text " + keywordModel.sessionid);
+							ReportUtilities.Log(driver, "Verifying the Text of the object " + keywordModel.objectName,
+									"The element " + keywordModel.objectName + " has the text "
+											+ keywordModel.sessionid,
+									Status.PASS, keywordModel);
 						} else {
 
-							System.out.println("Verifying the Text of the object " + keywordModel.objectName+
-									"The element " + keywordModel.objectName + " does not have the text " + keywordModel.dataValue
-									+ ". Text found: " + findElementByType(driver, keywordModel).getText());
-							ReportUtilities.Log(driver,"Verifying the Text of the object " + keywordModel.objectName,
-									"The element " + keywordModel.objectName + " does not have the text " + keywordModel.dataValue
-									+ ". Text found: " + findElementByType(driver, keywordModel).getText(),
-									Status.FAIL , keywordModel);
+							System.out.println("Verifying the Text of the object " + keywordModel.objectName
+									+ "The element " + keywordModel.objectName + " does not have the text "
+									+ keywordModel.dataValue + ". Text found: "
+									+ findElementByType(driver, keywordModel).getText());
+							ReportUtilities.Log(driver, "Verifying the Text of the object " + keywordModel.objectName,
+									"The element " + keywordModel.objectName + " does not have the text "
+											+ keywordModel.dataValue + ". Text found: "
+											+ findElementByType(driver, keywordModel).getText(),
+									Status.FAIL, keywordModel);
 							storeEDMResult(driver, keywordModel);
 							throw new RuntimeException();
-							//driver.wait();
+							// driver.wait();
 						}
 					}
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot Verify text for the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot Verify text for the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
-				
+
 			}
 		}
 
 	}
 
-	public  void verifyElementDateFromSheet(WebDriver driver, KeywordModel keywordModel) {
+	public void verifyElementDateFromSheet(WebDriver driver, KeywordModel keywordModel) {
 		if (keywordModel.dynaElement != null) {
 			try {
 				if (keywordModel.dynaElement.isDisplayed()) {
@@ -1871,31 +1748,39 @@ public class KeywordLibrary extends WebDriverHelper {
 					String test1 = String.valueOf(charTest[0]) + String.valueOf(charTest[1]);
 					String test2 = String.valueOf(charTest[2]) + String.valueOf(charTest[3]);
 					String test3 = String.valueOf(charTest[4]) + String.valueOf(charTest[5])
-					+ String.valueOf(charTest[6]) + String.valueOf(charTest[7]);
+							+ String.valueOf(charTest[6]) + String.valueOf(charTest[7]);
 					String finalTest = test1 + "/" + test2 + "/" + test3;
 					// System.out.println(finalTest);
 
 					if (keywordModel.checkBoolean.equalsIgnoreCase("")) {
 
 						if (keywordModel.dynaElement.getText().trim().equals(finalTest)) {
-							ReportUtilities.Log(driver,"Verifying the Date displayed on the object " + keywordModel.objectName,
-									"The element " + keywordModel.objectName + " has the Date " + finalTest, Status.PASS , keywordModel);
+							ReportUtilities.Log(driver,
+									"Verifying the Date displayed on the object " + keywordModel.objectName,
+									"The element " + keywordModel.objectName + " has the Date " + finalTest,
+									Status.PASS, keywordModel);
 						} else if (keywordModel.dynaElement.getText().equals(keywordModel.sessionid)) {
-							ReportUtilities.Log(driver,"Verifying the Date displayed on the object " + keywordModel.objectName,
-									"The element " + keywordModel.objectName + " has the Date " + keywordModel.sessionid, Status.PASS , keywordModel);
+							ReportUtilities.Log(driver,
+									"Verifying the Date displayed on the object " + keywordModel.objectName,
+									"The element " + keywordModel.objectName + " has the Date "
+											+ keywordModel.sessionid,
+									Status.PASS, keywordModel);
 						} else {
-							ReportUtilities.Log(driver,"Verifying the Date displayed on the object " + keywordModel.objectName,
+							ReportUtilities.Log(driver,
+									"Verifying the Date displayed on the object " + keywordModel.objectName,
 									"The element " + keywordModel.objectName + " does not have the Date " + finalTest
-									+ ". Date found: " + keywordModel.dynaElement.getText(),
-									Status.FAIL , keywordModel);
+											+ ". Date found: " + keywordModel.dynaElement.getText(),
+									Status.FAIL, keywordModel);
 						}
 					}
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot Verify text for the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot Verify text for the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		} else {
@@ -1906,30 +1791,38 @@ public class KeywordLibrary extends WebDriverHelper {
 					String test1 = String.valueOf(charTest[0]) + String.valueOf(charTest[1]);
 					String test2 = String.valueOf(charTest[2]) + String.valueOf(charTest[3]);
 					String test3 = String.valueOf(charTest[4]) + String.valueOf(charTest[5])
-					+ String.valueOf(charTest[6]) + String.valueOf(charTest[7]);
+							+ String.valueOf(charTest[6]) + String.valueOf(charTest[7]);
 					String finalTest = test1 + "/" + test2 + "/" + test3;
 					System.out.println("Date from sheet is:" + test);
 					System.out.println("Final Date from sheet is:" + finalTest);
 					if (keywordModel.checkBoolean.equalsIgnoreCase("")) {
 						if (keywordModel.dynaElement.getText().trim().equals(finalTest)) {
-							ReportUtilities.Log(driver,"Verifying the Date displayed on the object " + keywordModel.objectName,
-									"The element " + keywordModel.objectName + " has the Date " + finalTest, Status.PASS , keywordModel);
+							ReportUtilities.Log(driver,
+									"Verifying the Date displayed on the object " + keywordModel.objectName,
+									"The element " + keywordModel.objectName + " has the Date " + finalTest,
+									Status.PASS, keywordModel);
 						} else if (keywordModel.dynaElement.getText().equals(keywordModel.sessionid)) {
-							ReportUtilities.Log(driver,"Verifying the Date displayed on the object " + keywordModel.objectName,
-									"The element " + keywordModel.objectName + " has the Date " + keywordModel.sessionid, Status.PASS , keywordModel);
+							ReportUtilities.Log(driver,
+									"Verifying the Date displayed on the object " + keywordModel.objectName,
+									"The element " + keywordModel.objectName + " has the Date "
+											+ keywordModel.sessionid,
+									Status.PASS, keywordModel);
 						} else {
-							ReportUtilities.Log(driver,"Verifying the Date displayed on the object " + keywordModel.objectName,
+							ReportUtilities.Log(driver,
+									"Verifying the Date displayed on the object " + keywordModel.objectName,
 									"The element " + keywordModel.objectName + " does not have the Date " + finalTest
-									+ ". Date found: " + keywordModel.dynaElement.getText(),
-									Status.FAIL , keywordModel);
+											+ ". Date found: " + keywordModel.dynaElement.getText(),
+									Status.FAIL, keywordModel);
 						}
 					}
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot Verify text for the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot Verify text for the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		}
@@ -1940,30 +1833,39 @@ public class KeywordLibrary extends WebDriverHelper {
 	 * Method Name: verifyTextNotEqual Return Type: Nothing Description: This method
 	 * verifies if the Element Text is NOT equal to the one given in datavlaue.
 	 */
-	public  void verifyTextNotEqual(WebDriver driver, KeywordModel keywordModel) {
+	public void verifyTextNotEqual(WebDriver driver, KeywordModel keywordModel) {
 		if (keywordModel.dynaElement != null) {
 			try {
 				if (keywordModel.dynaElement.isDisplayed()) {
 					if (keywordModel.checkBoolean.equalsIgnoreCase("")) {
 						if (keywordModel.dynaElement.getText().trim().equals(keywordModel.dataValue)) {
-							ReportUtilities.Log(driver,"Verifying if the Text is different for the object " + keywordModel.objectName,
-									"The element " + keywordModel.objectName + " has the text " + keywordModel.dataValue,
-									Status.FAIL , keywordModel);
+							ReportUtilities.Log(driver,
+									"Verifying if the Text is different for the object " + keywordModel.objectName,
+									"The element " + keywordModel.objectName + " has the text "
+											+ keywordModel.dataValue,
+									Status.FAIL, keywordModel);
 						} else if (keywordModel.dynaElement.getText().equals(keywordModel.sessionid)) {
-							ReportUtilities.Log(driver,"Verifying if the Text is different for the object " + keywordModel.objectName,
-									"The element " + keywordModel.objectName + " has the text " + keywordModel.sessionid, Status.FAIL , keywordModel);
+							ReportUtilities.Log(driver,
+									"Verifying if the Text is different for the object " + keywordModel.objectName,
+									"The element " + keywordModel.objectName + " has the text "
+											+ keywordModel.sessionid,
+									Status.FAIL, keywordModel);
 						} else {
-							ReportUtilities.Log(driver,"Verifying if the Text is different for the object " + keywordModel.objectName,
-									"The element " + keywordModel.objectName + " does not have the text " + keywordModel.dataValue,
-									Status.PASS , keywordModel);
+							ReportUtilities.Log(driver,
+									"Verifying if the Text is different for the object " + keywordModel.objectName,
+									"The element " + keywordModel.objectName + " does not have the text "
+											+ keywordModel.dataValue,
+									Status.PASS, keywordModel);
 						}
 					}
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot Verify text for the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot Verify text for the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		} else {
@@ -1971,24 +1873,33 @@ public class KeywordLibrary extends WebDriverHelper {
 				if (findElementByType(driver, keywordModel).isDisplayed()) {
 					if (keywordModel.checkBoolean.equalsIgnoreCase("")) {
 						if (findElementByType(driver, keywordModel).getText().trim().equals(keywordModel.dataValue)) {
-							ReportUtilities.Log(driver,"Verifying if the Text is different for the object " + keywordModel.objectName,
-									"The element " + keywordModel.objectName + " has the text " + keywordModel.dataValue,
-									Status.FAIL , keywordModel);
+							ReportUtilities.Log(driver,
+									"Verifying if the Text is different for the object " + keywordModel.objectName,
+									"The element " + keywordModel.objectName + " has the text "
+											+ keywordModel.dataValue,
+									Status.FAIL, keywordModel);
 						} else if (findElementByType(driver, keywordModel).getText().equals(keywordModel.sessionid)) {
-							ReportUtilities.Log(driver,"Verifying if the Text is different for the object " + keywordModel.objectName,
-									"The element " + keywordModel.objectName + " has the text " + keywordModel.sessionid, Status.FAIL , keywordModel);
+							ReportUtilities.Log(driver,
+									"Verifying if the Text is different for the object " + keywordModel.objectName,
+									"The element " + keywordModel.objectName + " has the text "
+											+ keywordModel.sessionid,
+									Status.FAIL, keywordModel);
 						} else {
-							ReportUtilities.Log(driver,"Verifying if the Text is different for the object " + keywordModel.objectName,
-									"The element " + keywordModel.objectName + " does not have the text " + keywordModel.dataValue,
-									Status.PASS , keywordModel);
+							ReportUtilities.Log(driver,
+									"Verifying if the Text is different for the object " + keywordModel.objectName,
+									"The element " + keywordModel.objectName + " does not have the text "
+											+ keywordModel.dataValue,
+									Status.PASS, keywordModel);
 						}
 					}
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot Verify text for the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot Verify text for the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		}
@@ -1998,30 +1909,35 @@ public class KeywordLibrary extends WebDriverHelper {
 	 * Method Name: verifyElementByValue Return Type: Nothing Description: This
 	 * method verifies the value of a HTML ELement
 	 */
-	public  void verifyElementByValue(WebDriver driver, KeywordModel keywordModel) {
+	public void verifyElementByValue(WebDriver driver, KeywordModel keywordModel) {
 		if (keywordModel.checkBoolean.equalsIgnoreCase("")) {
 			if (findElementByType(driver, keywordModel).getAttribute("value").contains(keywordModel.dataValue)) {
-				ReportUtilities.Log(driver,"Verifying the Text of the object " + keywordModel.objectName,
-						"The element " + keywordModel.objectName + " has the text " + keywordModel.dataValue, Status.PASS , keywordModel);
+				ReportUtilities.Log(driver, "Verifying the Text of the object " + keywordModel.objectName,
+						"The element " + keywordModel.objectName + " has the text " + keywordModel.dataValue,
+						Status.PASS, keywordModel);
 			} else if (findElementByType(driver, keywordModel).getAttribute("value").contains(keywordModel.sessionid)) {
-				//System.out.println(keywordModel.sessionid);
-				ReportUtilities.Log(driver,"Verifying the Text of the object " + keywordModel.objectName,
-						"The element " + keywordModel.objectName + " has the text " + keywordModel.sessionid, Status.PASS , keywordModel);
-			}else if (findElementByType(driver, keywordModel).getAttribute("value").startsWith("0")) {
-				if (findElementByType(driver, keywordModel).getAttribute("value").substring(1).equals(keywordModel.dataValue))
-					ReportUtilities.Log(driver,"Verifying the Text of the object " + keywordModel.objectName,
-							"The element " + keywordModel.objectName + " has the text " + keywordModel.dataValue, Status.PASS , keywordModel);
+				// System.out.println(keywordModel.sessionid);
+				ReportUtilities.Log(driver, "Verifying the Text of the object " + keywordModel.objectName,
+						"The element " + keywordModel.objectName + " has the text " + keywordModel.sessionid,
+						Status.PASS, keywordModel);
+			} else if (findElementByType(driver, keywordModel).getAttribute("value").startsWith("0")) {
+				if (findElementByType(driver, keywordModel).getAttribute("value").substring(1)
+						.equals(keywordModel.dataValue))
+					ReportUtilities.Log(driver, "Verifying the Text of the object " + keywordModel.objectName,
+							"The element " + keywordModel.objectName + " has the text " + keywordModel.dataValue,
+							Status.PASS, keywordModel);
 				else
-					ReportUtilities.Log(driver,"Verifying the Text of the object " + keywordModel.objectName,
-							"The element " + keywordModel.objectName + " does not have the text " + keywordModel.dataValue,
-							Status.FAIL , keywordModel);
+					ReportUtilities.Log(
+							driver, "Verifying the Text of the object " + keywordModel.objectName, "The element "
+									+ keywordModel.objectName + " does not have the text " + keywordModel.dataValue,
+							Status.FAIL, keywordModel);
 			} else {
-				ReportUtilities.Log(driver,"Verifying the Text of the object " + keywordModel.objectName,
+				ReportUtilities.Log(driver, "Verifying the Text of the object " + keywordModel.objectName,
 						"The element " + keywordModel.objectName + " does not have the text " + keywordModel.dataValue,
-						Status.FAIL , keywordModel);
+						Status.FAIL, keywordModel);
 			}
 		} else {
-			ReportUtilities.Log(driver,"Verification of Element's value is not PASS", "", Status.PASS , keywordModel);
+			ReportUtilities.Log(driver, "Verification of Element's value is not PASS", "", Status.PASS, keywordModel);
 		}
 	}
 
@@ -2029,16 +1945,16 @@ public class KeywordLibrary extends WebDriverHelper {
 	 * Method Name: verifyMandatoryElementHighlight Return Type: Nothing
 	 * Description: This method verifies if the mandatory field is highlighted
 	 */
-	public  void verifyMandatoryElementHighlight(WebDriver driver, KeywordModel keywordModel) {
+	public void verifyMandatoryElementHighlight(WebDriver driver, KeywordModel keywordModel) {
 		if (findElementByType(driver, keywordModel).getAttribute("style").equals(
 				"background-color: rgb(255, 223, 223); border-width: 1px; border-color: rgb(255, 0, 0); border-style: solid;")) {
-			ReportUtilities.Log(driver,"Verify the highlight of the object" + keywordModel.objectName,
-					"The field " + keywordModel.objectName + " is highlighted for mandatory validation" + keywordModel.dataValue,
-					Status.PASS , keywordModel);
+			ReportUtilities.Log(driver, "Verify the highlight of the object" + keywordModel.objectName, "The field "
+					+ keywordModel.objectName + " is highlighted for mandatory validation" + keywordModel.dataValue,
+					Status.PASS, keywordModel);
 		} else {
-			ReportUtilities.Log(driver,"Highlight of the object failed " + keywordModel.objectName,
+			ReportUtilities.Log(driver, "Highlight of the object failed " + keywordModel.objectName,
 					"The element " + keywordModel.objectName + " does not have the highlight" + keywordModel.dataValue,
-					Status.FAIL , keywordModel);
+					Status.FAIL, keywordModel);
 		}
 	}
 
@@ -2046,48 +1962,52 @@ public class KeywordLibrary extends WebDriverHelper {
 	 * Method Name: verifyElementDisabled Return Type: Nothing Description: This
 	 * method verifies for the editable state of the object
 	 */
-	public  void verifyElementDisabledByAttribute(WebDriver driver, KeywordModel keywordModel) {
+	public void verifyElementDisabledByAttribute(WebDriver driver, KeywordModel keywordModel) {
 		if (keywordModel.checkBoolean.equalsIgnoreCase("")) {
 			if (findElementByType(driver, keywordModel).getAttribute("isenabled").equals("false")) {
-				ReportUtilities.Log(driver,"Verifying the State of the object " + keywordModel.objectName,
-						"The element " + keywordModel.objectName + " is in disabled state", Status.PASS , keywordModel);
+				ReportUtilities.Log(driver, "Verifying the State of the object " + keywordModel.objectName,
+						"The element " + keywordModel.objectName + " is in disabled state", Status.PASS, keywordModel);
 			} else {
-				ReportUtilities.Log(driver,"Verifying the State of the object " + keywordModel.objectName,
-						"The element " + keywordModel.objectName + " is not in disabled state", Status.FAIL , keywordModel);
+				ReportUtilities.Log(driver, "Verifying the State of the object " + keywordModel.objectName,
+						"The element " + keywordModel.objectName + " is not in disabled state", Status.FAIL,
+						keywordModel);
 			}
 		}
 	}
 
-	public  void verifyElementDisabledByAttributeDisabled(WebDriver driver, KeywordModel keywordModel) {
+	public void verifyElementDisabledByAttributeDisabled(WebDriver driver, KeywordModel keywordModel) {
 		String disabledFlag = "";
 		if (keywordModel.checkBoolean.equalsIgnoreCase("")) {
 			try {
 				disabledFlag = findElementByType(driver, keywordModel).getAttribute("disabled");
 			} catch (NullPointerException e) {
 				if (disabledFlag.equals(null)) {
-					ReportUtilities.Log(driver,"Verifying the State of the object " + keywordModel.objectName,
-							"The element " + keywordModel.objectName + " is in disabled state", Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Verifying the State of the object " + keywordModel.objectName,
+							"The element " + keywordModel.objectName + " is in disabled state", Status.PASS,
+							keywordModel);
 				} else {
-					ReportUtilities.Log(driver,"Verifying the State of the object " + keywordModel.objectName,
-							"The element " + keywordModel.objectName + " is not in disabled state", Status.FAIL , keywordModel);
+					ReportUtilities.Log(driver, "Verifying the State of the object " + keywordModel.objectName,
+							"The element " + keywordModel.objectName + " is not in disabled state", Status.FAIL,
+							keywordModel);
 				}
 			}
 		}
 	}
 
-	public  void verifyElementDisabled(WebDriver driver, KeywordModel keywordModel) {
+	public void verifyElementDisabled(WebDriver driver, KeywordModel keywordModel) {
 		if (keywordModel.checkBoolean.equalsIgnoreCase("")) {
 			if (!findElementByType(driver, keywordModel).isEnabled()) {
-				ReportUtilities.Log(driver,"Verifying the State of the object " + keywordModel.objectName,
-						"The element " + keywordModel.objectName + " is in disabled state", Status.PASS , keywordModel);
+				ReportUtilities.Log(driver, "Verifying the State of the object " + keywordModel.objectName,
+						"The element " + keywordModel.objectName + " is in disabled state", Status.PASS, keywordModel);
 			} else {
-				ReportUtilities.Log(driver,"Verifying the State of the object " + keywordModel.objectName,
-						"The element " + keywordModel.objectName + " is not in disabled state", Status.FAIL , keywordModel);
+				ReportUtilities.Log(driver, "Verifying the State of the object " + keywordModel.objectName,
+						"The element " + keywordModel.objectName + " is not in disabled state", Status.FAIL,
+						keywordModel);
 			}
 		}
 	}
 
-	public  void verifyDropdownDisabledKendoUI(WebDriver driver, KeywordModel keywordModel) {
+	public void verifyDropdownDisabledKendoUI(WebDriver driver, KeywordModel keywordModel) {
 		if (keywordModel.checkBoolean.equalsIgnoreCase("")) {
 			findElementByType(driver, keywordModel);
 			keywordModel.inputXPath = keywordModel.inputXPath + "/preceding-sibling::span/child::input";
@@ -2096,23 +2016,25 @@ public class KeywordLibrary extends WebDriverHelper {
 			WebElement selectInputBox = driver.findElement(By.xpath(keywordModel.inputXPath));
 			System.out.println(selectInputBox.getAttribute("disabled"));
 			if (!selectInputBox.getAttribute("disabled").equalsIgnoreCase("disabled")) {
-				ReportUtilities.Log(driver,"Verifying the State of the object " + keywordModel.objectName,
-						"The element " + keywordModel.objectName + " is in disabled state", Status.PASS , keywordModel);
+				ReportUtilities.Log(driver, "Verifying the State of the object " + keywordModel.objectName,
+						"The element " + keywordModel.objectName + " is in disabled state", Status.PASS, keywordModel);
 			} else {
-				ReportUtilities.Log(driver,"Verifying the State of the object " + keywordModel.objectName,
-						"The element " + keywordModel.objectName + " is not in disabled state", Status.FAIL , keywordModel);
+				ReportUtilities.Log(driver, "Verifying the State of the object " + keywordModel.objectName,
+						"The element " + keywordModel.objectName + " is not in disabled state", Status.FAIL,
+						keywordModel);
 			}
 		}
 	}
 
-	public  void verifyElementEnabled(WebDriver driver, KeywordModel keywordModel) {
+	public void verifyElementEnabled(WebDriver driver, KeywordModel keywordModel) {
 		if (keywordModel.checkBoolean.equalsIgnoreCase("")) {
 			if (findElementByType(driver, keywordModel).isEnabled()) {
-				ReportUtilities.Log(driver,"Verifying the State of the object " + keywordModel.objectName,
-						"The element " + keywordModel.objectName + " is in enabled state", Status.PASS , keywordModel);
+				ReportUtilities.Log(driver, "Verifying the State of the object " + keywordModel.objectName,
+						"The element " + keywordModel.objectName + " is in enabled state", Status.PASS, keywordModel);
 			} else {
-				ReportUtilities.Log(driver,"Verifying the State of the object " + keywordModel.objectName,
-						"The element " + keywordModel.objectName + " is not in enabled state", Status.FAIL , keywordModel);
+				ReportUtilities.Log(driver, "Verifying the State of the object " + keywordModel.objectName,
+						"The element " + keywordModel.objectName + " is not in enabled state", Status.FAIL,
+						keywordModel);
 			}
 		}
 	}
@@ -2121,7 +2043,7 @@ public class KeywordLibrary extends WebDriverHelper {
 	 * Method Name: verifyDropDownValues Return Type: Nothing Description: This
 	 * method verifies the options present in the drop down
 	 */
-	public  void verifyDropDownValues(WebDriver driver, KeywordModel keywordModel) {
+	public void verifyDropDownValues(WebDriver driver, KeywordModel keywordModel) {
 		if (keywordModel.checkBoolean.equalsIgnoreCase("")) {
 			boolean flag = true;
 			ArrayList<String> dataValues = new ArrayList<String>();
@@ -2151,11 +2073,11 @@ public class KeywordLibrary extends WebDriverHelper {
 			}
 
 			if (flag) {
-				ReportUtilities.Log(driver,"Verifying the values in the dropdown " + keywordModel.objectName,
-						"The expected values are present in the dropdown", Status.PASS , keywordModel);
+				ReportUtilities.Log(driver, "Verifying the values in the dropdown " + keywordModel.objectName,
+						"The expected values are present in the dropdown", Status.PASS, keywordModel);
 			} else {
-				ReportUtilities.Log(driver,"Verifying the values in the dropdown " + keywordModel.objectName,
-						"The expected values are not present in the dropdown", Status.FAIL , keywordModel);
+				ReportUtilities.Log(driver, "Verifying the values in the dropdown " + keywordModel.objectName,
+						"The expected values are not present in the dropdown", Status.FAIL, keywordModel);
 			}
 		}
 	}
@@ -2164,14 +2086,14 @@ public class KeywordLibrary extends WebDriverHelper {
 	 * Method Name: verifyCheckBoxChecked Return Type: Nothing Description: This
 	 * method verifies whether a check box is checked
 	 */
-	public  void verifyCheckBoxChecked(WebDriver driver, KeywordModel keywordModel) {
+	public void verifyCheckBoxChecked(WebDriver driver, KeywordModel keywordModel) {
 		if (keywordModel.checkBoolean.equalsIgnoreCase("")) {
 			if (findElementByType(driver, keywordModel).isSelected()) {
-				ReportUtilities.Log(driver,"Verifying the State of the checkbox " + keywordModel.objectName,
-						"The checkbox " + keywordModel.objectName + " is checked", Status.PASS , keywordModel);
+				ReportUtilities.Log(driver, "Verifying the State of the checkbox " + keywordModel.objectName,
+						"The checkbox " + keywordModel.objectName + " is checked", Status.PASS, keywordModel);
 			} else {
-				ReportUtilities.Log(driver,"Verifying the State of the checkbox " + keywordModel.objectName,
-						"The checkbox " + keywordModel.objectName + " is not checked", Status.FAIL , keywordModel);
+				ReportUtilities.Log(driver, "Verifying the State of the checkbox " + keywordModel.objectName,
+						"The checkbox " + keywordModel.objectName + " is not checked", Status.FAIL, keywordModel);
 			}
 		}
 	}
@@ -2181,15 +2103,16 @@ public class KeywordLibrary extends WebDriverHelper {
 //		driver.switchTo().window(WebDriverHelper.mainWindowHandle);
 //	}
 //	
-	
+
 	/**
-	 * Method Name: scrollDown Return Type: Nothing Description: This method scrolls down the bottm of page
+	 * Method Name: scrollDown Return Type: Nothing Description: This method scrolls
+	 * down the bottm of page
 	 * 
 	 */
-	public  void scrollDown(WebDriver driver, KeywordModel keywordModel) {
+	public void scrollDown(WebDriver driver, KeywordModel keywordModel) {
 
 		JavascriptExecutor js = (JavascriptExecutor) driver;
-		//This will scroll the web page till end.		
+		// This will scroll the web page till end.
 		js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
 	}
 
@@ -2197,15 +2120,16 @@ public class KeywordLibrary extends WebDriverHelper {
 	 * Method Name: verifyElementTitle Return Type: Nothing Description: This method
 	 * verifies for the title attribute of the element
 	 */
-	public  void verifyElementTitle(WebDriver driver, KeywordModel keywordModel) {
+	public void verifyElementTitle(WebDriver driver, KeywordModel keywordModel) {
 		if (keywordModel.checkBoolean.equalsIgnoreCase("")) {
 			if (findElementByType(driver, keywordModel).getAttribute("title").equals(keywordModel.dataValue)) {
-				ReportUtilities.Log(driver,"Verifying the title of the object " + keywordModel.objectName,
-						"The element " + keywordModel.objectName + " has the title " + keywordModel.dataValue, Status.PASS , keywordModel);
+				ReportUtilities.Log(driver, "Verifying the title of the object " + keywordModel.objectName,
+						"The element " + keywordModel.objectName + " has the title " + keywordModel.dataValue,
+						Status.PASS, keywordModel);
 			} else {
-				ReportUtilities.Log(driver,"Verifying the title of the object " + keywordModel.objectName,
+				ReportUtilities.Log(driver, "Verifying the title of the object " + keywordModel.objectName,
 						"The element " + keywordModel.objectName + " does not have the title " + keywordModel.dataValue,
-						Status.FAIL , keywordModel);
+						Status.FAIL, keywordModel);
 			}
 		}
 	}
@@ -2214,104 +2138,105 @@ public class KeywordLibrary extends WebDriverHelper {
 	 * Method Name: verifyRequiredField Return Type: Nothing Description: This
 	 * method verifies for the required fields src attribute
 	 */
-	public  void verifyRequiredField(WebDriver driver, KeywordModel keywordModel) {
+	public void verifyRequiredField(WebDriver driver, KeywordModel keywordModel) {
 		if (keywordModel.checkBoolean.equalsIgnoreCase("")) {
 			if (findElementByType(driver, keywordModel).getAttribute("src").endsWith(keywordModel.dataValue)) {
-				ReportUtilities.Log(driver,"Verify required field: " + keywordModel.objectName,
-						"The element " + keywordModel.objectName + " is required ", Status.PASS , keywordModel);
+				ReportUtilities.Log(driver, "Verify required field: " + keywordModel.objectName,
+						"The element " + keywordModel.objectName + " is required ", Status.PASS, keywordModel);
 			} else {
-				ReportUtilities.Log(driver,"Verify required field: " + keywordModel.objectName,
+				ReportUtilities.Log(driver, "Verify required field: " + keywordModel.objectName,
 						"The element " + keywordModel.objectName + " is not a required field " + keywordModel.dataValue,
-						Status.FAIL , keywordModel);
+						Status.FAIL, keywordModel);
 			}
 		}
 	}
-	
-	
+
 	/*
-	 * Method get all the records in grids
-	 * Eg : Number of individuals on case summary page
+	 * Method get all the records in grids Eg : Number of individuals on case
+	 * summary page
 	 */
-	public int getRecordsInGrid(WebDriver driver, KeywordModel keywordModel)
-	{
-		int recordCount=0;
+	public int getRecordsInGrid(WebDriver driver, KeywordModel keywordModel) {
+		int recordCount = 0;
 		try {
 			if (findElementByType(driver, keywordModel).isDisplayed()) {
-				recordCount =  findElementsByType(driver, keywordModel).size();
-				System.out.println("record count is "+recordCount);
-				ReportUtilities.Log(driver,"Record Count  " + keywordModel.objectName , "is obtained", Status.PASS , keywordModel);
+				recordCount = findElementsByType(driver, keywordModel).size();
+				System.out.println("record count is " + recordCount);
+				ReportUtilities.Log(driver, "Record Count  " + keywordModel.objectName, "is obtained", Status.PASS,
+						keywordModel);
 
 			}
 		} catch (NoSuchElementException p) {
 			keywordModel.error = true;
 			keywordModel.displayError = true;
-			ReportUtilities.Log(driver,"Cannot get count.", "The Element " + keywordModel.objectName
-					+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+			ReportUtilities.Log(
+					driver, "Cannot get count.", "The Element " + keywordModel.objectName
+							+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+					Status.FAIL, keywordModel);
 			throw new RuntimeException(p);
 		}
 		return recordCount;
 	}
-	
-	
-	
-	
-	
-	/* Emp ID : 506096
-	 * Method is for selecting dropdowns for N number of individuals dynamically
+
+	/*
+	 * Emp ID : 506096 Method is for selecting dropdowns for N number of individuals
+	 * dynamically
 	 */
-	public  void selectByVisibleTextDyna(String xPath, WebDriver driver, KeywordModel keywordModel) throws InterruptedException {
+	public void selectByVisibleTextDyna(String xPath, WebDriver driver, KeywordModel keywordModel)
+			throws InterruptedException {
 		try {
 			WebElement selectInputBox = driver.findElement(By.xpath(xPath));
 			if (selectInputBox.isDisplayed()) {
 				selectInputBox.click();
 				selectInputBox.sendKeys(Keys.CONTROL + "a");
-				selectInputBox.sendKeys(Keys.DELETE); 
+				selectInputBox.sendKeys(Keys.DELETE);
 
 				selectInputBox.sendKeys(keywordModel.dataValue);
 				Thread.sleep(1000);
 				selectInputBox.sendKeys(Keys.TAB);
-				ReportUtilities.Log(driver,"Selecting by visible text in the dropdown " + keywordModel.objectName,
-						"Selected the value " + keywordModel.dataValue + " in the select box ", Status.PASS , keywordModel);
+				ReportUtilities.Log(driver, "Selecting by visible text in the dropdown " + keywordModel.objectName,
+						"Selected the value " + keywordModel.dataValue + " in the select box ", Status.PASS,
+						keywordModel);
 			}
 		} catch (NoSuchElementException p) {
 			keywordModel.error = true;
 			keywordModel.displayError = true;
-			ReportUtilities.Log(driver,"Cannot select any value on the object.", "The input box for " + keywordModel.objectName
-					+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+			ReportUtilities.Log(
+					driver, "Cannot select any value on the object.", "The input box for " + keywordModel.objectName
+							+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+					Status.FAIL, keywordModel);
 			throw new RuntimeException(p);
 		}
 	}
 
-	/* Emp ID : 506096
-	 * Method is for entering date and text for N number of individuals dynamically
+	/*
+	 * Emp ID : 506096 Method is for entering date and text for N number of
+	 * individuals dynamically
 	 */
-	public  void enterDyna(String xPath, WebDriver driver, KeywordModel keywordModel) throws InterruptedException {
+	public void enterDyna(String xPath, WebDriver driver, KeywordModel keywordModel) throws InterruptedException {
 		try {
 			WebElement enterInputBox = driver.findElement(By.xpath(xPath));
 
 			if (enterInputBox.isDisplayed()) {
 				enterInputBox.click();
 				enterInputBox.sendKeys(Keys.CONTROL + "a");
-				enterInputBox.sendKeys(Keys.DELETE); 
+				enterInputBox.sendKeys(Keys.DELETE);
 
 				Thread.sleep(1500);
 				enterInputBox.sendKeys(keywordModel.dataValue);
 
-				ReportUtilities.Log(driver,"Entering text in the text box " + keywordModel.objectName,
-						"Entered the text " + keywordModel.dataValue, Status.PASS , keywordModel);
+				ReportUtilities.Log(driver, "Entering text in the text box " + keywordModel.objectName,
+						"Entered the text " + keywordModel.dataValue, Status.PASS, keywordModel);
 			}
 		} catch (NoSuchElementException p) {
 			keywordModel.error = true;
 			keywordModel.displayError = true;
-			ReportUtilities.Log(driver,"Cannot enter text on the object.", "The Element " + keywordModel.objectName
-					+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+			ReportUtilities.Log(
+					driver, "Cannot enter text on the object.", "The Element " + keywordModel.objectName
+							+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+					Status.FAIL, keywordModel);
 			throw new RuntimeException(p);
 		}
 	}
-
-
-
-
 
 //	/*Method does fills all mandatory info on DC_Individual screen for AP CV cases
 //	 */
@@ -2392,10 +2317,8 @@ public class KeywordLibrary extends WebDriverHelper {
 //			throw new RuntimeException(p);
 //		}
 //	}
-	
-	
-	
-	public  void getDatafromRightPane(WebDriver driver, KeywordModel keywordModel) {
+
+	public void getDatafromRightPane(WebDriver driver, KeywordModel keywordModel) {
 		WebElement webElement = findElementByType(driver, keywordModel);
 		String elementValue = webElement.getText();
 		System.out.println(elementValue);
@@ -2408,13 +2331,13 @@ public class KeywordLibrary extends WebDriverHelper {
 
 		} else {
 			// System.out.println("Application or Case Number 1: " + elementValue);
-		sessionManager.add(keywordModel.dataValue, elementValue, keywordModel);
+			sessionManager.add(keywordModel.dataValue, elementValue, keywordModel);
 			// System.out.println("Element Text is : " + elementValue);
 		}
 
 	}
 
-	public  void enter_RandomZIP(WebDriver driver, KeywordModel keywordModel) {
+	public void enter_RandomZIP(WebDriver driver, KeywordModel keywordModel) {
 		try {
 			if (findElementByType(driver, keywordModel).isDisplayed()) {
 
@@ -2427,21 +2350,22 @@ public class KeywordLibrary extends WebDriverHelper {
 					builder.append(Chars.charAt(character));
 				}
 				findElementByType(driver, keywordModel).sendKeys(builder.toString());
-				ReportUtilities.Log(driver,"Entering text in the text box " + keywordModel.objectName, "Entered the text " + keywordModel.dataValue,
-						Status.PASS , keywordModel);
+				ReportUtilities.Log(driver, "Entering text in the text box " + keywordModel.objectName,
+						"Entered the text " + keywordModel.dataValue, Status.PASS, keywordModel);
 			}
 		} catch (NoSuchElementException p) {
 			keywordModel.error = true;
 			keywordModel.displayError = true;
-			ReportUtilities.Log(driver,"Cannot enter Data on the object.",
-					"The Element " + keywordModel.objectName + " is NOT displayed on the current screen" + keywordModel.ScreenName,
-					Status.FAIL , keywordModel);
+			ReportUtilities.Log(
+					driver, "Cannot enter Data on the object.", "The Element " + keywordModel.objectName
+							+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+					Status.FAIL, keywordModel);
 			throw new RuntimeException(p);
 		}
 
 	}
 
-	public  void EnterCurrentMonthDate(WebDriver driver, KeywordModel keywordModel) throws Exception {
+	public void EnterCurrentMonthDate(WebDriver driver, KeywordModel keywordModel) throws Exception {
 		String DD = keywordModel.dataValue;
 		if (keywordModel.dataValue.length() < 8) {
 			JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
@@ -2468,14 +2392,17 @@ public class KeywordLibrary extends WebDriverHelper {
 					if (keywordModel.dynaElement.isDisplayed()) {
 						keywordModel.dynaElement.clear();
 						keywordModel.dynaElement.sendKeys(MMDDYYYY);
-						ReportUtilities.Log(driver,"Entering CurrentMonth Date  in the text box, The Value is Pass :" + MMDDYYYY,
-								"Entered the Current Date+ " + MMDDYYYY, Status.PASS , keywordModel);
+						ReportUtilities.Log(driver,
+								"Entering CurrentMonth Date  in the text box, The Value is Pass :" + MMDDYYYY,
+								"Entered the Current Date+ " + MMDDYYYY, Status.PASS, keywordModel);
 					}
 				} catch (NoSuchElementException p) {
 					keywordModel.error = true;
 					keywordModel.displayError = true;
-					ReportUtilities.Log(driver,"Cannot enter data on the object.", "The Element " + keywordModel.objectName
-							+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+					ReportUtilities.Log(
+							driver, "Cannot enter data on the object.", "The Element " + keywordModel.objectName
+									+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+							Status.FAIL, keywordModel);
 					throw new RuntimeException(p);
 				}
 			} else {
@@ -2483,14 +2410,17 @@ public class KeywordLibrary extends WebDriverHelper {
 					if (findElementByType(driver, keywordModel).isDisplayed()) {
 						findElementByType(driver, keywordModel).clear();
 						findElementByType(driver, keywordModel).sendKeys(MMDDYYYY);
-						ReportUtilities.Log(driver,"Entering CurrentMonth in the text box,, The Value is Fail : " + MMDDYYYY,
-								"Entered the Current Date " + MMDDYYYY, Status.PASS , keywordModel);
+						ReportUtilities.Log(driver,
+								"Entering CurrentMonth in the text box,, The Value is Fail : " + MMDDYYYY,
+								"Entered the Current Date " + MMDDYYYY, Status.PASS, keywordModel);
 					}
 				} catch (NoSuchElementException p) {
 					keywordModel.error = true;
 					keywordModel.displayError = true;
-					ReportUtilities.Log(driver,"Cannot enter data on the object.", "The Element " + keywordModel.objectName
-							+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+					ReportUtilities.Log(
+							driver, "Cannot enter data on the object.", "The Element " + keywordModel.objectName
+									+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+							Status.FAIL, keywordModel);
 					throw new RuntimeException(p);
 				}
 			}
@@ -2502,14 +2432,17 @@ public class KeywordLibrary extends WebDriverHelper {
 						keywordModel.dynaElement.clear();
 						keywordModel.dynaElement.sendKeys(keywordModel.dataValue);
 						ReportUtilities.Log(driver,
-								"Entering CurrentMonth Date  in the text box, The Value is Pass :" + keywordModel.dataValue,
-								"Entered the Current Date+ " + keywordModel.dataValue, Status.PASS , keywordModel);
+								"Entering CurrentMonth Date  in the text box, The Value is Pass :"
+										+ keywordModel.dataValue,
+								"Entered the Current Date+ " + keywordModel.dataValue, Status.PASS, keywordModel);
 					}
 				} catch (NoSuchElementException p) {
 					keywordModel.error = true;
 					keywordModel.displayError = true;
-					ReportUtilities.Log(driver,"Cannot enter data on the object.", "The Element " + keywordModel.objectName
-							+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+					ReportUtilities.Log(
+							driver, "Cannot enter data on the object.", "The Element " + keywordModel.objectName
+									+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+							Status.FAIL, keywordModel);
 					throw new RuntimeException(p);
 				}
 			} else {
@@ -2518,21 +2451,24 @@ public class KeywordLibrary extends WebDriverHelper {
 
 						findElementByType(driver, keywordModel).clear();
 						findElementByType(driver, keywordModel).sendKeys(keywordModel.dataValue);
-						ReportUtilities.Log(driver,"Entering CurrentMonth in the text box,, The Value is Fail : " + keywordModel.dataValue,
-								"Entered the Current Date " + keywordModel.dataValue, Status.PASS , keywordModel);
+						ReportUtilities.Log(driver,
+								"Entering CurrentMonth in the text box,, The Value is Fail : " + keywordModel.dataValue,
+								"Entered the Current Date " + keywordModel.dataValue, Status.PASS, keywordModel);
 					}
 				} catch (NoSuchElementException p) {
 					keywordModel.error = true;
 					keywordModel.displayError = true;
-					ReportUtilities.Log(driver,"Cannot enter data on the object.", "The Element " + keywordModel.objectName
-							+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+					ReportUtilities.Log(
+							driver, "Cannot enter data on the object.", "The Element " + keywordModel.objectName
+									+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+							Status.FAIL, keywordModel);
 					throw new RuntimeException(p);
 				}
 			}
 		}
 	}
 
-	public  void EnterPriorMonthDate(WebDriver driver, KeywordModel keywordModel) throws Exception {
+	public void EnterPriorMonthDate(WebDriver driver, KeywordModel keywordModel) throws Exception {
 		String DD = keywordModel.dataValue;
 		if (keywordModel.dataValue.length() < 8) {
 			JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
@@ -2564,14 +2500,17 @@ public class KeywordLibrary extends WebDriverHelper {
 					if (keywordModel.dynaElement.isDisplayed()) {
 						keywordModel.dynaElement.clear();
 						keywordModel.dynaElement.sendKeys(MMDDYYYY);
-						ReportUtilities.Log(driver,"Entering PriorMonth Date  in the text box, The Value is Pass :" + MMDDYYYY,
-								"Entered the Current Date+ " + MMDDYYYY, Status.PASS , keywordModel);
+						ReportUtilities.Log(driver,
+								"Entering PriorMonth Date  in the text box, The Value is Pass :" + MMDDYYYY,
+								"Entered the Current Date+ " + MMDDYYYY, Status.PASS, keywordModel);
 					}
 				} catch (NoSuchElementException p) {
 					keywordModel.error = true;
 					keywordModel.displayError = true;
-					ReportUtilities.Log(driver,"Cannot enter data on the object.", "The Element " + keywordModel.objectName
-							+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+					ReportUtilities.Log(
+							driver, "Cannot enter data on the object.", "The Element " + keywordModel.objectName
+									+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+							Status.FAIL, keywordModel);
 					throw new RuntimeException(p);
 				}
 			} else {
@@ -2579,55 +2518,66 @@ public class KeywordLibrary extends WebDriverHelper {
 					if (findElementByType(driver, keywordModel).isDisplayed()) {
 						findElementByType(driver, keywordModel).clear();
 						findElementByType(driver, keywordModel).sendKeys(MMDDYYYY);
-						ReportUtilities.Log(driver,"Entering PriorMonth in the text box,, The Value is Fail : " + MMDDYYYY,
-								"Entered the Current Date " + MMDDYYYY, Status.PASS , keywordModel);
+						ReportUtilities.Log(driver,
+								"Entering PriorMonth in the text box,, The Value is Fail : " + MMDDYYYY,
+								"Entered the Current Date " + MMDDYYYY, Status.PASS, keywordModel);
 					}
 				} catch (NoSuchElementException p) {
 					keywordModel.error = true;
 					keywordModel.displayError = true;
-					ReportUtilities.Log(driver,"Cannot enter data on the object.", "The Element " + keywordModel.objectName
-							+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+					ReportUtilities.Log(
+							driver, "Cannot enter data on the object.", "The Element " + keywordModel.objectName
+									+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+							Status.FAIL, keywordModel);
 					throw new RuntimeException(p);
 				}
 			}
 		}
-		//		 else {
-		//			if (keywordModel.dynaElement != null) {
-		//				try {
-		//					if (keywordModel.dynaElement.isDisplayed()) {
-		//						keywordModel.dynaElement.clear();
-		//						keywordModel.dynaElement.sendKeys(keywordModel.dataValue);
-		//						ReportUtilities.Log(driver,"Entering PriorMonth Date  in the text box, The Value is Pass :" + keywordModel.dataValue,
-		//								"Entered the Current Date+ " + keywordModel.dataValue, Status.PASS , keywordModel);
-		//					}
-		//				} catch (NoSuchElementException p) {
-		//					keywordModel.error = true;
-		//					keywordModel.displayError = true;
-		//					ReportUtilities.Log(driver,"Cannot enter data on the object.", "The Element " + keywordModel.objectName
-		//							+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
-		//					throw new RuntimeException(p);
-		//				}
-		//			} else {
-		//				try {
-		//					if (findElementByType(driver, keywordModel).isDisplayed()) {
-		//						findElementByType(driver, keywordModel).clear();
-		//						findElementByType(driver, keywordModel).sendKeys(keywordModel.dataValue);
-		//						ReportUtilities.Log(driver,"Entering PriorMonth in the text box,, The Value is Fail : " + keywordModel.dataValue,
-		//								"Entered the Current Date " + keywordModel.dataValue, Status.PASS , keywordModel);
-		//					}
-		//				} catch (NoSuchElementException p) {
-		//					keywordModel.error = true;
-		//					keywordModel.displayError = true;
-		//					ReportUtilities.Log(driver,"Cannot enter data on the object.", "The Element " + keywordModel.objectName
-		//							+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
-		//					throw new RuntimeException(p);
-		//				}
-		//			}
-		//		}
+		// else {
+		// if (keywordModel.dynaElement != null) {
+		// try {
+		// if (keywordModel.dynaElement.isDisplayed()) {
+		// keywordModel.dynaElement.clear();
+		// keywordModel.dynaElement.sendKeys(keywordModel.dataValue);
+		// ReportUtilities.Log(driver,"Entering PriorMonth Date in the text box, The
+		// Value is Pass :" + keywordModel.dataValue,
+		// "Entered the Current Date+ " + keywordModel.dataValue, Status.PASS ,
+		// keywordModel);
+		// }
+		// } catch (NoSuchElementException p) {
+		// keywordModel.error = true;
+		// keywordModel.displayError = true;
+		// ReportUtilities.Log(driver,"Cannot enter data on the object.", "The Element "
+		// + keywordModel.objectName
+		// + " is NOT displayed on the current screen" + keywordModel.ScreenName,
+		// Status.FAIL , keywordModel);
+		// throw new RuntimeException(p);
+		// }
+		// } else {
+		// try {
+		// if (findElementByType(driver, keywordModel).isDisplayed()) {
+		// findElementByType(driver, keywordModel).clear();
+		// findElementByType(driver, keywordModel).sendKeys(keywordModel.dataValue);
+		// ReportUtilities.Log(driver,"Entering PriorMonth in the text box,, The Value
+		// is Fail : " + keywordModel.dataValue,
+		// "Entered the Current Date " + keywordModel.dataValue, Status.PASS ,
+		// keywordModel);
+		// }
+		// } catch (NoSuchElementException p) {
+		// keywordModel.error = true;
+		// keywordModel.displayError = true;
+		// ReportUtilities.Log(driver,"Cannot enter data on the object.", "The Element "
+		// + keywordModel.objectName
+		// + " is NOT displayed on the current screen" + keywordModel.ScreenName,
+		// Status.FAIL , keywordModel);
+		// throw new RuntimeException(p);
+		// }
+		// }
+		// }
 	}
 	// Database Validation Methods for Oregon
 
-	public  void EnterNextMonthDate(WebDriver driver, KeywordModel keywordModel) throws Exception {
+	public void EnterNextMonthDate(WebDriver driver, KeywordModel keywordModel) throws Exception {
 
 		String DD = keywordModel.dataValue;
 		if (keywordModel.dataValue.length() < 8 && !DD.equalsIgnoreCase("01")) {
@@ -2669,14 +2619,17 @@ public class KeywordLibrary extends WebDriverHelper {
 					if (keywordModel.dynaElement.isDisplayed()) {
 						keywordModel.dynaElement.clear();
 						keywordModel.dynaElement.sendKeys(MMDDYYYY);
-						ReportUtilities.Log(driver,"Entering NextMonth Date  in the text box, The Value is Pass :" + MMDDYYYY,
-								"Entered the Current Date+ " + MMDDYYYY, Status.PASS , keywordModel);
+						ReportUtilities.Log(driver,
+								"Entering NextMonth Date  in the text box, The Value is Pass :" + MMDDYYYY,
+								"Entered the Current Date+ " + MMDDYYYY, Status.PASS, keywordModel);
 					}
 				} catch (NoSuchElementException p) {
 					keywordModel.error = true;
 					keywordModel.displayError = true;
-					ReportUtilities.Log(driver,"Cannot enter data on the object.", "The Element " + keywordModel.objectName
-							+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+					ReportUtilities.Log(
+							driver, "Cannot enter data on the object.", "The Element " + keywordModel.objectName
+									+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+							Status.FAIL, keywordModel);
 					throw new RuntimeException(p);
 				}
 			} else {
@@ -2684,14 +2637,17 @@ public class KeywordLibrary extends WebDriverHelper {
 					if (findElementByType(driver, keywordModel).isDisplayed()) {
 						findElementByType(driver, keywordModel).clear();
 						findElementByType(driver, keywordModel).sendKeys(MMDDYYYY);
-						ReportUtilities.Log(driver,"Entering NextMonth Date in the text box,, The Value is Pass : " + MMDDYYYY,
-								"Entered the Current Date " + MMDDYYYY, Status.PASS , keywordModel);
+						ReportUtilities.Log(driver,
+								"Entering NextMonth Date in the text box,, The Value is Pass : " + MMDDYYYY,
+								"Entered the Current Date " + MMDDYYYY, Status.PASS, keywordModel);
 					}
 				} catch (NoSuchElementException p) {
 					keywordModel.error = true;
 					keywordModel.displayError = true;
-					ReportUtilities.Log(driver,"Cannot enter data on the object.", "The Element " + keywordModel.objectName
-							+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+					ReportUtilities.Log(
+							driver, "Cannot enter data on the object.", "The Element " + keywordModel.objectName
+									+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+							Status.FAIL, keywordModel);
 					throw new RuntimeException(p);
 				}
 			}
@@ -2727,14 +2683,17 @@ public class KeywordLibrary extends WebDriverHelper {
 					if (keywordModel.dynaElement.isDisplayed()) {
 						keywordModel.dynaElement.clear();
 						keywordModel.dynaElement.sendKeys(MMDDYYYY);
-						ReportUtilities.Log(driver,"Entering NextMonth Date  in the text box, The Value is Pass :" + MMDDYYYY,
-								"Entered the Current Date+ " + MMDDYYYY, Status.PASS , keywordModel);
+						ReportUtilities.Log(driver,
+								"Entering NextMonth Date  in the text box, The Value is Pass :" + MMDDYYYY,
+								"Entered the Current Date+ " + MMDDYYYY, Status.PASS, keywordModel);
 					}
 				} catch (NoSuchElementException p) {
 					keywordModel.error = true;
 					keywordModel.displayError = true;
-					ReportUtilities.Log(driver,"Cannot enter data on the object.", "The Element " + keywordModel.objectName
-							+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+					ReportUtilities.Log(
+							driver, "Cannot enter data on the object.", "The Element " + keywordModel.objectName
+									+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+							Status.FAIL, keywordModel);
 					throw new RuntimeException(p);
 				}
 			} else {
@@ -2742,14 +2701,17 @@ public class KeywordLibrary extends WebDriverHelper {
 					if (findElementByType(driver, keywordModel).isDisplayed()) {
 						findElementByType(driver, keywordModel).clear();
 						findElementByType(driver, keywordModel).sendKeys(MMDDYYYY);
-						ReportUtilities.Log(driver,"Entering NextMonth Date in the text box,, The Value is Pass : " + MMDDYYYY,
-								"Entered the Current Date " + MMDDYYYY, Status.PASS , keywordModel);
+						ReportUtilities.Log(driver,
+								"Entering NextMonth Date in the text box,, The Value is Pass : " + MMDDYYYY,
+								"Entered the Current Date " + MMDDYYYY, Status.PASS, keywordModel);
 					}
 				} catch (NoSuchElementException p) {
 					keywordModel.error = true;
 					keywordModel.displayError = true;
-					ReportUtilities.Log(driver,"Cannot enter data on the object.", "The Element " + keywordModel.objectName
-							+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+					ReportUtilities.Log(
+							driver, "Cannot enter data on the object.", "The Element " + keywordModel.objectName
+									+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+							Status.FAIL, keywordModel);
 					throw new RuntimeException(p);
 				}
 			}
@@ -2760,14 +2722,18 @@ public class KeywordLibrary extends WebDriverHelper {
 					if (keywordModel.dynaElement.isDisplayed()) {
 						keywordModel.dynaElement.clear();
 						keywordModel.dynaElement.sendKeys(keywordModel.dataValue);
-						ReportUtilities.Log(driver,"Entering NextMonth Date  in the text box, The Value is Pass :" + keywordModel.dataValue,
-								"Entered the Current Date+ " + keywordModel.dataValue, Status.PASS , keywordModel);
+						ReportUtilities.Log(driver,
+								"Entering NextMonth Date  in the text box, The Value is Pass :"
+										+ keywordModel.dataValue,
+								"Entered the Current Date+ " + keywordModel.dataValue, Status.PASS, keywordModel);
 					}
 				} catch (NoSuchElementException p) {
 					keywordModel.error = true;
 					keywordModel.displayError = true;
-					ReportUtilities.Log(driver,"Cannot enter data on the object.", "The Element " + keywordModel.objectName
-							+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+					ReportUtilities.Log(
+							driver, "Cannot enter data on the object.", "The Element " + keywordModel.objectName
+									+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+							Status.FAIL, keywordModel);
 					throw new RuntimeException(p);
 				}
 			} else {
@@ -2775,15 +2741,19 @@ public class KeywordLibrary extends WebDriverHelper {
 					if (findElementByType(driver, keywordModel).isDisplayed()) {
 						findElementByType(driver, keywordModel).clear();
 						findElementByType(driver, keywordModel).sendKeys(keywordModel.dataValue);
-						ReportUtilities.Log(driver,"Entering NextMonth Date in the text box,, The Value is Pass : " + keywordModel.dataValue,
-								"Entered the Current Date " + keywordModel.dataValue, Status.PASS , keywordModel);
+						ReportUtilities.Log(driver,
+								"Entering NextMonth Date in the text box,, The Value is Pass : "
+										+ keywordModel.dataValue,
+								"Entered the Current Date " + keywordModel.dataValue, Status.PASS, keywordModel);
 
 					}
 				} catch (NoSuchElementException p) {
 					keywordModel.error = true;
 					keywordModel.displayError = true;
-					ReportUtilities.Log(driver,"Cannot enter data on the object.", "The Element " + keywordModel.objectName
-							+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+					ReportUtilities.Log(
+							driver, "Cannot enter data on the object.", "The Element " + keywordModel.objectName
+									+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+							Status.FAIL, keywordModel);
 					throw new RuntimeException(p);
 				}
 			}
@@ -2818,22 +2788,26 @@ public class KeywordLibrary extends WebDriverHelper {
 //
 //	}
 
-	public  void ElementsCount(WebDriver driver, KeywordModel keywordModel) {
+	public void ElementsCount(WebDriver driver, KeywordModel keywordModel) {
 
 		if (findElementsByType(driver, keywordModel).size() != 0) {
 			List a = findElementsByType(driver, keywordModel);
 			sessionManager.add(keywordModel.dataValue, findElementsByType(driver, keywordModel).size(), keywordModel);
-			System.out.println("Session has : " + findElementsByType(driver, keywordModel).size() + "in Key: " + keywordModel.dataValue);
-			ReportUtilities.Log(driver,"Storing the data in session: ", Integer.toString(findElementsByType(driver, keywordModel).size()), Status.PASS , keywordModel);
+			System.out.println("Session has : " + findElementsByType(driver, keywordModel).size() + "in Key: "
+					+ keywordModel.dataValue);
+			ReportUtilities.Log(driver, "Storing the data in session: ",
+					Integer.toString(findElementsByType(driver, keywordModel).size()), Status.PASS, keywordModel);
 		} else {
 			sessionManager.add(keywordModel.dataValue, findElementsByType(driver, keywordModel).size(), keywordModel);
-			System.out.println("Session has : " + findElementsByType(driver, keywordModel).size() + "in Key: " + keywordModel.dataValue);
-			ReportUtilities.Log(driver,"Storing the data in session: ", Integer.toString(findElementsByType(driver, keywordModel).size()), Status.PASS , keywordModel);
+			System.out.println("Session has : " + findElementsByType(driver, keywordModel).size() + "in Key: "
+					+ keywordModel.dataValue);
+			ReportUtilities.Log(driver, "Storing the data in session: ",
+					Integer.toString(findElementsByType(driver, keywordModel).size()), Status.PASS, keywordModel);
 		}
 	}
 
-	/*Method Selects the date from the TT screen
-	 *creator : hariom sinha 557173
+	/*
+	 * Method Selects the date from the TT screen creator : hariom sinha 557173
 	 * 
 	 */
 //	public  void selectTT(WebDriver driver, KeywordModel keywordModel)
@@ -2862,81 +2836,74 @@ public class KeywordLibrary extends WebDriverHelper {
 //		}
 //	}
 
-	
-
-	/*Method Calculates the date with base date and offset as parameters and verifies the date with UI.
-	 * Business Use : Verifying RFI due date
-	 *creator : Ronak Shah 506096
+	/*
+	 * Method Calculates the date with base date and offset as parameters and
+	 * verifies the date with UI. Business Use : Verifying RFI due date creator :
+	 * Ronak Shah 506096
 	 * 
 	 */
-	public  void verifyDate(WebDriver driver, KeywordModel keywordModel) throws InterruptedException
-	{
+	public void verifyDate(WebDriver driver, KeywordModel keywordModel) throws InterruptedException {
 		int year = Integer.valueOf(KeywordUtilities.getValueFromConfigProperties("Year"));
 		int mm = Integer.valueOf(KeywordUtilities.getValueFromConfigProperties("Month"));
 		int dd = Integer.valueOf(KeywordUtilities.getValueFromConfigProperties("Date"));
 		int offset = Integer.valueOf(keywordModel.dataValue);
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 		Calendar c1 = Calendar.getInstance();
-		c1.set(year, mm , dd); // 1999 jan 20
+		c1.set(year, mm, dd); // 1999 jan 20
 
-		c1.add(Calendar.DATE,offset);   // or  Calendar.DAY_OF_MONTH which is a synonym
+		c1.add(Calendar.DATE, offset); // or Calendar.DAY_OF_MONTH which is a synonym
 
 		String finalDate = sdf.format(c1.getTime());
 		String date = findElementByType(driver, keywordModel).getText();
 		try {
 
-			if (finalDate.equals(date)) 
-			{
-				System.out.println("Verified date , The date on UI is :" + date + "Expected date is " +finalDate);	
-				ReportUtilities.Log(driver,"Verifying date, The Date on UI is :" + date,
-						"Expected date is Verified" + finalDate, Status.PASS , keywordModel);
+			if (finalDate.equals(date)) {
+				System.out.println("Verified date , The date on UI is :" + date + "Expected date is " + finalDate);
+				ReportUtilities.Log(driver, "Verifying date, The Date on UI is :" + date,
+						"Expected date is Verified" + finalDate, Status.PASS, keywordModel);
 			}
-		
-		
-		else 
-		{
-			System.out.println("Failed verfying date , The date on UI is :" + date + "Expected date is " +finalDate);
-			ReportUtilities.Log(driver,"Failed verfying date , The date selected is :" + date,
-					"Expected date is + " + finalDate, Status.FAIL , keywordModel);
-		storeEDMResult(driver, keywordModel);
+
+			else {
+				System.out
+						.println("Failed verfying date , The date on UI is :" + date + "Expected date is " + finalDate);
+				ReportUtilities.Log(driver, "Failed verfying date , The date selected is :" + date,
+						"Expected date is + " + finalDate, Status.FAIL, keywordModel);
+				storeEDMResult(driver, keywordModel);
+			}
+
 		}
-			
+
+		catch (Exception e) {
+			System.out.println("Failed verfying date , The date on UI is :" + date + "Expected date is " + finalDate
+					+ "Exception : " + e);
+			ReportUtilities.Log(driver, "Failed verfying date , The date selected is :" + date,
+					"Expected date is + " + finalDate, Status.FAIL, keywordModel);
+			driver.wait();
+		}
 	}
 
-		catch(Exception e)
-		{
-			System.out.println("Failed verfying date , The date on UI is :" + date + "Expected date is " +finalDate +"Exception : "+e);
-			ReportUtilities.Log(driver,"Failed verfying date , The date selected is :" + date,
-					"Expected date is + " + finalDate, Status.FAIL , keywordModel);
-		driver.wait();
-		}
-	}
-
-
-	/*Method Calculates the date with base date and offset as parameters and verifies the date with UI.
-	 * Offset is passed as an argument 
-	 * Business Use : Verifying RFI due date
-	 *creator : Ronak Shah 506096
+	/*
+	 * Method Calculates the date with base date and offset as parameters and
+	 * verifies the date with UI. Offset is passed as an argument Business Use :
+	 * Verifying RFI due date creator : Ronak Shah 506096
 	 * 
 	 */
-	public  String verifyAPRFIDate(String Offset, WebDriver driver, KeywordModel keywordModel)
-	{
+	public String verifyAPRFIDate(String Offset, WebDriver driver, KeywordModel keywordModel) {
 		int year = Integer.valueOf(KeywordUtilities.getValueFromConfigProperties("Year"));
 		int mm = Integer.valueOf(KeywordUtilities.getValueFromConfigProperties("Month"));
 		int dd = Integer.valueOf(KeywordUtilities.getValueFromConfigProperties("Date"));
 		int offset = Integer.valueOf(KeywordUtilities.getValueFromConfigProperties(Offset));
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 		Calendar c1 = Calendar.getInstance();
-		c1.set(year, mm , dd); // 1999 jan 20
+		c1.set(year, mm, dd); // 1999 jan 20
 
-		c1.add(Calendar.DATE,offset);   // or  Calendar.DAY_OF_MONTH which is a synonym
+		c1.add(Calendar.DATE, offset); // or Calendar.DAY_OF_MONTH which is a synonym
 
 		String finalDate = sdf.format(c1.getTime());
 
 		return finalDate;
 	}
-	
-	
+
 	public void verifyElementPartialText(WebDriver driver, KeywordModel keywordModel)
 
 	{
@@ -2949,22 +2916,25 @@ public class KeywordLibrary extends WebDriverHelper {
 						// System.out.println("Element Text: "+str1);
 						// System.out.println("Sheet data: "+str);
 						if (str1.contains(str.toLowerCase())) {
-							ReportUtilities.Log(driver,"Verifying the Text of the object " + keywordModel.objectName,
-									"The element " + keywordModel.objectName + " contains the text " + keywordModel.dataValue,
-									Status.PASS , keywordModel);
+							ReportUtilities.Log(driver, "Verifying the Text of the object " + keywordModel.objectName,
+									"The element " + keywordModel.objectName + " contains the text "
+											+ keywordModel.dataValue,
+									Status.PASS, keywordModel);
 						} else {
-							ReportUtilities.Log(driver,"Verifying the Text of the object " + keywordModel.objectName,
+							ReportUtilities.Log(driver, "Verifying the Text of the object " + keywordModel.objectName,
 									"The element " + keywordModel.objectName
-									+ " does not contain the text expected. Value found is : " + str1,
-									Status.FAIL , keywordModel);
+											+ " does not contain the text expected. Value found is : " + str1,
+									Status.FAIL, keywordModel);
 						}
 					}
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot Verify text of the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot Verify text of the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		} else {
@@ -2973,32 +2943,35 @@ public class KeywordLibrary extends WebDriverHelper {
 					if (keywordModel.checkBoolean.equalsIgnoreCase("")) {
 						String stri = findElementByType(driver, keywordModel).getText().toLowerCase();
 						if (stri.contains(str.toLowerCase())) {
-							ReportUtilities.Log(driver,"Verifying the Text of the object " + keywordModel.objectName,
-									"The element " + keywordModel.objectName + " contains the text " + keywordModel.dataValue,
-									Status.PASS , keywordModel);
+							ReportUtilities.Log(driver, "Verifying the Text of the object " + keywordModel.objectName,
+									"The element " + keywordModel.objectName + " contains the text "
+											+ keywordModel.dataValue,
+									Status.PASS, keywordModel);
 						} else {
-							ReportUtilities.Log(driver,"Verifying the Text of the object " + keywordModel.objectName,
+							ReportUtilities.Log(driver, "Verifying the Text of the object " + keywordModel.objectName,
 									"The element " + keywordModel.objectName
-									+ " does not contain the text expected. Value found is : " + stri,
-									Status.FAIL , keywordModel);
+											+ " does not contain the text expected. Value found is : " + stri,
+									Status.FAIL, keywordModel);
 						}
 					}
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot Verify text of the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot Verify text of the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		}
 	}
 
 	/**
-	 * Method Name : pollForElement Return Type: Nothing Description: This
-	 * method keeps polling until element is located.
+	 * Method Name : pollForElement Return Type: Nothing Description: This method
+	 * keeps polling until element is located.
 	 */
-	
+
 //	private   void selectMultipleCheckbox(List webElements, String[] value,WebDriver driver, KeywordModel keywordModel) {
 //		for (int index = 0; index < value.length; index++) {
 //			int elementIndex = Integer.parseInt(value[index]);
@@ -3008,13 +2981,13 @@ public class KeywordLibrary extends WebDriverHelper {
 //		ReportUtilities.Log(driver,"Selected multiple check box with index ", value.toString(), Status.PASS , keywordModel);
 //	}
 
-	
-	public void hover(WebDriver driver, KeywordModel keywordModel){
+	public void hover(WebDriver driver, KeywordModel keywordModel) {
 
 		Actions action = new Actions(driver);
 		action.moveToElement(findElementByType(driver, keywordModel)).build().perform();
 
-	} 
+	}
+
 	/**
 	 * Method Name: storeSessionData Return Type: Nothing Description: Stores the
 	 * session data for the given KeyInData value
@@ -3025,21 +2998,23 @@ public class KeywordLibrary extends WebDriverHelper {
 				WebElement webElement = findElementByType(driver, keywordModel);
 				String elementValue = webElement.getText();
 				// elementValue = elementValue.replace("/", "");
-			//	elementValue = elementValue.replace("Case: ", "").trim();
-			//	elementValue = elementValue.replace("Application: ", "").trim();
-				/*if (elementValue.contains("$")) {
-					elementValue=elementValue.replace("$","");// For Storing SSN from UI
-				}*/
-			sessionManager.add(keywordModel.dataValue, elementValue, keywordModel);
+				// elementValue = elementValue.replace("Case: ", "").trim();
+				// elementValue = elementValue.replace("Application: ", "").trim();
+				/*
+				 * if (elementValue.contains("$")) {
+				 * elementValue=elementValue.replace("$","");// For Storing SSN from UI }
+				 */
+				sessionManager.add(keywordModel.dataValue, elementValue, keywordModel);
 				System.out.println("Session has : " + elementValue + "in Key: " + keywordModel.dataValue);
-				ReportUtilities.Log(driver,"Storing the data in session: ", elementValue, Status.PASS , keywordModel);
+				ReportUtilities.Log(driver, "Storing the data in session: ", elementValue, Status.PASS, keywordModel);
 			}
 		} catch (NoSuchElementException p) {
 			keywordModel.error = true;
 			keywordModel.displayError = true;
-			ReportUtilities.Log(driver,"Cannot store data in session from the object.",
-					"The Element " + keywordModel.objectName + " is NOT displayed on the current screen" + keywordModel.ScreenName,
-					Status.FAIL , keywordModel);
+			ReportUtilities.Log(
+					driver, "Cannot store data in session from the object.", "The Element " + keywordModel.objectName
+							+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+					Status.FAIL, keywordModel);
 			throw new RuntimeException(p);
 		}
 	}
@@ -3048,7 +3023,7 @@ public class KeywordLibrary extends WebDriverHelper {
 	 * Method Name: storeNameInSessionData Return Type: Nothing Description: Stores
 	 * the session data for the given KeyInData value
 	 */
-	public   void storeNameInSessionData(WebDriver driver, KeywordModel keywordModel) {
+	public void storeNameInSessionData(WebDriver driver, KeywordModel keywordModel) {
 		try {
 			if (findElementByType(driver, keywordModel).isDisplayed()) {
 				WebElement webElement = findElementByType(driver, keywordModel);
@@ -3058,14 +3033,15 @@ public class KeywordLibrary extends WebDriverHelper {
 				System.out.println(FullName);
 				sessionManager.add(keywordModel.dataValue, FullName, keywordModel);
 				// System.out.println("Session has : "+elementValue);
-				ReportUtilities.Log(driver,"Storing the Name in session: ", FullName, Status.PASS , keywordModel);
+				ReportUtilities.Log(driver, "Storing the Name in session: ", FullName, Status.PASS, keywordModel);
 			}
 		} catch (NoSuchElementException p) {
 			keywordModel.error = true;
 			keywordModel.displayError = true;
-			ReportUtilities.Log(driver,"Cannot store data in session from the object.",
-					"The Element " + keywordModel.objectName + " is NOT displayed on the current screen" + keywordModel.ScreenName,
-					Status.FAIL , keywordModel);
+			ReportUtilities.Log(
+					driver, "Cannot store data in session from the object.", "The Element " + keywordModel.objectName
+							+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+					Status.FAIL, keywordModel);
 			throw new RuntimeException(p);
 		}
 	}
@@ -3073,20 +3049,20 @@ public class KeywordLibrary extends WebDriverHelper {
 	public void storeSheetDataInSession(WebDriver driver, KeywordModel keywordModel) {
 		System.out.println("Sheet has: " + keywordModel.dataValue);
 		sessionManager.add("temp", keywordModel.dataValue, keywordModel);
-		ReportUtilities.Log(driver,"Storing the data in session: ", keywordModel.dataValue, Status.PASS , keywordModel);
+		ReportUtilities.Log(driver, "Storing the data in session: ", keywordModel.dataValue, Status.PASS, keywordModel);
 	}
 
-	public   void storeOtherSheetDataInSession(WebDriver driver, KeywordModel keywordModel) {
+	public void storeOtherSheetDataInSession(WebDriver driver, KeywordModel keywordModel) {
 		System.out.println("Sheet has: " + keywordModel.dataValue);
 		sessionManager.add("tempValue", keywordModel.dataValue, keywordModel);
-		ReportUtilities.Log(driver,"Storing the data in session: ", keywordModel.dataValue, Status.PASS , keywordModel);
+		ReportUtilities.Log(driver, "Storing the data in session: ", keywordModel.dataValue, Status.PASS, keywordModel);
 		System.out.println("Storing " + keywordModel.dataValue + "In session key tempvalue");
 	}
 
-	public   void storeSheetDateInSession(WebDriver driver, KeywordModel keywordModel) {
+	public void storeSheetDateInSession(WebDriver driver, KeywordModel keywordModel) {
 		System.out.println("Sheet has: " + keywordModel.dataValue);
 		sessionManager.add("tempDate", keywordModel.dataValue, keywordModel);
-		ReportUtilities.Log(driver,"Storing the date in session: ", keywordModel.dataValue, Status.PASS , keywordModel);
+		ReportUtilities.Log(driver, "Storing the date in session: ", keywordModel.dataValue, Status.PASS, keywordModel);
 		System.out.println("Storing " + keywordModel.dataValue + "In session key tempvalue");
 	}
 
@@ -3095,22 +3071,24 @@ public class KeywordLibrary extends WebDriverHelper {
 	 * Stores the session data for the given KeyInData value which is Pre populated
 	 * on page Load, ie, has the text to be stored in its Value attribute.
 	 */
-	public   void storePrepopulatedSessionData(WebDriver driver, KeywordModel keywordModel) {
+	public void storePrepopulatedSessionData(WebDriver driver, KeywordModel keywordModel) {
 		if (keywordModel.dynaElement != null) {
 			try {
 				if (keywordModel.dynaElement.isDisplayed()) {
 					String elementValue = keywordModel.dynaElement.getAttribute("value");
 
 					elementValue = elementValue.replace("/", "");
-				sessionManager.add(keywordModel.dataValue, elementValue, keywordModel);
+					sessionManager.add(keywordModel.dataValue, elementValue, keywordModel);
 					System.out.println("Stored session data: " + elementValue);
-					ReportUtilities.Log(driver,"Storing the data in session: ", elementValue, Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Storing the data in session: ", elementValue, Status.PASS,
+							keywordModel);
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot store data in session from the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(driver, "Cannot store data in session from the object.", "The Element "
+						+ keywordModel.objectName + " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		}
@@ -3120,72 +3098,81 @@ public class KeywordLibrary extends WebDriverHelper {
 				if (findElementByType(driver, keywordModel).isDisplayed()) {
 					String elementValue = findElementByType(driver, keywordModel).getAttribute("value");
 					elementValue = elementValue.replace("/", "");
-				sessionManager.add(keywordModel.dataValue, elementValue, keywordModel);
+					sessionManager.add(keywordModel.dataValue, elementValue, keywordModel);
 					System.out.println("Stored session data: " + elementValue);
-					ReportUtilities.Log(driver,"Storing the data in session: ", elementValue, Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Storing the data in session: ", elementValue, Status.PASS,
+							keywordModel);
 				}
 			}
 
 			catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot store data in session from the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(driver, "Cannot store data in session from the object.", "The Element "
+						+ keywordModel.objectName + " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		}
 	}
 
-	public   void storePrepopulatedData(WebDriver driver, KeywordModel keywordModel) {
+	public void storePrepopulatedData(WebDriver driver, KeywordModel keywordModel) {
 		if (keywordModel.dynaElement != null) {
 			try {
 				if (keywordModel.dynaElement.isDisplayed()) {
 					String elementValue = keywordModel.dynaElement.getAttribute("value");
-				sessionManager.add(keywordModel.dataValue, elementValue, keywordModel);
+					sessionManager.add(keywordModel.dataValue, elementValue, keywordModel);
 					System.out.println("Stored session data: " + elementValue);
-					ReportUtilities.Log(driver,"Storing the data in session: ", elementValue, Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Storing the data in session: ", elementValue, Status.PASS,
+							keywordModel);
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot store data in session from the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(driver, "Cannot store data in session from the object.", "The Element "
+						+ keywordModel.objectName + " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		} else {
 			try {
 				if (findElementByType(driver, keywordModel).isDisplayed()) {
 					String elementValue = findElementByType(driver, keywordModel).getAttribute("value");
-				sessionManager.add(keywordModel.dataValue, elementValue, keywordModel);
+					sessionManager.add(keywordModel.dataValue, elementValue, keywordModel);
 					System.out.println("Stored session data: " + elementValue);
-					ReportUtilities.Log(driver,"Storing the data in session: ", elementValue, Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Storing the data in session: ", elementValue, Status.PASS,
+							keywordModel);
 				}
 			}
 
 			catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot store data in session from the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(driver, "Cannot store data in session from the object.", "The Element "
+						+ keywordModel.objectName + " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		}
 	}
-	
+
 	public void storeAttributeDataByValue(WebDriver driver, KeywordModel keywordModel) {
-		
+
 		if (keywordModel.dynaElement != null) {
 			try {
 				if (keywordModel.dynaElement.isDisplayed()) {
 					keywordModel.textByValue = keywordModel.dynaElement.getAttribute("value");
 					System.out.println("Stored data: " + keywordModel.textByValue);
-					ReportUtilities.Log(driver,"Storing the data : ", keywordModel.textByValue, Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Storing the data : ", keywordModel.textByValue, Status.PASS,
+							keywordModel);
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot store data from the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot store data from the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		} else {
@@ -3194,71 +3181,73 @@ public class KeywordLibrary extends WebDriverHelper {
 					keywordModel.textByValue = findElementByType(driver, keywordModel).getAttribute("value");
 					sessionManager.add(keywordModel.dataValue, keywordModel.textByValue, keywordModel);
 					System.out.println("Stored data: " + keywordModel.textByValue);
-					ReportUtilities.Log(driver,"Storing the data in session: ", keywordModel.textByValue, Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Storing the data in session: ", keywordModel.textByValue, Status.PASS,
+							keywordModel);
 				}
 			}
 
 			catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot store data from the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot store data from the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		}
 	}
-	
+
 	public void verifyDynamicText(WebDriver driver, KeywordModel keywordModel) {
 		String webDynaText = null;
 		String expText = null;
 		String sessionVar = null;
 		String DynaText = null;
-		String[] textArray =null;
-		textArray = keywordModel.dataValue.split(":"); 
-		for (int i=0;i<textArray.length;i++)
-		{
-			sessionVar = "session:"+textArray[0];
+		String[] textArray = null;
+		textArray = keywordModel.dataValue.split(":");
+		for (int i = 0; i < textArray.length; i++) {
+			sessionVar = "session:" + textArray[0];
 		}
 		if (keywordModel.dynaElement != null) {
 			try {
 				if (keywordModel.dynaElement.isDisplayed()) {
 					webDynaText = keywordModel.dynaElement.getText();
-					if(!keywordModel.dataValue.isEmpty() && keywordModel.dataValue.contains("session:"))
-					{
+					if (!keywordModel.dataValue.isEmpty() && keywordModel.dataValue.contains("session:")) {
 						DynaText = verifyAndAssignDataValue(sessionVar, keywordModel);
 						expText = keywordModel.dataValue.replaceAll(sessionVar, DynaText);
-						if(expText.equalsIgnoreCase(webDynaText))
-						{
+						if (expText.equalsIgnoreCase(webDynaText)) {
 							System.out.println("Dynamic text validation is passed " + expText);
-							ReportUtilities.Log(driver,"Dynamic text validation is passed for object " + keywordModel.objectName,
-									"Expected text is "+expText +" Actual text is "+ webDynaText,Status.PASS , keywordModel);
+							ReportUtilities.Log(driver,
+									"Dynamic text validation is passed for object " + keywordModel.objectName,
+									"Expected text is " + expText + " Actual text is " + webDynaText, Status.PASS,
+									keywordModel);
 						}
-						
+
 					}
-					
+
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Dynamic text validation is failed for object " + keywordModel.objectName,
-						"Expected text is "+expText +" Actual text is "+ webDynaText,Status.FAIL , keywordModel);
+				ReportUtilities.Log(driver, "Dynamic text validation is failed for object " + keywordModel.objectName,
+						"Expected text is " + expText + " Actual text is " + webDynaText, Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		} else {
 			try {
 				if (findElementByType(driver, keywordModel).isDisplayed()) {
 					webDynaText = findElementByType(driver, keywordModel).getText();
-					if(!keywordModel.dataValue.isEmpty() && keywordModel.dataValue.contains("session:"))
-					{
+					if (!keywordModel.dataValue.isEmpty() && keywordModel.dataValue.contains("session:")) {
 						DynaText = verifyAndAssignDataValue(sessionVar, keywordModel);
 						expText = keywordModel.dataValue.replaceAll(sessionVar, DynaText);
-						if(expText.equalsIgnoreCase(webDynaText))
-						{
+						if (expText.equalsIgnoreCase(webDynaText)) {
 							System.out.println("Dynamic text validation is passed " + expText);
-							ReportUtilities.Log(driver,"Dynamic text validation is passed for object " + keywordModel.objectName,
-									"Expected text is "+expText +" Actual text is "+ webDynaText,Status.PASS , keywordModel);
+							ReportUtilities.Log(driver,
+									"Dynamic text validation is passed for object " + keywordModel.objectName,
+									"Expected text is " + expText + " Actual text is " + webDynaText, Status.PASS,
+									keywordModel);
 						}
-						
+
 					}
 				}
 			}
@@ -3266,15 +3255,14 @@ public class KeywordLibrary extends WebDriverHelper {
 			catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Dynamic text validation is failed for object " + keywordModel.objectName,
-						"Expected text is "+expText +" Actual text is "+ webDynaText,Status.FAIL , keywordModel);
+				ReportUtilities.Log(driver, "Dynamic text validation is failed for object " + keywordModel.objectName,
+						"Expected text is " + expText + " Actual text is " + webDynaText, Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		}
 	}
-	
 
-	public   void storeSelectedDropdownValue(WebDriver driver, KeywordModel keywordModel) {
+	public void storeSelectedDropdownValue(WebDriver driver, KeywordModel keywordModel) {
 		if (keywordModel.dynaElement != null) {
 			try {
 				if (keywordModel.dynaElement.isDisplayed()) {
@@ -3284,13 +3272,15 @@ public class KeywordLibrary extends WebDriverHelper {
 					System.out.println("DD value: " + defaultItem);
 					sessionManager.add(keywordModel.dataValue, defaultItem, keywordModel);
 					System.out.println("Stored session data: " + defaultItem);
-					ReportUtilities.Log(driver,"Storing the data in session: ", defaultItem, Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Storing the data in session: ", defaultItem, Status.PASS,
+							keywordModel);
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot store data in session from the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(driver, "Cannot store data in session from the object.", "The Element "
+						+ keywordModel.objectName + " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		} else {
@@ -3302,56 +3292,61 @@ public class KeywordLibrary extends WebDriverHelper {
 					System.out.println("DD value: " + defaultItem);
 					sessionManager.add(keywordModel.dataValue, defaultItem, keywordModel);
 					System.out.println("Stored session data: " + defaultItem);
-					ReportUtilities.Log(driver,"Storing the data in session: ", defaultItem, Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Storing the data in session: ", defaultItem, Status.PASS,
+							keywordModel);
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot store data in session from the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(driver, "Cannot store data in session from the object.", "The Element "
+						+ keywordModel.objectName + " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		}
 
 	}
-	
+
 	/*
-	 * Verify if the data has to be retrieved from session or not and
-	 * return the data if it is in session else the value if it is not in session
+	 * Verify if the data has to be retrieved from session or not and return the
+	 * data if it is in session else the value if it is not in session
 	 */
-	public String verifyAndAssignDataValue(String elementData ,KeywordModel keywordModel){
-		if(elementData.startsWith("session:")){
-			String key =  elementData.split(":")[1];
-			Object obj = sessionManager.get(key,keywordModel);
+	public String verifyAndAssignDataValue(String elementData, KeywordModel keywordModel) {
+		if (elementData.startsWith("session:")) {
+			String key = elementData.split(":")[1];
+			Object obj = sessionManager.get(key, keywordModel);
 			return (obj == null) ? "" : obj.toString();
-		}else{
+		} else {
 			return elementData;
 		}
 	}
-	
 
 	/**
-	 * Method Name: clicks on different cases for multiple individuals on case-summary page Return Type: Nothing Description:
-	 * @throws InterruptedException 
+	 * Method Name: clicks on different cases for multiple individuals on
+	 * case-summary page Return Type: Nothing Description:
+	 * 
+	 * @throws InterruptedException
 	 */
-
 
 	/**
 	 * Method Name: storeSessionData and Compare Return Type: Nothing Description:
 	 * Stores the session data for the given KeyInData value
 	 */
-	public   void storeSessionDataAndCompare(WebDriver driver, KeywordModel keywordModel) {
+	public void storeSessionDataAndCompare(WebDriver driver, KeywordModel keywordModel) {
 		WebElement webElement = findElementByType(driver, keywordModel);
 		String elementValue = webElement.getText();
 		if ((elementValue).equals(keywordModel.sessionid)) {
-			ReportUtilities.Log(driver,"Verifying the Selected Value of the object " + keywordModel.objectName,
-					"The selected value for " + keywordModel.objectName + " is " + keywordModel.dataValue, Status.PASS , keywordModel);
+			ReportUtilities.Log(driver, "Verifying the Selected Value of the object " + keywordModel.objectName,
+					"The selected value for " + keywordModel.objectName + " is " + keywordModel.dataValue, Status.PASS,
+					keywordModel);
 		} else if ((elementValue).equals(keywordModel.applicationNumber)) {
-			ReportUtilities.Log(driver,"Verifying the Selected Value of the object " + keywordModel.objectName,
-					"The selected value for " + keywordModel.objectName + " is " + keywordModel.dataValue, Status.PASS , keywordModel);
+			ReportUtilities.Log(driver, "Verifying the Selected Value of the object " + keywordModel.objectName,
+					"The selected value for " + keywordModel.objectName + " is " + keywordModel.dataValue, Status.PASS,
+					keywordModel);
 		} else {
-			ReportUtilities.Log(driver,"Verifying the Selected Value of the object " + keywordModel.objectName,
-					"The selected value for " + keywordModel.objectName + " is not " + keywordModel.dataValue, Status.FAIL , keywordModel);
+			ReportUtilities.Log(driver, "Verifying the Selected Value of the object " + keywordModel.objectName,
+					"The selected value for " + keywordModel.objectName + " is not " + keywordModel.dataValue,
+					Status.FAIL, keywordModel);
 		}
 	}
 
@@ -3388,24 +3383,22 @@ public class KeywordLibrary extends WebDriverHelper {
 //		enter_text();
 //	}
 
-	private   int getSSN(int length,WebDriver driver, KeywordModel keywordModel) {
+	private int getSSN(int length, WebDriver driver, KeywordModel keywordModel) {
 		if (length == 3) {
 			return getRandomNum(100, 999, driver, keywordModel);
 		} else if (length == 2) {
 			return getRandomNum(10, 99, driver, keywordModel);
 		} else if (length == 4) {
 			return getRandomNum(1000, 9999, driver, keywordModel);
-		} 
+		}
 		return 0;
 	}
 
-	private   int generateNum(int x,WebDriver driver, KeywordModel keywordModel) {
+	private int generateNum(int x, WebDriver driver, KeywordModel keywordModel) {
 		return getRandomNum(1, x, driver, keywordModel);
 	}
 
-	
-
-	private   int getRandomNum(int aStart, int aEnd,WebDriver driver, KeywordModel keywordModel) {
+	private int getRandomNum(int aStart, int aEnd, WebDriver driver, KeywordModel keywordModel) {
 		if (aStart > aEnd) {
 			throw new IllegalArgumentException("Start cannot exceed End value for SSN range.");
 		}
@@ -3425,19 +3418,20 @@ public class KeywordLibrary extends WebDriverHelper {
 	 * method verifies for the selected value in the drop down
 	 */
 
-	public   void verifySelectedValue(WebDriver driver, KeywordModel keywordModel) {
+	public void verifySelectedValue(WebDriver driver, KeywordModel keywordModel) {
 		Select selectBox = new Select(findElementByType(driver, keywordModel));
 		WebElement selectedValue = selectBox.getFirstSelectedOption();
 		if ((keywordModel.dataValue).equals(selectedValue.getText())) {
-			ReportUtilities.Log(driver,"Verifying the Selected Value of the object " + keywordModel.objectName,
-					"The selected value for " + keywordModel.objectName + " is " + keywordModel.dataValue, Status.PASS , keywordModel);
+			ReportUtilities.Log(driver, "Verifying the Selected Value of the object " + keywordModel.objectName,
+					"The selected value for " + keywordModel.objectName + " is " + keywordModel.dataValue, Status.PASS,
+					keywordModel);
 		} else {
-			ReportUtilities.Log(driver,"Verifying the Selected Value of the object " + keywordModel.objectName,
-					"The selected value for " + keywordModel.objectName + " is not " + keywordModel.dataValue, Status.FAIL , keywordModel);
+			ReportUtilities.Log(driver, "Verifying the Selected Value of the object " + keywordModel.objectName,
+					"The selected value for " + keywordModel.objectName + " is not " + keywordModel.dataValue,
+					Status.FAIL, keywordModel);
 		}
 	}
 
-	
 	/**
 	 * Method Name: enterSystemDate Return Type: Nothing Description: Auto generates
 	 * Day, Month, Year based on user inputs in the TestData tab. If the
@@ -3453,14 +3447,14 @@ public class KeywordLibrary extends WebDriverHelper {
 //		enter_text();
 //	}
 
-
 	/**
 	 * Method Name : verifyMedicalEDM Return Type : Nothing Description : This
-	 * method is used to verify medical eligibility results on eligibility summary page 
-		 which takes medical edm records as locator and EDM's as datavalue
-	 * @throws InterruptedException 
-       */
-       
+	 * method is used to verify medical eligibility results on eligibility summary
+	 * page which takes medical edm records as locator and EDM's as datavalue
+	 * 
+	 * @throws InterruptedException
+	 */
+
 //       public void verifyMedicalEDM(WebDriver driver, KeywordModel keywordModel) throws InterruptedException 
 //       {
 //        String dataValue = keywordModel.dataValue;
@@ -3617,15 +3611,15 @@ public class KeywordLibrary extends WebDriverHelper {
 //
 //    }
 //       
-       
 
 	/**
-	 * Method Name : verifyAuthSummaryMedicalEDM Return Type : Nothing Description : This
-	 * method is used to verify medical eligibility results on authorization summary page 
- 		  which requires EDM's as datavalue
-     * @throws InterruptedException 
-        */
-        
+	 * Method Name : verifyAuthSummaryMedicalEDM Return Type : Nothing Description :
+	 * This method is used to verify medical eligibility results on authorization
+	 * summary page which requires EDM's as datavalue
+	 * 
+	 * @throws InterruptedException
+	 */
+
 //        public   void verifyAuthSummaryMedicalEDM(WebDriver driver, KeywordModel keywordModel) throws InterruptedException 
 //        {
 //         String dataValue = keywordModel.dataValue;
@@ -3794,13 +3788,6 @@ public class KeywordLibrary extends WebDriverHelper {
 //
 //     }
 
-      
-
-
-
-
-	
-	
 	/**
 	 * Method Name : clickDynaTableEditButton Return Type : Nothing Description :
 	 * This method is used to edit Specific row in the dyna table in the Summary
@@ -3813,27 +3800,20 @@ public class KeywordLibrary extends WebDriverHelper {
 		String newXpathString = xpathString.replaceAll("\\?", keywordModel.dataValue).split("xpath:")[1];
 		driver.findElement(By.xpath(newXpathString)).click();
 		findElementByType(driver, keywordModel).click();
-		ReportUtilities.Log(driver,"ClickDynaTableEditButton " + keywordModel.dataValue,
-				"Clicked on a DynaTableEditButton " + keywordModel.dataValue, Status.PASS , keywordModel);
+		ReportUtilities.Log(driver, "ClickDynaTableEditButton " + keywordModel.dataValue,
+				"Clicked on a DynaTableEditButton " + keywordModel.dataValue, Status.PASS, keywordModel);
 	}
 
-	
-	
-	
 	public void fetchjcount(WebDriver driver, KeywordModel keywordModel) {
 		keywordModel.jcount = Integer.parseInt(keywordModel.dataValue);
-		
+
 	}
-	
-	
-	
-	public void hideElement(WebDriver driver, KeywordModel keywordModel)
-	{
-	    WebElement element = findElementByType(driver, keywordModel);       
-	    ((JavascriptExecutor)driver).executeScript("arguments[0].style.visibility='hidden'", element);
+
+	public void hideElement(WebDriver driver, KeywordModel keywordModel) {
+		WebElement element = findElementByType(driver, keywordModel);
+		((JavascriptExecutor) driver).executeScript("arguments[0].style.visibility='hidden'", element);
 	}
-	
-	
+
 	/**
 	 * Method Name : clickNextFilingUnit Return Type : Nothing Description : This
 	 * method is used to edit Specific row in the search results of search screens.
@@ -3844,8 +3824,9 @@ public class KeywordLibrary extends WebDriverHelper {
 		String newXpathString = xpathString.replaceAll("\\?", keywordModel.dataValue).split("xpath:")[1];
 		int icon_size = driver.findElements(By.xpath(newXpathString)).size();
 		driver.findElements(By.xpath(newXpathString)).get(icon_size - 1).click();
-		ReportUtilities.Log(driver,"ClickButton " + keywordModel.dataValue,
-				"Clicked on a Filing Unit Next or Eligibility Determination Button " + keywordModel.dataValue, Status.PASS , keywordModel);
+		ReportUtilities.Log(driver, "ClickButton " + keywordModel.dataValue,
+				"Clicked on a Filing Unit Next or Eligibility Determination Button " + keywordModel.dataValue,
+				Status.PASS, keywordModel);
 	}
 
 	/**
@@ -3958,13 +3939,14 @@ public class KeywordLibrary extends WebDriverHelper {
 					driver.switchTo().window(currentWindowHandle);
 					// driver.close();
 				} catch (Exception e) {
-					keywordModel.logger.warning("Failed to give control to window with windowhandle:" + currentWindowHandle);
+					keywordModel.logger
+							.warning("Failed to give control to window with windowhandle:" + currentWindowHandle);
 					keywordModel.logger.warning(e.getMessage());
 				}
 			}
 		}
 
-		ReportUtilities.Log(driver,"Opened a new window", "", Status.PASS , keywordModel);
+		ReportUtilities.Log(driver, "Opened a new window", "", Status.PASS, keywordModel);
 	}
 
 	/**
@@ -3974,24 +3956,26 @@ public class KeywordLibrary extends WebDriverHelper {
 	public void handleAlertBox(WebDriver driver, KeywordModel keywordModel) {
 		String dataValue = keywordModel.dataValue;
 		Alert alert = driver.switchTo().alert();
-		ReportUtilities.Log(driver,"Alert Box Confirmation", "Expected Data :: " + dataValue, Status.PASS , keywordModel);
+		ReportUtilities.Log(driver, "Alert Box Confirmation", "Expected Data :: " + dataValue, Status.PASS,
+				keywordModel);
 		if (dataValue.equalsIgnoreCase("OK") || dataValue.equalsIgnoreCase("YES")) {
-			ReportUtilities.Log(driver,"Alert Box Confirmation", "Expected Data :: " + dataValue, Status.PASS , keywordModel);
+			ReportUtilities.Log(driver, "Alert Box Confirmation", "Expected Data :: " + dataValue, Status.PASS,
+					keywordModel);
 			alert.accept();
 		} else if (dataValue.equalsIgnoreCase("No") || dataValue.equalsIgnoreCase("Cancel")) {
-			ReportUtilities.Log(driver,"Validation of Dyna Table Data", "Expected Data :: " + dataValue, Status.PASS , keywordModel);
+			ReportUtilities.Log(driver, "Validation of Dyna Table Data", "Expected Data :: " + dataValue, Status.PASS,
+					keywordModel);
 			alert.dismiss();
 		} else {
-			ReportUtilities.Log(driver,"Validation of Dyna Table Data", "Expected Data :: " + dataValue, Status.FAIL , keywordModel);
+			ReportUtilities.Log(driver, "Validation of Dyna Table Data", "Expected Data :: " + dataValue, Status.FAIL,
+					keywordModel);
 		}
 	}
 
-
-
 	public void sendDownArrow(WebDriver driver, KeywordModel keywordModel) {
 		findElementByType(driver, keywordModel).sendKeys(Keys.ARROW_DOWN);
-		ReportUtilities.Log(driver,"Entering text in the text box " + keywordModel.objectName, "Entered the text " + keywordModel.dataValue,
-				Status.PASS , keywordModel);
+		ReportUtilities.Log(driver, "Entering text in the text box " + keywordModel.objectName,
+				"Entered the text " + keywordModel.dataValue, Status.PASS, keywordModel);
 	}
 
 	public void getUrl(WebDriver driver, KeywordModel keywordModel) {
@@ -4001,19 +3985,21 @@ public class KeywordLibrary extends WebDriverHelper {
 	public void retrieveSessionId(WebDriver driver, KeywordModel keywordModel) {
 		findElementByType(driver, keywordModel).clear();
 		findElementByType(driver, keywordModel).sendKeys(keywordModel.sessionid);
-		ReportUtilities.Log(driver,"Entering text in the text box " + keywordModel.objectName, "Entered the text " + keywordModel.sessionid, Status.PASS , keywordModel);
+		ReportUtilities.Log(driver, "Entering text in the text box " + keywordModel.objectName,
+				"Entered the text " + keywordModel.sessionid, Status.PASS, keywordModel);
 	}
 
 	public String fetchSessionId(WebDriver driver, KeywordModel keywordModel) {
-		ReportUtilities.Log(driver,"Returning the session ID " + keywordModel.objectName, "Returned the value " + keywordModel.sessionid, Status.PASS , keywordModel);
+		ReportUtilities.Log(driver, "Returning the session ID " + keywordModel.objectName,
+				"Returned the value " + keywordModel.sessionid, Status.PASS, keywordModel);
 		return keywordModel.sessionid;
 	}
 
 	public void retrieveApplicationNumber(WebDriver driver, KeywordModel keywordModel) {
 		findElementByType(driver, keywordModel).clear();
 		findElementByType(driver, keywordModel).sendKeys(keywordModel.applicationNumber);
-		ReportUtilities.Log(driver,"Entering text in the text box " + keywordModel.objectName, "Entered the text " + keywordModel.applicationNumber,
-				Status.PASS , keywordModel);
+		ReportUtilities.Log(driver, "Entering text in the text box " + keywordModel.objectName,
+				"Entered the text " + keywordModel.applicationNumber, Status.PASS, keywordModel);
 	}
 
 //	public void uploadFile(String dataValue,WebDriver driver, KeywordModel keywordModel) throws IOException {
@@ -4025,14 +4011,16 @@ public class KeywordLibrary extends WebDriverHelper {
 	 * Code for switching frames within same window
 	 */
 
-	public void switchToFrame(String dataValue,WebDriver driver, KeywordModel keywordModel) {
+	public void switchToFrame(String dataValue, WebDriver driver, KeywordModel keywordModel) {
 		driver.switchTo().frame(dataValue);
-		ReportUtilities.Log(driver,"Switch to Frame on Same window" + keywordModel.objectName, "Switched Frame", Status.PASS , keywordModel);
+		ReportUtilities.Log(driver, "Switch to Frame on Same window" + keywordModel.objectName, "Switched Frame",
+				Status.PASS, keywordModel);
 	}
 
 	public void switchToMainFrame(WebDriver driver, KeywordModel keywordModel) {
 		driver.switchTo().defaultContent();
-		ReportUtilities.Log(driver,"Switch to Frame on Same window" + keywordModel.objectName, "Switched Frame", Status.PASS , keywordModel);
+		ReportUtilities.Log(driver, "Switch to Frame on Same window" + keywordModel.objectName, "Switched Frame",
+				Status.PASS, keywordModel);
 	}
 
 //	public void verifyAndClick(WebDriver driver, KeywordModel keywordModel) {
@@ -4117,7 +4105,7 @@ public class KeywordLibrary extends WebDriverHelper {
 //
 //	}
 
-	public   void commit(WebDriver driver, KeywordModel keywordModel) throws SQLException {
+	public void commit(WebDriver driver, KeywordModel keywordModel) throws SQLException {
 		keywordModel.con.commit();
 	}
 
@@ -4133,9 +4121,9 @@ public class KeywordLibrary extends WebDriverHelper {
 //			e.printStackTrace();
 //		}
 //	}
-	
-	//created by Hariom Sinha 557173
-	//method to store the Framework Date in A Global Variable
+
+	// created by Hariom Sinha 557173
+	// method to store the Framework Date in A Global Variable
 //	public void getFrameWorkDate(WebDriver driver, KeywordModel keywordModel) throws SQLException, ParseException
 //	{
 //		String QueryKey = keywordModel.dataValue;
@@ -4164,42 +4152,41 @@ public class KeywordLibrary extends WebDriverHelper {
 //		
 //	}
 
+	// this method will pull the data value from the excel for MMIS Vaklidation and
+	// then it will
+	// saperate then for validations into Column Label and data
+	public void storeDBData(WebDriver driver, KeywordModel keywordModel) throws ParseException, InterruptedException {
 
-	//this method will pull the data value from the excel for MMIS Vaklidation and then it will 
-	//saperate then for validations into Column Label and data
-	public void storeDBData(WebDriver driver, KeywordModel keywordModel) throws ParseException, InterruptedException
-	{		
-		
-		//initialize MMIS table header and data Array everytime Data is Pushed form the Excel
-		keywordModel.DBTableLabel = new String[1000]; // for now the size is being taken as 10--we can change that based on Req.
+		// initialize MMIS table header and data Array everytime Data is Pushed form the
+		// Excel
+		keywordModel.DBTableLabel = new String[1000]; // for now the size is being taken as 10--we can change that based
+														// on Req.
 		keywordModel.DBTableData = new String[1000];
 		int count1 = 0, count2 = 0;
 
 		String data = keywordModel.dataValue;
-		//System.out.println(data);
+		// System.out.println(data);
 		String dataArray[] = data.split("\\|");
 		String dataRow[] = data.split("&");
 		keywordModel.numberOfRows = dataRow.length;
-		for(int i=0; i<dataArray.length; i++)
-		{
+		for (int i = 0; i < dataArray.length; i++) {
 			String tempData[] = dataArray[i].split("#");
-			//System.out.println(tempData[0]);
-			//System.out.println(tempData[1]);
+			// System.out.println(tempData[0]);
+			// System.out.println(tempData[1]);
 			keywordModel.DBTableLabel[count1] = tempData[0].trim();
 			keywordModel.DBTableData[count2] = tempData[1].trim();
 			count1++;
 			count2++;
 		}
 		keywordModel.DBExcelTableSize = count1;
-		
+
 //		//for debug purposes
 //		for(int i=0; i<count1; i++)
 //		{
 //			System.out.println(keywordModel.DBTableLabel[i]+" : "+keywordModel.DBTableData[i]);
 //		}
-		
-		
-		//handling Offset Values 
+
+		// handling Offset Values
 //		for ( int i= 0; i < dataArray.length; i++)
 //        {
 //               if(keywordModel.DBTableData[i].contains("Offset"))
@@ -4214,22 +4201,21 @@ public class KeywordLibrary extends WebDriverHelper {
 //               }
 //        }
 
-
-
 	}
 
 	/**
-	 * Method Name : fireQuery Return Type: Nothing Description : This
-	 * method fires the SQL select/update/delete query and returns the fetched results The query
+	 * Method Name : fireQuery Return Type: Nothing Description : This method fires
+	 * the SQL select/update/delete query and returns the fetched results The query
 	 * given in DB.properties has 3 kinds of place holders. This method replaces the
 	 * place holders with their respective values, and then fires the final query.
 	 * Place holders used are: 1. #text# : Used to replace
-	 * CaseNumber/ApplicationNumber/TTdate or Individual ID in the query. The given 3
-	 * variables will come from the methods getCasenumber(), getApplicationNumber()
-	 * and getIndividualID() 
+	 * CaseNumber/ApplicationNumber/TTdate or Individual ID in the query. The given
+	 * 3 variables will come from the methods getCasenumber(),
+	 * getApplicationNumber() and getIndividualID()
+	 * 
 	 * @throws Exception
 	 */
-	
+
 //	public void fireQuery(WebDriver driver, KeywordModel keywordModel) {
 //	
 //	String QueryKey = keywordModel.dataValue;
@@ -4309,23 +4295,22 @@ public class KeywordLibrary extends WebDriverHelper {
 //	}
 //	
 //	}
-	
+
 	/**
-	 * Method Name : validateDBData Return Type: Nothing Description : This
-	 * method fires the SQL select query and returns the fetched results The query
-	 * given in DB.properties has 3 kinds of place holders. This method replaces the
-	 * place holders with their respective values, and then fires the final query.
-	 * Place holders used are: 1. #text# : Used to replace
-	 * CaseNumber/ApplicationNumber or Individual ID in the query. The given 3
-	 * variables will come from the methods getCasenumber(), getApplicationNumber()
-	 * and getIndividualID() 2. &text& : Used to replace any Session data to the
-	 * query. It will replace &text& with the value of "text" as stored in the
-	 * session. 3. $text$ : Used to replace any Session data in the query, and then
-	 * finally replacing it with the equivalent code that is used in the DB.
-	 * Example: Gender has session value stored as Female. Female is getting stored
-	 * in DB as "F". The key-value Female = F should be stored in DBRef.properties.
-	 * Use $Gender$ in the query as given in DB.properties. It will replace %Gender%
-	 * with F in the final query.
+	 * Method Name : validateDBData Return Type: Nothing Description : This method
+	 * fires the SQL select query and returns the fetched results The query given in
+	 * DB.properties has 3 kinds of place holders. This method replaces the place
+	 * holders with their respective values, and then fires the final query. Place
+	 * holders used are: 1. #text# : Used to replace CaseNumber/ApplicationNumber or
+	 * Individual ID in the query. The given 3 variables will come from the methods
+	 * getCasenumber(), getApplicationNumber() and getIndividualID() 2. &text& :
+	 * Used to replace any Session data to the query. It will replace &text& with
+	 * the value of "text" as stored in the session. 3. $text$ : Used to replace any
+	 * Session data in the query, and then finally replacing it with the equivalent
+	 * code that is used in the DB. Example: Gender has session value stored as
+	 * Female. Female is getting stored in DB as "F". The key-value Female = F
+	 * should be stored in DBRef.properties. Use $Gender$ in the query as given in
+	 * DB.properties. It will replace %Gender% with F in the final query.
 	 * 
 	 * @throws Exception
 	 */
@@ -4368,7 +4353,7 @@ public class KeywordLibrary extends WebDriverHelper {
 //			e.printStackTrace();
 //		}
 //	}
-	
+
 //	public void apiMainTest(WebDriver driver, KeywordModel keywordModel) throws IOException {
 //		// TODO Auto-generated method stub
 //		
@@ -4427,8 +4412,6 @@ public class KeywordLibrary extends WebDriverHelper {
 //			e.printStackTrace();
 //		}
 //	}
-
-	
 
 //	public   void validateQueryResult(WebDriver driver, KeywordModel keywordModel) throws SQLException {
 //		String queryCount;
@@ -4501,12 +4484,13 @@ public class KeywordLibrary extends WebDriverHelper {
 		driver.switchTo().window(keywordModel.parentWindow);
 	}
 
-	public   void SwitchToWindowByTitle(WebDriver driver, KeywordModel keywordModel) {
+	public void SwitchToWindowByTitle(WebDriver driver, KeywordModel keywordModel) {
 		Set<String> tabs = (Set<String>) driver.getWindowHandles();
 
 		for (String tab : tabs) {
 			driver.switchTo().window(tab);
-			if ((!tab.equals(keywordModel.parentWindow)) && (driver.getTitle().equalsIgnoreCase(keywordModel.dataValue))) {
+			if ((!tab.equals(keywordModel.parentWindow))
+					&& (driver.getTitle().equalsIgnoreCase(keywordModel.dataValue))) {
 				driver.switchTo().window(tab);
 				break;
 			}
@@ -4517,12 +4501,14 @@ public class KeywordLibrary extends WebDriverHelper {
 		keywordModel.parentWindow = driver.getWindowHandle();
 	}
 
-	public   void VerifyURL(WebDriver driver, KeywordModel keywordModel) {
+	public void VerifyURL(WebDriver driver, KeywordModel keywordModel) {
 		String URL = driver.getCurrentUrl();
 		if (URL.trim().equalsIgnoreCase(keywordModel.dataValue)) {
-			ReportUtilities.Log(driver,"Verifying the URL of the window", "The URL is same as " + keywordModel.dataValue, Status.PASS , keywordModel);
+			ReportUtilities.Log(driver, "Verifying the URL of the window",
+					"The URL is same as " + keywordModel.dataValue, Status.PASS, keywordModel);
 		} else {
-			ReportUtilities.Log(driver,"Verifying the URL of the window", "The URL is not same as " + keywordModel.dataValue, Status.FAIL , keywordModel);
+			ReportUtilities.Log(driver, "Verifying the URL of the window",
+					"The URL is not same as " + keywordModel.dataValue, Status.FAIL, keywordModel);
 		}
 	}
 	/*
@@ -4600,16 +4586,17 @@ public class KeywordLibrary extends WebDriverHelper {
 
 	/* This function extracts PDF contents */
 
-	//	public    void ExtractPDF_ByDownloadUsingFunction() throws Exception
-	//	{
-	//		   ClickAndDownload();
-	//		   PDFManager pdfManager = new PDFManager();
-	//	       pdfManager.setFilePath("C:/Users/schenthamarakshan/Desktop/ND/test.pdf");
-	//	       String filePath = pdfManager.setFilePath("C:/Users/schenthamarakshan/AppData/Local/Temp/ControllerServletPDF.pdf");
-	//	       System.out.println(pdfManager.ToText(filePath)); 
-	//	       
-	//		
-	//	}
+	// public void ExtractPDF_ByDownloadUsingFunction() throws Exception
+	// {
+	// ClickAndDownload();
+	// PDFManager pdfManager = new PDFManager();
+	// pdfManager.setFilePath("C:/Users/schenthamarakshan/Desktop/ND/test.pdf");
+	// String filePath =
+	// pdfManager.setFilePath("C:/Users/schenthamarakshan/AppData/Local/Temp/ControllerServletPDF.pdf");
+	// System.out.println(pdfManager.ToText(filePath));
+	//
+	//
+	// }
 
 	/*
 	 * This function finds the URL of the file to be downloaded and downloads the
@@ -4686,71 +4673,82 @@ public class KeywordLibrary extends WebDriverHelper {
 //		return cookieStore;
 //	}
 
-	//	public    void validateNotice() throws Exception
-	//	{
-	//		
-	//		driver.findElement(By.xpath("//*[@id='buttonPreviewBottom']")).click();
-	//		Thread.sleep(45000);
-	//		//driver.close();
+	// public void validateNotice() throws Exception
+	// {
+	//
+	// driver.findElement(By.xpath("//*[@id='buttonPreviewBottom']")).click();
+	// Thread.sleep(45000);
+	// //driver.close();
 
-	//		PDFManager pdfManager = new PDFManager();
-	//	     String filePath = pdfManager.setFilePath("C:/AUT Framework/PDFDownloads/ControllerServletPDF");
-	//	       try {
-	//			String pdfToText = pdfManager.ToText(filePath);
-	//			if (pdfToText == null) {
-	//				               System.out.println("PDF to Text Conversion failed.");
-	//		    }
-	//			else {
-	//				               System.out.println("\nThe text parsed from the PDF Document....\n" + pdfToText);
-	//				               File fileNameSuccess = pdfManager.createAndWriteIntoOutputFile("NoticeRun", pdfToText);
-	//				               Boolean resultOfValidation = pdfManager.validate(pdfToText);
-	//				               
-	//				               if(resultOfValidation.TRUE){
-	//				            	   ReportUtilities.Log(driver,"The newly generated notice contains the value"+ KeywordUtilities.getData("Expected") , " Notice Validation Successful ", Status.PASS , keywordModel);
-	//				               }
-	//				               else if(resultOfValidation.FALSE){
-	//				            	   ReportUtilities.Log(driver,"The newly generated notice does not contain the value"+ KeywordUtilities.getData("Expected") , " Notice Validation Failure ", Status.FAIL , keywordModel);
-	//				               }
-	//				               
-	//			}
-	//		    pdfManager.deleteNotice();
-	//		} catch (IOException e) {
-	//			// TODO Auto-generated catch block
-	//			e.printStackTrace();
-	//		} 
-	//		
-	//	}
-	private   void WaitForPopup(WebDriver driver, KeywordModel keywordModel) {
+	// PDFManager pdfManager = new PDFManager();
+	// String filePath = pdfManager.setFilePath("C:/AUT
+	// Framework/PDFDownloads/ControllerServletPDF");
+	// try {
+	// String pdfToText = pdfManager.ToText(filePath);
+	// if (pdfToText == null) {
+	// System.out.println("PDF to Text Conversion failed.");
+	// }
+	// else {
+	// System.out.println("\nThe text parsed from the PDF Document....\n" +
+	// pdfToText);
+	// File fileNameSuccess = pdfManager.createAndWriteIntoOutputFile("NoticeRun",
+	// pdfToText);
+	// Boolean resultOfValidation = pdfManager.validate(pdfToText);
+	//
+	// if(resultOfValidation.TRUE){
+	// ReportUtilities.Log(driver,"The newly generated notice contains the value"+
+	// KeywordUtilities.getData("Expected") , " Notice Validation Successful ",
+	// Status.PASS , keywordModel);
+	// }
+	// else if(resultOfValidation.FALSE){
+	// ReportUtilities.Log(driver,"The newly generated notice does not contain the
+	// value"+ KeywordUtilities.getData("Expected") , " Notice Validation Failure ",
+	// Status.FAIL , keywordModel);
+	// }
+	//
+	// }
+	// pdfManager.deleteNotice();
+	// } catch (IOException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// }
+	//
+	// }
+	private void WaitForPopup(WebDriver driver, KeywordModel keywordModel) {
 		// TODO Auto-generated method stub
 
 	}
 
-	public   void PageRefresh(WebDriver driver, KeywordModel keywordModel) {
+	public void PageRefresh(WebDriver driver, KeywordModel keywordModel) {
 		if (keywordModel.dynaElement != null) {
 			try {
 
 				if (keywordModel.dynaElement.isDisplayed()) {
 					keywordModel.dynaElement.sendKeys(Keys.F5);
-					ReportUtilities.Log(driver,"Page has ", "been Refreshed ", Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Page has ", "been Refreshed ", Status.PASS, keywordModel);
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot perform action on the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot perform action on the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		} else {
 			try {
 				if (findElementByType(driver, keywordModel).isDisplayed()) {
 					findElementByType(driver, keywordModel).sendKeys(Keys.F5);
-					ReportUtilities.Log(driver,"Page has ", "been Refreshed ", Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Page has ", "been Refreshed ", Status.PASS, keywordModel);
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot perform action on the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot perform action on the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		}
@@ -4772,154 +4770,145 @@ public class KeywordLibrary extends WebDriverHelper {
 					keywordModel.dynaElement.click();
 					keywordModel.dynaElement.sendKeys(Keys.CONTROL + "a");
 					keywordModel.dynaElement.sendKeys(Keys.DELETE);
-				//	keywordModel.dynaElement.clear();
+					// keywordModel.dynaElement.clear();
 					Thread.sleep(500);
 					keywordModel.dynaElement.sendKeys(CurrentDate[0]);
-					ReportUtilities.Log(driver,"Entering Current Date in the text box " + CurrentDate[0],
-							"Entered the Current Date " + keywordModel.dataValue, Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Entering Current Date in the text box " + CurrentDate[0],
+							"Entered the Current Date " + keywordModel.dataValue, Status.PASS, keywordModel);
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot enter Current Date on the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot enter Current Date on the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
-		} else { 
+		} else {
 			try {
 				if (findElementByType(driver, keywordModel).isDisplayed()) {
 					findElementByType(driver, keywordModel).click();
 					findElementByType(driver, keywordModel).sendKeys(Keys.CONTROL + "a");
 					findElementByType(driver, keywordModel).sendKeys(Keys.DELETE);
-				//	findElementByType(driver, keywordModel).clear();
+					// findElementByType(driver, keywordModel).clear();
 					Thread.sleep(500);
-					
+
 					findElementByType(driver, keywordModel).sendKeys(CurrentDate[0]);
-					ReportUtilities.Log(driver,"Entering Current Date in the text box " + CurrentDate[0],
-							"Entered the Current Date " + keywordModel.dataValue, Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Entering Current Date in the text box " + CurrentDate[0],
+							"Entered the Current Date " + keywordModel.dataValue, Status.PASS, keywordModel);
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot enter Current Date on the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot enter Current Date on the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		}
 	}
 
-
-	public  void verifyEligEndDate(WebDriver driver, KeywordModel keywordModel) throws ParseException, InterruptedException
-	{
+	public void verifyEligEndDate(WebDriver driver, KeywordModel keywordModel)
+			throws ParseException, InterruptedException {
 		int year = Integer.valueOf(KeywordUtilities.getValueFromConfigProperties("Year"));
 		int mm = Integer.valueOf(KeywordUtilities.getValueFromConfigProperties("Month"));
 		int dd = Integer.valueOf(KeywordUtilities.getValueFromConfigProperties("Date"));
 		String date = findElementByType(driver, keywordModel).getText();
-		String finalDate="";
-		if (date.equalsIgnoreCase("Ongoing"))
-		{
-			if(keywordModel.dataValue.equalsIgnoreCase(date))
-			{
-				System.out.println("Verified date , The date on UI is :" + date + "Expected date is " +keywordModel.dataValue);
-				ReportUtilities.Log(driver,"Verifying date, The Date on UI is :" + date,
-							"Expected date is Verified" + keywordModel.dataValue, Status.PASS , keywordModel);
+		String finalDate = "";
+		if (date.equalsIgnoreCase("Ongoing")) {
+			if (keywordModel.dataValue.equalsIgnoreCase(date)) {
+				System.out.println(
+						"Verified date , The date on UI is :" + date + "Expected date is " + keywordModel.dataValue);
+				ReportUtilities.Log(driver, "Verifying date, The Date on UI is :" + date,
+						"Expected date is Verified" + keywordModel.dataValue, Status.PASS, keywordModel);
 			}
-			
-		}
-		else
-		{
-		try
-		{
-		int offset = Integer.valueOf(keywordModel.dataValue);
-		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-	    Calendar c1 = Calendar.getInstance();
-	    c1.set(year, mm , dd); // 1999 jan 20
-	    
-	    c1.add(Calendar.DATE,offset);   // or  Calendar.DAY_OF_MONTH which is a synonym
-	    c1.set(Calendar.DAY_OF_MONTH, c1.getActualMaximum(Calendar.DAY_OF_MONTH)); 
-		finalDate = sdf.format(c1.getTime());
-		System.out.println("End date is"+finalDate );
-		
-		
-			
-			if (finalDate.equals(date))
-		    {
-				System.out.println("Verified date , The date on UI is :" + date + "Expected date is " +finalDate);
-				ReportUtilities.Log(driver,"Verifying date, The Date on UI is :" + date,
-							"Expected date is Verified" + finalDate, Status.PASS , keywordModel);	
-		    }
-			
-			else
-			{
-			
-				System.out.println("The date on UI is not as expected :" + date + "Expected date is " +finalDate);
-				ReportUtilities.Log(driver,"Verifying date, The Date on UI is :" + date,
-								"Date is not as expected" + finalDate, Status.FAIL , keywordModel);	
-				storeEDMResult(driver, keywordModel);
-				//driver.wait();
+
+		} else {
+			try {
+				int offset = Integer.valueOf(keywordModel.dataValue);
+				SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+				Calendar c1 = Calendar.getInstance();
+				c1.set(year, mm, dd); // 1999 jan 20
+
+				c1.add(Calendar.DATE, offset); // or Calendar.DAY_OF_MONTH which is a synonym
+				c1.set(Calendar.DAY_OF_MONTH, c1.getActualMaximum(Calendar.DAY_OF_MONTH));
+				finalDate = sdf.format(c1.getTime());
+				System.out.println("End date is" + finalDate);
+
+				if (finalDate.equals(date)) {
+					System.out.println("Verified date , The date on UI is :" + date + "Expected date is " + finalDate);
+					ReportUtilities.Log(driver, "Verifying date, The Date on UI is :" + date,
+							"Expected date is Verified" + finalDate, Status.PASS, keywordModel);
+				}
+
+				else {
+
+					System.out.println("The date on UI is not as expected :" + date + "Expected date is " + finalDate);
+					ReportUtilities.Log(driver, "Verifying date, The Date on UI is :" + date,
+							"Date is not as expected" + finalDate, Status.FAIL, keywordModel);
+					storeEDMResult(driver, keywordModel);
+					// driver.wait();
+				}
 			}
-		}
-		
-       
-        catch(Exception e)
-        {
-        	System.out.println("Failed verfying date , The date on UI is :" + date + "Expected date is " +finalDate +"Exception : "+e);
-        	ReportUtilities.Log(driver,"Failed verfying date , The date selected is :" + date,
-					"Expected date is + " + finalDate, Status.FAIL , keywordModel);
-        	driver.wait();
-        }
+
+			catch (Exception e) {
+				System.out.println("Failed verfying date , The date on UI is :" + date + "Expected date is " + finalDate
+						+ "Exception : " + e);
+				ReportUtilities.Log(driver, "Failed verfying date , The date selected is :" + date,
+						"Expected date is + " + finalDate, Status.FAIL, keywordModel);
+				driver.wait();
+			}
 		}
 	}
 
-	/*Method Calculates the last date of the month using offset as parameters and verifies the Eligibility End date with UI.
-	 *creator : Ronak Shah 506096
+	/*
+	 * Method Calculates the last date of the month using offset as parameters and
+	 * verifies the Eligibility End date with UI. creator : Ronak Shah 506096
 	 * 
 	 */
-	public  String calMAEndDate(String Offset,WebDriver driver, KeywordModel keywordModel) throws ParseException
-	{
+	public String calMAEndDate(String Offset, WebDriver driver, KeywordModel keywordModel) throws ParseException {
 		String finalDate = "";
 		int year = Integer.valueOf(KeywordUtilities.getValueFromConfigProperties("Year"));
 		int mm = Integer.valueOf(KeywordUtilities.getValueFromConfigProperties("Month"));
 		int dd = Integer.valueOf(KeywordUtilities.getValueFromConfigProperties("Date"));
 		String temp = KeywordUtilities.getValueFromConfigProperties(Offset);
-		int offset=0;
-		if(temp.equalsIgnoreCase("Ongoing"))
-		{
+		int offset = 0;
+		if (temp.equalsIgnoreCase("Ongoing")) {
 			return temp;
 		}
 
-		else
-		{	
+		else {
 			try {
 				offset = Integer.valueOf(temp);
 				SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 				Calendar c1 = Calendar.getInstance();
-				c1.set(year, mm , dd); // 1999 jan 20
+				c1.set(year, mm, dd); // 1999 jan 20
 
-				c1.add(Calendar.DATE,offset);   // or  Calendar.DAY_OF_MONTH which is a synonym
-				c1.set(Calendar.DAY_OF_MONTH, c1.getActualMaximum(Calendar.DAY_OF_MONTH)); 
+				c1.add(Calendar.DATE, offset); // or Calendar.DAY_OF_MONTH which is a synonym
+				c1.set(Calendar.DAY_OF_MONTH, c1.getActualMaximum(Calendar.DAY_OF_MONTH));
 				finalDate = sdf.format(c1.getTime());
 
 			}
-		
-        catch(Exception e)
-        {
-        	ReportUtilities.Log(driver,"Failed Calculating MA date , The date calculated is :" + finalDate,
-					"Calculated date is + " + finalDate, Status.FAIL , keywordModel);
-        	
-        }
-		
-		return finalDate;
-	
+
+			catch (Exception e) {
+				ReportUtilities.Log(driver, "Failed Calculating MA date , The date calculated is :" + finalDate,
+						"Calculated date is + " + finalDate, Status.FAIL, keywordModel);
+
+			}
+
+			return finalDate;
+
 		}
 	}
 
-	/*Method Calculates the last date of the month using offset as parameters and verifies the Eligibility End date with UI.
-	 *creator : Ronak Shah 506096
+	/*
+	 * Method Calculates the last date of the month using offset as parameters and
+	 * verifies the Eligibility End date with UI. creator : Ronak Shah 506096
 	 * 
 	 */
-	public  String calMABeginDate(String Offset,WebDriver driver, KeywordModel keywordModel) throws ParseException
-	{
+	public String calMABeginDate(String Offset, WebDriver driver, KeywordModel keywordModel) throws ParseException {
 		int year = Integer.valueOf(KeywordUtilities.getValueFromConfigProperties("Year"));
 		int mm = Integer.valueOf(KeywordUtilities.getValueFromConfigProperties("Month"));
 		int dd = Integer.valueOf(KeywordUtilities.getValueFromConfigProperties("Date"));
@@ -4929,104 +4918,98 @@ public class KeywordLibrary extends WebDriverHelper {
 
 			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 			Calendar c1 = Calendar.getInstance();
-			c1.set(year, mm , dd); // 1999 jan 20
+			c1.set(year, mm, dd); // 1999 jan 20
 
-			c1.add(Calendar.DATE,offset);   // or  Calendar.DAY_OF_MONTH which is a synonym
-			c1.set(Calendar.DAY_OF_MONTH, c1.getActualMinimum(Calendar.DAY_OF_MONTH)); 
+			c1.add(Calendar.DATE, offset); // or Calendar.DAY_OF_MONTH which is a synonym
+			c1.set(Calendar.DAY_OF_MONTH, c1.getActualMinimum(Calendar.DAY_OF_MONTH));
 			finalDate = sdf.format(c1.getTime());
 
 		}
 
-		catch(Exception e)
-		{
-			ReportUtilities.Log(driver,"Failed Calculating MA date , The date calculated is :" + finalDate,
-					"Calculated date is + " + finalDate, Status.FAIL , keywordModel);
+		catch (Exception e) {
+			ReportUtilities.Log(driver, "Failed Calculating MA date , The date calculated is :" + finalDate,
+					"Calculated date is + " + finalDate, Status.FAIL, keywordModel);
 		}
 
 		return finalDate;
 	}
 
-
-	/*Method Calculates the date with base date and offset as parameters and enters the date to the field.
-	 *creator : Ronak Shah 506096
+	/*
+	 * Method Calculates the date with base date and offset as parameters and enters
+	 * the date to the field. creator : Ronak Shah 506096
 	 * 
 	 */
-	public  void enterDate(WebDriver driver, KeywordModel keywordModel) throws ParseException
-	{
+	public void enterDate(WebDriver driver, KeywordModel keywordModel) throws ParseException {
 		int year = Integer.valueOf(KeywordUtilities.getValueFromConfigProperties("Year"));
 		int mm = Integer.valueOf(KeywordUtilities.getValueFromConfigProperties("Month"));
 		int dd = Integer.valueOf(KeywordUtilities.getValueFromConfigProperties("Date"));
 		int offset = Integer.valueOf(keywordModel.dataValue);
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 		Calendar c1 = Calendar.getInstance();
-		c1.set(year, mm , dd); // 1999 jan 20
+		c1.set(year, mm, dd); // 1999 jan 20
 
-		c1.add(Calendar.DATE,offset);   // or  Calendar.DAY_OF_MONTH which is a synonym
+		c1.add(Calendar.DATE, offset); // or Calendar.DAY_OF_MONTH which is a synonym
 
 		String finalDate = sdf.format(c1.getTime());
-		
-		try 
-		{
-			if (findElementByType(driver, keywordModel).isDisplayed())
-			{
-			//	findElementByType(driver, keywordModel).click();
-			//	findElementByType(driver, keywordModel).sendKeys(Keys.CONTROL + "a");
-			//	findElementByType(driver, keywordModel).sendKeys(Keys.DELETE); 
+
+		try {
+			if (findElementByType(driver, keywordModel).isDisplayed()) {
+				// findElementByType(driver, keywordModel).click();
+				// findElementByType(driver, keywordModel).sendKeys(Keys.CONTROL + "a");
+				// findElementByType(driver, keywordModel).sendKeys(Keys.DELETE);
 				findElementByType(driver, keywordModel).clear();
 				findElementByType(driver, keywordModel).sendKeys(finalDate);
-				ReportUtilities.Log(driver,"Entering date, The Value selected is :" + finalDate,
-						"Entered the Date+ " + finalDate, Status.PASS , keywordModel);
+				ReportUtilities.Log(driver, "Entering date, The Value selected is :" + finalDate,
+						"Entered the Date+ " + finalDate, Status.PASS, keywordModel);
 			}
 		}
 
-		catch(Exception e)
-		{
-			System.out.println("Exception occured while entering date. Exception : "+e);
-			ReportUtilities.Log(driver,"Failed entering date , The Value selected is :" + finalDate,
-					"Date failed to get entered + " + finalDate, Status.FAIL , keywordModel);
+		catch (Exception e) {
+			System.out.println("Exception occured while entering date. Exception : " + e);
+			ReportUtilities.Log(driver, "Failed entering date , The Value selected is :" + finalDate,
+					"Date failed to get entered + " + finalDate, Status.FAIL, keywordModel);
 		}
 	}
-	
-	
 
-
-	/*Method Calculates the DOB using offset as parameters and enters in Individual screen.
-	 *creator : Ronak Shah 506096
+	/*
+	 * Method Calculates the DOB using offset as parameters and enters in Individual
+	 * screen. creator : Ronak Shah 506096
 	 * 
 	 */
-	public  void enterDOB(WebDriver driver, KeywordModel keywordModel) throws ParseException, InterruptedException
-	{
+	public void enterDOB(WebDriver driver, KeywordModel keywordModel) throws ParseException, InterruptedException {
 		int year = Integer.valueOf(KeywordUtilities.getValueFromConfigProperties("Year"));
 		int mm = Integer.valueOf(KeywordUtilities.getValueFromConfigProperties("Month"));
 		int dd = Integer.valueOf(KeywordUtilities.getValueFromConfigProperties("Date"));
 		int offset = Integer.valueOf(keywordModel.dataValue);
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 		Calendar c1 = Calendar.getInstance();
-		c1.set(year, mm , dd); // 1999 jan 20
+		c1.set(year, mm, dd); // 1999 jan 20
 
-		c1.add(Calendar.YEAR,offset);   // or  Calendar.DAY_OF_MONTH which is a synonym
+		c1.add(Calendar.YEAR, offset); // or Calendar.DAY_OF_MONTH which is a synonym
 
 		String finalDate = sdf.format(c1.getTime());
-		
+
 		if (keywordModel.dynaElement != null) {
 			try {
 				if (keywordModel.dynaElement.isDisplayed()) {
 					keywordModel.dynaElement.click();
 					System.out.println(keywordModel.dynaElement);
 					keywordModel.dynaElement.sendKeys(Keys.CONTROL + "a");
-					keywordModel.dynaElement.sendKeys(Keys.DELETE); 
-			//		keywordModel.dynaElement.clear();
+					keywordModel.dynaElement.sendKeys(Keys.DELETE);
+					// keywordModel.dynaElement.clear();
 					Thread.sleep(200);
 					keywordModel.dynaElement.sendKeys(finalDate);
 					Thread.sleep(200);
-					ReportUtilities.Log(driver,"Entering text in the text box " + keywordModel.objectName,
-							"Entered the text " + keywordModel.dataValue, Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Entering text in the text box " + keywordModel.objectName,
+							"Entered the text " + keywordModel.dataValue, Status.PASS, keywordModel);
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot enter text on the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot enter text on the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		} else {
@@ -5034,276 +5017,230 @@ public class KeywordLibrary extends WebDriverHelper {
 				if (findElementByType(driver, keywordModel).isDisplayed()) {
 					findElementByType(driver, keywordModel).click();
 					findElementByType(driver, keywordModel).sendKeys(Keys.CONTROL + "a");
-					findElementByType(driver, keywordModel).sendKeys(Keys.DELETE); 
+					findElementByType(driver, keywordModel).sendKeys(Keys.DELETE);
 					findElementByType(driver, keywordModel).clear();
-				//	Thread.sleep(200);
+					// Thread.sleep(200);
 					findElementByType(driver, keywordModel).sendKeys(finalDate);
 					Thread.sleep(500);
-					ReportUtilities.Log(driver,"Entering text in the text box " + keywordModel.objectName,
-							"Entered the text " + keywordModel.dataValue, Status.PASS , keywordModel);
+					ReportUtilities.Log(driver, "Entering text in the text box " + keywordModel.objectName,
+							"Entered the text " + keywordModel.dataValue, Status.PASS, keywordModel);
 				}
 			} catch (NoSuchElementException p) {
 				keywordModel.error = true;
 				keywordModel.displayError = true;
-				ReportUtilities.Log(driver,"Cannot enter text on the object.", "The Element " + keywordModel.objectName
-						+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+				ReportUtilities.Log(
+						driver, "Cannot enter text on the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
 				throw new RuntimeException(p);
 			}
 		}
 	}
 
-
-	/*Method Calculates the first date of the month using offset as parameters and verifies the Eligibility Begin date with UI.
-	 *creator : Ronak Shah 506096
+	/*
+	 * Method Calculates the first date of the month using offset as parameters and
+	 * verifies the Eligibility Begin date with UI. creator : Ronak Shah 506096
 	 */
-	public  void verifyEligBeginDate(WebDriver driver, KeywordModel keywordModel) throws ParseException, InterruptedException
-	{
+	public void verifyEligBeginDate(WebDriver driver, KeywordModel keywordModel)
+			throws ParseException, InterruptedException {
 		int year = Integer.valueOf(KeywordUtilities.getValueFromConfigProperties("Year"));
 		int mm = Integer.valueOf(KeywordUtilities.getValueFromConfigProperties("Month"));
 		int dd = Integer.valueOf(KeywordUtilities.getValueFromConfigProperties("Date"));
 		int offset = Integer.valueOf(keywordModel.dataValue);
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 		Calendar c1 = Calendar.getInstance();
-		c1.set(year, mm , dd); // 1999 jan 20
+		c1.set(year, mm, dd); // 1999 jan 20
 
-		c1.add(Calendar.DATE,offset);   // or  Calendar.DAY_OF_MONTH which is a synonym
-		c1.set(Calendar.DAY_OF_MONTH, c1.getActualMinimum(Calendar.DAY_OF_MONTH)); 
+		c1.add(Calendar.DATE, offset); // or Calendar.DAY_OF_MONTH which is a synonym
+		c1.set(Calendar.DAY_OF_MONTH, c1.getActualMinimum(Calendar.DAY_OF_MONTH));
 		String beginDate = sdf.format(c1.getTime());
-		System.out.println("Begin date is"+beginDate );
+		System.out.println("Begin date is" + beginDate);
 		String date = findElementByType(driver, keywordModel).getText();
 		try {
-			
-			if (beginDate.equals(date))
-			{
-				System.out.println("Verified date , The date on UI is :" + date + "Expected date is " +beginDate);		
-				ReportUtilities.Log(driver,"Verifying date, The Date on UI is :" + date,
-							"Begin date is Verified and is as expected" + beginDate, Status.PASS , keywordModel);	
-		
-			}
-			else
-			{
-				System.out.println("The date on UI is not as expected :" + date + "Expected date is " +beginDate);		
-				ReportUtilities.Log(driver,"Verifying date, The Date on UI is :" + date,
-							"Begin Date is not as expected" + beginDate, Status.FAIL , keywordModel);
+
+			if (beginDate.equals(date)) {
+				System.out.println("Verified date , The date on UI is :" + date + "Expected date is " + beginDate);
+				ReportUtilities.Log(driver, "Verifying date, The Date on UI is :" + date,
+						"Begin date is Verified and is as expected" + beginDate, Status.PASS, keywordModel);
+
+			} else {
+				System.out.println("The date on UI is not as expected :" + date + "Expected date is " + beginDate);
+				ReportUtilities.Log(driver, "Verifying date, The Date on UI is :" + date,
+						"Begin Date is not as expected" + beginDate, Status.FAIL, keywordModel);
 				storeEDMResult(driver, keywordModel);
-				//driver.wait();
-				
-			}	
-			
+				// driver.wait();
+
+			}
+
 		}
 
-		catch(Exception e)
-		{
-			System.out.println("Failed verfying date , The date on UI is :" + date + "Expected date is " +beginDate +"Exception : "+e);
-			ReportUtilities.Log(driver,"Failed verfying date , The date selected is :" + date,
-					"Expected date is + " + beginDate, Status.FAIL , keywordModel);
-        	driver.wait();
-        }
+		catch (Exception e) {
+			System.out.println("Failed verfying date , The date on UI is :" + date + "Expected date is " + beginDate
+					+ "Exception : " + e);
+			ReportUtilities.Log(driver, "Failed verfying date , The date selected is :" + date,
+					"Expected date is + " + beginDate, Status.FAIL, keywordModel);
+			driver.wait();
+		}
 	}
 
-
-
-
-	/*Method wait for Element ( Small Wait )
-	 *creator : hariom sinha 557173
+	/*
+	 * Method wait for Element ( Small Wait ) creator : hariom sinha 557173
 	 * 
 	 */
-	public  void smallWaitForElementPresent(WebDriver driver, KeywordModel keywordModel) throws InterruptedException
-	{
+	public void smallWaitForElementPresent(WebDriver driver, KeywordModel keywordModel) throws InterruptedException {
 		int counter = 0;
 
-
-		try
-		{
-			while (true)
-			{
+		try {
+			while (true) {
 				counter++;
 
-				try
-				{
+				try {
 					Thread.sleep(1000);
-					if(findElementByType(driver, keywordModel).isDisplayed())
-					{	 
-						if(findElementByType(driver, keywordModel).isEnabled())
-						{
+					if (findElementByType(driver, keywordModel).isDisplayed()) {
+						if (findElementByType(driver, keywordModel).isEnabled()) {
 							// Thread.sleep(10000);
-							System.out.println("Object found - Small Wait: "+keywordModel.objectName+" at "+counter);
-							ReportUtilities.Log(driver,"Small Wait for Element , Element found  :",
-									"Locating the element + " + keywordModel.objectName, Status.PASS , keywordModel);
+							System.out.println(
+									"Object found - Small Wait: " + keywordModel.objectName + " at " + counter);
+							ReportUtilities.Log(driver, "Small Wait for Element , Element found  :",
+									"Locating the element + " + keywordModel.objectName, Status.PASS, keywordModel);
 							break;
 						}
 					}
 				}
 
-				catch (Exception e)
-				{
-					System.out.println("Object not found - Small wait: "+keywordModel.objectName + "Retrying...");
+				catch (Exception e) {
+					System.out.println("Object not found - Small wait: " + keywordModel.objectName + "Retrying...");
 
 				}
 
-				if (counter >= 60)
-				{
-					System.out.println("Object not found  - Small wait: "+keywordModel.objectName);
+				if (counter >= 60) {
+					System.out.println("Object not found  - Small wait: " + keywordModel.objectName);
 
 					break;
 				}
 
-
 			}
 
-		}
-		catch(Exception e)
-		{
-			System.out.println("Object not found by small wait: "+keywordModel.objectName);
-			ReportUtilities.Log(driver,"Small Wait for Element , Element not found  :",
-					"Locating the element + " + keywordModel.objectName, Status.FAIL , keywordModel);
+		} catch (Exception e) {
+			System.out.println("Object not found by small wait: " + keywordModel.objectName);
+			ReportUtilities.Log(driver, "Small Wait for Element , Element not found  :",
+					"Locating the element + " + keywordModel.objectName, Status.FAIL, keywordModel);
 		}
 
 	}
 
-
-	/*Method wait for Element ( Small Wait )
-	 *creator : hariom sinha 557173
+	/*
+	 * Method wait for Element ( Small Wait ) creator : hariom sinha 557173
 	 * 
 	 */
-	public  void LongWaitForElementPresent(WebDriver driver, KeywordModel keywordModel) throws InterruptedException
-	{
+	public void LongWaitForElementPresent(WebDriver driver, KeywordModel keywordModel) throws InterruptedException {
 		int counter = 0;
 
-
-		try
-		{
-			while (true)
-			{
+		try {
+			while (true) {
 				counter++;
 
-				try
-				{
+				try {
 					Thread.sleep(30000);
-					if(findElementByType(driver, keywordModel).isDisplayed())
-					{
-						if(findElementByType(driver, keywordModel).isEnabled())
-						{
-							System.out.println("Object found - Long Wait: "+keywordModel.objectName+" at "+counter);
-							ReportUtilities.Log(driver,"Long Wait for Element , Element found  :",
-									"Locating the element + " + keywordModel.objectName, Status.PASS , keywordModel);
+					if (findElementByType(driver, keywordModel).isDisplayed()) {
+						if (findElementByType(driver, keywordModel).isEnabled()) {
+							System.out
+									.println("Object found - Long Wait: " + keywordModel.objectName + " at " + counter);
+							ReportUtilities.Log(driver, "Long Wait for Element , Element found  :",
+									"Locating the element + " + keywordModel.objectName, Status.PASS, keywordModel);
 							break;
 						}
 					}
 				}
 
-				catch (Exception e)
-				{
-					System.out.println("Object not found - Long Wait: "+keywordModel.objectName + "Retrying...");
+				catch (Exception e) {
+					System.out.println("Object not found - Long Wait: " + keywordModel.objectName + "Retrying...");
 
 				}
 
-				if (counter >= 24)
-				{
-					System.out.println("Object not found - Long Wait: "+keywordModel.objectName);
+				if (counter >= 24) {
+					System.out.println("Object not found - Long Wait: " + keywordModel.objectName);
 
 					break;
 				}
 
-
 			}
 
-		}
-		catch(Exception e)
-		{
-			System.out.println("Object not found by Long Wait : "+keywordModel.objectName);
-			ReportUtilities.Log(driver,"Long Wait for Element , Element found  :",
-					"Locating the element + " + keywordModel.objectName, Status.PASS , keywordModel);
+		} catch (Exception e) {
+			System.out.println("Object not found by Long Wait : " + keywordModel.objectName);
+			ReportUtilities.Log(driver, "Long Wait for Element , Element found  :",
+					"Locating the element + " + keywordModel.objectName, Status.PASS, keywordModel);
 		}
 
 	}
 
-	/*Method for  count Medical EDMs
-	 *creator : hariom sinha 557173
+	/*
+	 * Method for count Medical EDMs creator : hariom sinha 557173
 	 * 
 	 */
-	
-	public  void verifyCount(WebDriver driver, KeywordModel keywordModel) throws InterruptedException
-	{
+
+	public void verifyCount(WebDriver driver, KeywordModel keywordModel) throws InterruptedException {
 		int edm_count = findElementsByType(driver, keywordModel).size();
 		int datavalue = Integer.parseInt(keywordModel.dataValue);
-		try
-		{
+		try {
 
-			System.out.println("Total value on EDM are : "+edm_count);
-			ReportUtilities.Log(driver,"EDM Count Method , Total count fetched :",
-					"Count on EDM is + " + edm_count, Status.PASS , keywordModel);
+			System.out.println("Total value on EDM are : " + edm_count);
+			ReportUtilities.Log(driver, "EDM Count Method , Total count fetched :", "Count on EDM is + " + edm_count,
+					Status.PASS, keywordModel);
 
-			if(edm_count == datavalue)
-			{
+			if (edm_count == datavalue) {
 				System.out.println("Count value is validated successfully");
-				ReportUtilities.Log(driver,"EDM Count Method , All passed successfully :",
-						"Count on EDM is + " + edm_count, Status.PASS , keywordModel);
+				ReportUtilities.Log(driver, "EDM Count Method , All passed successfully :",
+						"Count on EDM is + " + edm_count, Status.PASS, keywordModel);
 
-			}
-			else
-			{
+			} else {
 				System.out.println("Count value did not matched");
-				ReportUtilities.Log(driver,"EDM Count Method , Failed  :",
-						"Count did not matched+ ", Status.FAIL , keywordModel);
+				ReportUtilities.Log(driver, "EDM Count Method , Failed  :", "Count did not matched+ ", Status.FAIL,
+						keywordModel);
 				storeEDMResult(driver, keywordModel);
-			
-				//driver.wait();
+
+				// driver.wait();
 			}
 
-
-
-
-		}
-		catch(Exception e)
-		{
-			ReportUtilities.Log(driver,"EDM Count Method failed , Total count fetched :",
-					"Count on EDM is + " + edm_count, Status.FAIL , keywordModel);
+		} catch (Exception e) {
+			ReportUtilities.Log(driver, "EDM Count Method failed , Total count fetched :",
+					"Count on EDM is + " + edm_count, Status.FAIL, keywordModel);
 			System.out.println("edm count failed!");
 			driver.wait();
 		}
 
-
 	}
 
-	/*Method  - Multiple Select
-	 *creator : hariom sinha 557173
+	/*
+	 * Method - Multiple Select creator : hariom sinha 557173
 	 * 
 	 */
 
-	public  void multipleSelect(WebDriver driver, KeywordModel keywordModel) 
-	{
+	public void multipleSelect(WebDriver driver, KeywordModel keywordModel) {
 
 		findElementByType(driver, keywordModel);
 		String select1 = keywordModel.inputXPath + "/option[1]";
 		String select2 = keywordModel.inputXPath + "/option[2]";
 
-		System.out.println("Hitting on multiple select"+select1);
-		System.out.println("Hitting on multiple Select"+select2);
+		System.out.println("Hitting on multiple select" + select1);
+		System.out.println("Hitting on multiple Select" + select2);
 
-
-		try
-		{
-
+		try {
 
 			WebElement element1 = driver.findElement(By.xpath(select1));
 			WebElement element2 = driver.findElement(By.xpath(select2));
 			Actions action = new Actions(driver);
 			action.keyDown(Keys.CONTROL).click(element1).click(element2).build().perform();
 
-
-			ReportUtilities.Log(driver,"Multiple checkboxes selection is ",
-					"Passed ", Status.PASS , keywordModel);
-		}
-		catch(Exception e)
-		{
-			ReportUtilities.Log(driver,"Multiple Select Failed , Unable to select :",
-					"FAILED ", Status.FAIL , keywordModel);
+			ReportUtilities.Log(driver, "Multiple checkboxes selection is ", "Passed ", Status.PASS, keywordModel);
+		} catch (Exception e) {
+			ReportUtilities.Log(driver, "Multiple Select Failed , Unable to select :", "FAILED ", Status.FAIL,
+					keywordModel);
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 //	public  void downloadAndRename(WebDriver driver, KeywordModel keywordModel) {
 //
 //			try {
@@ -5344,8 +5281,7 @@ public class KeywordLibrary extends WebDriverHelper {
 //				throw new RuntimeException(p);
 //			}		
 //	}
-	
-	
+
 //	public  void getPDFFile(WebDriver driver, KeywordModel keywordModel) {
 //		expected_co_pdf = co_destination + "Expected_CO/" + keywordModel.dataValue + ".pdf";
 //		
@@ -5368,7 +5304,7 @@ public class KeywordLibrary extends WebDriverHelper {
 //			return;
 //		}
 //	}
-	
+
 //	public void storeName(WebDriver driver, KeywordModel keywordModel){
 //			int indvCount = Integer.parseInt(keywordModel.dataValue);
 //			String extractedData = driver.findElement(By.xpath("(//div[contains(@class,'rpIndividualName')])["+indvCount+"]")).getText();
@@ -5378,12 +5314,11 @@ public class KeywordLibrary extends WebDriverHelper {
 //			System.out.println(firstName);
 //			System.out.println(lastName);
 //		}
-		
 
-		
-		//This method will fetch the SSN of Inds from Ui and Store them in a  class variable
-		//creator : hariom sinha , 557173
-		
+	// This method will fetch the SSN of Inds from Ui and Store them in a class
+	// variable
+	// creator : hariom sinha , 557173
+
 //		public  void storeSSNName(WebDriver driver, KeywordModel keywordModel){
 //			int indvCount = Integer.parseInt(keywordModel.dataValue);
 //			SSN = driver.findElement(By.xpath("(//div[contains(text(),'SSN')])["+indvCount+"]/following-sibling::div")).getText();
@@ -5399,40 +5334,42 @@ public class KeywordLibrary extends WebDriverHelper {
 //			System.out.println("application no : "+applicationNumber_AP);
 //		}
 
-		
-	
-			public  void FileUpload(WebDriver driver, KeywordModel keywordModel) throws Exception {
+	public void FileUpload(WebDriver driver, KeywordModel keywordModel) throws Exception {
 
+		WebElement chooseFileButton = findElementByType(driver, keywordModel);
+		new Actions(driver).click(chooseFileButton).perform();
 
-		          WebElement chooseFileButton = findElementByType(driver, keywordModel);
-		       	     new Actions(driver).click(chooseFileButton).perform();
+		Runtime.getRuntime().exec(keywordModel.homePath + "\\Resources\\" + keywordModel.dataValue);
 
-		       	  Runtime.getRuntime().exec(keywordModel.homePath+"\\Resources\\"+keywordModel.dataValue); 
-		     
-			}
-
+	}
 
 	/**********************************************************************************************************************************
-	 ***************************Application specific keywords begins from this section*************************************************
-	 ***************************Any generic keywords should be not included below this************************************************* 
-	 ***************************section and must be written above this section*********************************************************
+	 *************************** Application specific keywords begins from this
+	 * section************************************************* Any generic keywords
+	 * should be not included below
+	 * this************************************************* section and must be
+	 * written above this
+	 * section*********************************************************
 	 **********************************************************************************************************************************/
-			  /**
-		     * Method Name: initialiseEDMResult Return Type: Nothing Description: This method
-		     * calculates total no of EDM fields validated for case and stored as EDM size
-		     * @throws InterruptedException 
-		     */
+	/**
+	 * Method Name: initialiseEDMResult Return Type: Nothing Description: This
+	 * method calculates total no of EDM fields validated for case and stored as EDM
+	 * size
+	 * 
+	 * @throws InterruptedException
+	 */
 //
 //		    	public void initialiseEDMResult(WebDriver driver, KeywordModel keywordModel)
 //		    	{
 //		    		reusableFunctions.initialiseEDMResult(driver,keywordModel);
 //		    	}
-			
-			/**
-			 * Method Name: storeEDMResult Return Type: Nothing Description: This method
-			 * stores all the EDM validation failures
-			 * @throws InterruptedException 
-			 */
+
+	/**
+	 * Method Name: storeEDMResult Return Type: Nothing Description: This method
+	 * stores all the EDM validation failures
+	 * 
+	 * @throws InterruptedException
+	 */
 //			public void storeEDMResult(WebDriver driver, KeywordModel keywordModel) {
 //				
 //				for(int i=0;i<keywordModel.resultSize;i++)
@@ -5445,12 +5382,13 @@ public class KeywordLibrary extends WebDriverHelper {
 //					}
 //				}
 //			}
-			
-			/**
-			 * Method Name: retrieveEDMResult Return Type: Nothing Description: This method
-			 * retrieves all the EDM validation failures
-			 * @throws InterruptedException 
-			 */
+
+	/**
+	 * Method Name: retrieveEDMResult Return Type: Nothing Description: This method
+	 * retrieves all the EDM validation failures
+	 * 
+	 * @throws InterruptedException
+	 */
 //			public void retrieveEDMResult(WebDriver driver, KeywordModel keywordModel) throws InterruptedException {
 //				
 //				for(int i=0;i<keywordModel.resultSize;i++)
@@ -5611,39 +5549,39 @@ public class KeywordLibrary extends WebDriverHelper {
 //	        		}
 //	        	}
 //	        	
-			
-			public void calculateTT(WebDriver driver, KeywordModel keywordModel) throws ParseException
-			{
-				int year = Integer.valueOf(KeywordUtilities.getValueFromConfigProperties("Year"));
-				int mm = Integer.valueOf(KeywordUtilities.getValueFromConfigProperties("Month"));
-				int dd = Integer.valueOf(KeywordUtilities.getValueFromConfigProperties("Date"));
-				int offset = Integer.valueOf(keywordModel.dataValue);
-				SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-				Calendar c1 = Calendar.getInstance();
-				c1.set(year, mm , dd); // 1999 jan 20
 
-				c1.add(Calendar.DATE,offset);   // or  Calendar.DAY_OF_MONTH which is a synonym
+	public void calculateTT(WebDriver driver, KeywordModel keywordModel) throws ParseException {
+		int year = Integer.valueOf(KeywordUtilities.getValueFromConfigProperties("Year"));
+		int mm = Integer.valueOf(KeywordUtilities.getValueFromConfigProperties("Month"));
+		int dd = Integer.valueOf(KeywordUtilities.getValueFromConfigProperties("Date"));
+		int offset = Integer.valueOf(keywordModel.dataValue);
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+		Calendar c1 = Calendar.getInstance();
+		c1.set(year, mm, dd); // 1999 jan 20
 
-				String finalDate = sdf.format(c1.getTime());
+		c1.add(Calendar.DATE, offset); // or Calendar.DAY_OF_MONTH which is a synonym
 
-				String TTXpath = "//div[contains(text(),'" + finalDate + "')]/preceding-sibling::div[contains(@class,'30percent')]/input";
-				String TTNextXpath = "//div[contains(text(),'" + finalDate + "')]/following-sibling::div[contains(@class,'15percent')]//input";
+		String finalDate = sdf.format(c1.getTime());
 
-				try
-				{
-					driver.findElement(By.xpath(TTXpath)).click();
-					driver.findElement(By.xpath(TTNextXpath)).click();
-					ReportUtilities.Log(driver, "Selecting TT , The Value selected is :" + finalDate,
-							"Selected the TTDate+ " + finalDate, Status.PASS, keywordModel);
-				}
+		String TTXpath = "//div[contains(text(),'" + finalDate
+				+ "')]/preceding-sibling::div[contains(@class,'30percent')]/input";
+		String TTNextXpath = "//div[contains(text(),'" + finalDate
+				+ "')]/following-sibling::div[contains(@class,'15percent')]//input";
 
-				catch(Exception e)
-				{
-					//System.out.println("Exception occured while executing calculate TT. Exception : "+e);
-					ReportUtilities.Log(driver, "Failed calculating TT , The Value selected is :" + finalDate,
-							"TTDate failed to get selected + " + finalDate, Status.FAIL, keywordModel);
-				}
-			}
+		try {
+			driver.findElement(By.xpath(TTXpath)).click();
+			driver.findElement(By.xpath(TTNextXpath)).click();
+			ReportUtilities.Log(driver, "Selecting TT , The Value selected is :" + finalDate,
+					"Selected the TTDate+ " + finalDate, Status.PASS, keywordModel);
+		}
+
+		catch (Exception e) {
+			// System.out.println("Exception occured while executing calculate TT. Exception
+			// : "+e);
+			ReportUtilities.Log(driver, "Failed calculating TT , The Value selected is :" + finalDate,
+					"TTDate failed to get selected + " + finalDate, Status.FAIL, keywordModel);
+		}
+	}
 //	        	/**
 //	             * Method Name : verifyMedicalEDMDyna Return Type : Nothing Description : This
 //	             * method is used to verify medical eligibility results on eligibility summary page 
@@ -5671,166 +5609,157 @@ public class KeywordLibrary extends WebDriverHelper {
 //	               reusableFunctions.verifyMedicalEDMDyna(driver,keywordModel,indivEligibilityDetails,count);   
 //	          }
 //	             
-			
-			public void verifyMedicalEDMDyna(WebDriver driver, KeywordModel keywordModel) throws InterruptedException 
-	        {
-	         String dataValue = keywordModel.dataValue;
-	         String indivName = "";
-	         
-	         String[] indivEligibilityDetails = null;
-	         String status = "";
-	         String toa = "";
-	         String beginDt = "";
-	         String endDt = "";
-	         int num = 100;
-	        
-	         String[] indivDetail = null;
-	         
-	         String calBeginDate = "";
-	         String calEndDate = "";
-	         
-	         try
-	         {
-	             if (dataValue.contains(";"))
-	             {
-	                 indivEligibilityDetails = dataValue.split(";");
-	             }
-	             else
-	             {
-	                 indivEligibilityDetails = new String[1];
-	                 indivEligibilityDetails[0] = dataValue;
-	             }
 
-	            
-	             int count = findElementsByType(driver, keywordModel).size();
-	            
+	public void verifyMedicalEDMDyna(WebDriver driver, KeywordModel keywordModel) throws InterruptedException {
+		String dataValue = keywordModel.dataValue;
+		String indivName = "";
 
-	             int indSize = driver.findElements(By.xpath("//div[contains(@class,'rpIndividualName')]")).size();
+		String[] indivEligibilityDetails = null;
+		String status = "";
+		String toa = "";
+		String beginDt = "";
+		String endDt = "";
+		int num = 100;
 
+		String[] indivDetail = null;
 
-	             int[] temp = new int[count];
-	             for (int l = 0; l < count; l++)
-	             {
-	                 temp[l] = num;
-	                 num = num + 1;
-	             }
+		String calBeginDate = "";
+		String calEndDate = "";
 
-	             int x = 0;
-	             int j = 0;
-	           
-	             for (j = 1; j <= count; j++)
-	             {
+		try {
+			if (dataValue.contains(";")) {
+				indivEligibilityDetails = dataValue.split(";");
+			} else {
+				indivEligibilityDetails = new String[1];
+				indivEligibilityDetails[0] = dataValue;
+			}
 
-	                 indivName = driver.findElement(By.xpath("(//div[contains(@class,'MedicalGrid')]//div[4])[" + j + "]")).getText();
+			int count = findElementsByType(driver, keywordModel).size();
 
+			int indSize = driver.findElements(By.xpath("//div[contains(@class,'rpIndividualName')]")).size();
 
-	                 for (int k = 1; k <= indSize; k++)
-	                 {
-	                     String ind_name = driver.findElement(By.xpath("(//div[contains(@class,'rpIndividualName')])[" + k + "]")).getText();
+			int[] temp = new int[count];
+			for (int l = 0; l < count; l++) {
+				temp[l] = num;
+				num = num + 1;
+			}
 
-	                     if (ind_name.contains(indivName) /*&& indivDetail[0].Equals("Indiv"+k+"")*/)
-	                     {
-	                         x = j;
-	                         for (int i = 0, z = 0; i < count && z < temp.length; i++, z++)
-	                         {
-	                             indivDetail = indivEligibilityDetails[i].split("\\|");
+			int x = 0;
+			int j = 0;
 
-	                             if (indivDetail[0].equals("Indiv" + k + "") && temp[z] != i)
-	                             {
-	                                 temp[z] = i;
+			for (j = 1; j <= count; j++) {
 
-	                                 break;
-	                             }
-	                         }
-	                         break;
-	                     }
-	                  
+				indivName = driver.findElement(By.xpath("(//div[contains(@class,'MedicalGrid')]//div[4])[" + j + "]"))
+						.getText();
 
-	                 }
+				for (int k = 1; k <= indSize; k++) {
+					String ind_name = driver
+							.findElement(By.xpath("(//div[contains(@class,'rpIndividualName')])[" + k + "]")).getText();
 
-	                 
+					if (ind_name.contains(indivName) /* && indivDetail[0].Equals("Indiv"+k+"") */) {
+						x = j;
+						for (int i = 0, z = 0; i < count && z < temp.length; i++, z++) {
+							indivDetail = indivEligibilityDetails[i].split("\\|");
 
-	                 toa = driver.findElement(By.xpath("(//div[contains(@class,'MedicalGrid')]//div[3])[" + x + "]")).getText();
-	                
-	                 beginDt = driver.findElement(By.xpath("(//div[contains(@class,'MedicalGrid')]//div[5])[" + x + "]")).getText();
-	                
-	                 endDt = driver.findElement(By.xpath("(//div[contains(@class,'MedicalGrid')]//div[6])[" + x + "]")).getText();
-	                 
-	                 status = driver.findElement(By.xpath("(//div[contains(@class,'MedicalGrid')]//div[8])[" + x + "]")).getText();
-	                
-	                calBeginDate = calMABeginDate(indivDetail[3], driver, keywordModel);
-	                calEndDate = calMAEndDate(indivDetail[4], driver, keywordModel);
-	                 
-	                 if (status.equals(indivDetail[1]))
-	                 {
-	                     
-	                     System.out.println("Eligibility Status is as expected, Eligibility Status for record " + j +"is "+status);
-	                     ReportUtilities.Log(driver,"Verifying Status for record "+ j,"The eligibility Status are  as expected for record  " + j + " having text "  + status, Status.PASS,keywordModel);
-	                 }
-	                 else
-	                 {
-	                     
-	                     System.out.println("Eligibility Status is not as expected, Eligibility Status for record " + j + " on UI is "+status+"While expected Eligibility Status is"+indivDetail[1]);
-	                     ReportUtilities.Log(driver,"Verifying Status for record " + j, "The eligibility Status is not as expected for record  " + j + " having text on UI as " + status+"while expected status is"+ indivDetail[1], Status.FAIL,keywordModel);
-	                     storeEDMResult(driver, keywordModel);
-	                     //  driver.wait();
-	                 }
-	                 if (toa.equals(indivDetail[2]))
-	                 {
-	                     System.out.println("TOA, for the record " + j + " are as expected");
-	                     ReportUtilities.Log(driver,"Verifying TOA for record " + j, "The eligibility TOA are as expected for record  " + j + " having text " + toa, Status.PASS, keywordModel);
-	                 }
-	                 else
-	                 {
-	                    
-	                     System.out.println("TOA, for the record " + j + " has failed");
-	                     ReportUtilities.Log(driver,"Verifying TOA for record " + j,"The eligibility TOA are not as expected for record  [" + j + "]having text " + toa, Status.FAIL, keywordModel);
-	                     storeEDMResult(driver, keywordModel);
-	                    // driver.wait();
-	                 }
-	                 if (beginDt.equals(calBeginDate))
-	                 {
-	                    
-	                     System.out.println("Begin Date for the record " + j + " are as expected");
-	                     ReportUtilities.Log(driver,"Verifying Begin Date for record " + j,"The Begin Date are as expected for record  " + j + " having text " + beginDt, Status.PASS, keywordModel);
-	                    
-	                 }
-	                 else
-	                 {
-	                    
-	                     System.out.println("Begin Date for the record " + j + " has failed");
-	                     ReportUtilities.Log(driver,"Verifying Begin Date for record " + j, "The Begin Date are not as expected for record  " + j + " having text " + beginDt, Status.FAIL, keywordModel);
-	                     storeEDMResult(driver, keywordModel);
-	                     //driver.wait();
-	                 }
-	                 if (endDt.equals(calEndDate))
-	                 {
-	                     
-	                     System.out.println("End Date for the record " + j + " are as expected");
-	                     ReportUtilities.Log(driver,"Verifying End Date for record " + j, "The End Date are as expected for record  " + j + " having text " + endDt, Status.PASS,keywordModel);
-	                 }
-	                 else
-	                 {
-	                     
-	                     System.out.println(" End Date for the record " + j + " has failed");
-	                     ReportUtilities.Log(driver,"Verifying End Date for record " + j, "The End Date are not as expected for record  " + j + " having text " + endDt, Status.FAIL,keywordModel);
-	                     storeEDMResult(driver, keywordModel);
-	                    // driver.wait();
-	                 }
+							if (indivDetail[0].equals("Indiv" + k + "") && temp[z] != i) {
+								temp[z] = i;
 
-	               
+								break;
+							}
+						}
+						break;
+					}
 
-	             }
-	             
+				}
 
-	         }
-	         catch (Exception e)
-	         {
-	        	 ReportUtilities.Log(driver,"Verifying the medical EDM records " + keywordModel.objectName , "The values are not displayed as expected", Status.FAIL,keywordModel);
-	              driver.wait();
-	         }
+				toa = driver.findElement(By.xpath("(//div[contains(@class,'MedicalGrid')]//div[3])[" + x + "]"))
+						.getText();
 
-	     }
+				beginDt = driver.findElement(By.xpath("(//div[contains(@class,'MedicalGrid')]//div[5])[" + x + "]"))
+						.getText();
+
+				endDt = driver.findElement(By.xpath("(//div[contains(@class,'MedicalGrid')]//div[6])[" + x + "]"))
+						.getText();
+
+				status = driver.findElement(By.xpath("(//div[contains(@class,'MedicalGrid')]//div[8])[" + x + "]"))
+						.getText();
+
+				calBeginDate = calMABeginDate(indivDetail[3], driver, keywordModel);
+				calEndDate = calMAEndDate(indivDetail[4], driver, keywordModel);
+
+				if (status.equals(indivDetail[1])) {
+
+					System.out.println(
+							"Eligibility Status is as expected, Eligibility Status for record " + j + "is " + status);
+					ReportUtilities.Log(driver, "Verifying Status for record " + j,
+							"The eligibility Status are  as expected for record  " + j + " having text " + status,
+							Status.PASS, keywordModel);
+				} else {
+
+					System.out.println("Eligibility Status is not as expected, Eligibility Status for record " + j
+							+ " on UI is " + status + "While expected Eligibility Status is" + indivDetail[1]);
+					ReportUtilities.Log(driver, "Verifying Status for record " + j,
+							"The eligibility Status is not as expected for record  " + j + " having text on UI as "
+									+ status + "while expected status is" + indivDetail[1],
+							Status.FAIL, keywordModel);
+					storeEDMResult(driver, keywordModel);
+					// driver.wait();
+				}
+				if (toa.equals(indivDetail[2])) {
+					System.out.println("TOA, for the record " + j + " are as expected");
+					ReportUtilities.Log(driver, "Verifying TOA for record " + j,
+							"The eligibility TOA are as expected for record  " + j + " having text " + toa, Status.PASS,
+							keywordModel);
+				} else {
+
+					System.out.println("TOA, for the record " + j + " has failed");
+					ReportUtilities.Log(driver, "Verifying TOA for record " + j,
+							"The eligibility TOA are not as expected for record  [" + j + "]having text " + toa,
+							Status.FAIL, keywordModel);
+					storeEDMResult(driver, keywordModel);
+					// driver.wait();
+				}
+				if (beginDt.equals(calBeginDate)) {
+
+					System.out.println("Begin Date for the record " + j + " are as expected");
+					ReportUtilities.Log(driver, "Verifying Begin Date for record " + j,
+							"The Begin Date are as expected for record  " + j + " having text " + beginDt, Status.PASS,
+							keywordModel);
+
+				} else {
+
+					System.out.println("Begin Date for the record " + j + " has failed");
+					ReportUtilities.Log(driver, "Verifying Begin Date for record " + j,
+							"The Begin Date are not as expected for record  " + j + " having text " + beginDt,
+							Status.FAIL, keywordModel);
+					storeEDMResult(driver, keywordModel);
+					// driver.wait();
+				}
+				if (endDt.equals(calEndDate)) {
+
+					System.out.println("End Date for the record " + j + " are as expected");
+					ReportUtilities.Log(driver, "Verifying End Date for record " + j,
+							"The End Date are as expected for record  " + j + " having text " + endDt, Status.PASS,
+							keywordModel);
+				} else {
+
+					System.out.println(" End Date for the record " + j + " has failed");
+					ReportUtilities.Log(driver, "Verifying End Date for record " + j,
+							"The End Date are not as expected for record  " + j + " having text " + endDt, Status.FAIL,
+							keywordModel);
+					storeEDMResult(driver, keywordModel);
+					// driver.wait();
+				}
+
+			}
+
+		} catch (Exception e) {
+			ReportUtilities.Log(driver, "Verifying the medical EDM records " + keywordModel.objectName,
+					"The values are not displayed as expected", Status.FAIL, keywordModel);
+			driver.wait();
+		}
+
+	}
 //	             public void PerformLogin(WebDriver driver, KeywordModel keywordModel)
 //	             {
 //	         		
@@ -5876,45 +5805,48 @@ public class KeywordLibrary extends WebDriverHelper {
 //	         		}
 //	         	}
 //
-			
-	//		public void getIndividualID(WebDriver driver, KeywordModel keywordModel) {
-		//		try {
-		//			if (findElementByType(driver, keywordModel).isDisplayed()) {
-			//			WebElement webElement = findElementByType(driver, keywordModel);
-				//		String elementValue = webElement.getText();
-					//	// System.out.println("Individual ID: " + elementValue);
-						//keywordModel.individualID = elementValue;
-						// System.out.println("Individual Id is : " + individualID);
-				//	}
-			//	} catch (NoSuchElementException p) {
-				//	keywordModel.error = true;
-				//	keywordModel.displayError = true;
-				//	ReportUtilities.Log(driver,"Cannot get Data from the object.",
-				//			"The element " + keywordModel.objectName + " is NOT displayed on the current screen" + keywordModel.ScreenName,
-				//			Status.FAIL, keywordModel);
-				//	throw new RuntimeException(p);
-				//}
-			//}
+
+	// public void getIndividualID(WebDriver driver, KeywordModel keywordModel) {
+	// try {
+	// if (findElementByType(driver, keywordModel).isDisplayed()) {
+	// WebElement webElement = findElementByType(driver, keywordModel);
+	// String elementValue = webElement.getText();
+	// // System.out.println("Individual ID: " + elementValue);
+	// keywordModel.individualID = elementValue;
+	// System.out.println("Individual Id is : " + individualID);
+	// }
+	// } catch (NoSuchElementException p) {
+	// keywordModel.error = true;
+	// keywordModel.displayError = true;
+	// ReportUtilities.Log(driver,"Cannot get Data from the object.",
+	// "The element " + keywordModel.objectName + " is NOT displayed on the current
+	// screen" + keywordModel.ScreenName,
+	// Status.FAIL, keywordModel);
+	// throw new RuntimeException(p);
+	// }
+	// }
 
 	public static void getIndividualID(WebDriver driver, KeywordModel keywordModel) {
-				try {
-					int i = Integer.parseInt(keywordModel.dataValue);
-						WebElement webElement = driver.findElement(By.xpath("(//div[contains(@class,'rpIndividualId')])["+ i +"]"));
-						String elementValue = webElement.getText();
-						// System.out.println("Individual ID: " + elementValue);
-						keywordModel.individualID = elementValue;
-						// System.out.println("Individual Id is : " + individualID);
-					
-				} catch (NoSuchElementException p) {
-					keywordModel.error = true;
-					keywordModel.displayError = true;
-					ReportUtilities.Log(driver,"Cannot get Data from the object.",
-							"The element " + keywordModel.objectName + " is NOT displayed on the current screen" + keywordModel.ScreenName,
-							Status.FAIL,keywordModel);
-					throw new RuntimeException(p);
-				}
-			}		
-			
+		try {
+			int i = Integer.parseInt(keywordModel.dataValue);
+			WebElement webElement = driver
+					.findElement(By.xpath("(//div[contains(@class,'rpIndividualId')])[" + i + "]"));
+			String elementValue = webElement.getText();
+			// System.out.println("Individual ID: " + elementValue);
+			keywordModel.individualID = elementValue;
+			// System.out.println("Individual Id is : " + individualID);
+
+		} catch (NoSuchElementException p) {
+			keywordModel.error = true;
+			keywordModel.displayError = true;
+			ReportUtilities.Log(
+					driver, "Cannot get Data from the object.", "The element " + keywordModel.objectName
+							+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+					Status.FAIL, keywordModel);
+			throw new RuntimeException(p);
+		}
+	}
+
 //	         	public  void getCaseNumber(WebDriver driver, KeywordModel keywordModel) {
 //	         		try {
 //	         			if (findElementByType(driver, keywordModel).isDisplayed()) {
@@ -5935,26 +5867,27 @@ public class KeywordLibrary extends WebDriverHelper {
 //	         		}
 //	         	}
 //	         	
-			
-			public void getCaseNumber(WebDriver driver, KeywordModel keywordModel) {
-				try {
-					if (findElementByType(driver, keywordModel).isDisplayed()) {
-						WebElement webElement = findElementByType(driver, keywordModel);
-						String elementValue = webElement.getText();
-						elementValue = elementValue.replace("Case:", "");
-						keywordModel.caseNumber = elementValue;
-						System.out.println("Case Number : " + keywordModel.caseNumber);
-						// writeToOutputFile(caseNumber);
-					}
-				} catch (NoSuchElementException p) {
-					keywordModel.error = true;
-					keywordModel.displayError = true;
-					ReportUtilities.Log(driver,"Cannot get Data from the object.",
-							"The element " + keywordModel.objectName + " is NOT displayed on the current screen" + keywordModel.ScreenName,
-							Status.FAIL, keywordModel);
-					throw new RuntimeException(p);
-				}
+
+	public void getCaseNumber(WebDriver driver, KeywordModel keywordModel) {
+		try {
+			if (findElementByType(driver, keywordModel).isDisplayed()) {
+				WebElement webElement = findElementByType(driver, keywordModel);
+				String elementValue = webElement.getText();
+				elementValue = elementValue.replace("Case:", "");
+				keywordModel.caseNumber = elementValue;
+				System.out.println("Case Number : " + keywordModel.caseNumber);
+				// writeToOutputFile(caseNumber);
 			}
+		} catch (NoSuchElementException p) {
+			keywordModel.error = true;
+			keywordModel.displayError = true;
+			ReportUtilities.Log(
+					driver, "Cannot get Data from the object.", "The element " + keywordModel.objectName
+							+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+					Status.FAIL, keywordModel);
+			throw new RuntimeException(p);
+		}
+	}
 //	         	public  void getTTDate(WebDriver driver, KeywordModel keywordModel) {
 //	         		try {
 //	         			if (findElementByType(driver, keywordModel).isDisplayed()) {
@@ -5975,30 +5908,29 @@ public class KeywordLibrary extends WebDriverHelper {
 //	         			throw new RuntimeException(p);
 //	         		}
 //	         	}  
-			
-			public void getTTDate(WebDriver driver, KeywordModel keywordModel) {
-				try {
-					if (findElementByType(driver, keywordModel).isDisplayed()) {
-						WebElement webElement = findElementByType(driver, keywordModel);
-						String elementValue = webElement.getText();
-						String date[] = elementValue.split("/");
-				
-						keywordModel.TTDate = "'"+date[2]+date[0]+date[1]+"'";
-						System.out.println("Time Tavelled date is : " + keywordModel.TTDate);
-						// writeToOutputFile(caseNumber);
-					}
-				} catch (NoSuchElementException p) {
-					keywordModel.error = true;
-					keywordModel.displayError = true;
-					ReportUtilities.Log(driver,"Cannot get Data from the object.",
-							"The element " + keywordModel.objectName + " is NOT displayed on the current screen" + keywordModel.ScreenName,
-							Status.FAIL, keywordModel);
-					throw new RuntimeException(p);
-				}
+
+	public void getTTDate(WebDriver driver, KeywordModel keywordModel) {
+		try {
+			if (findElementByType(driver, keywordModel).isDisplayed()) {
+				WebElement webElement = findElementByType(driver, keywordModel);
+				String elementValue = webElement.getText();
+				String date[] = elementValue.split("/");
+
+				keywordModel.TTDate = "'" + date[2] + date[0] + date[1] + "'";
+				System.out.println("Time Tavelled date is : " + keywordModel.TTDate);
+				// writeToOutputFile(caseNumber);
 			}
-			
-			
-			
+		} catch (NoSuchElementException p) {
+			keywordModel.error = true;
+			keywordModel.displayError = true;
+			ReportUtilities.Log(
+					driver, "Cannot get Data from the object.", "The element " + keywordModel.objectName
+							+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+					Status.FAIL, keywordModel);
+			throw new RuntimeException(p);
+		}
+	}
+
 //			public  void storeEDMResult(WebDriver driver, KeywordModel keywordModel) {
 //				
 //				
@@ -6013,7 +5945,6 @@ public class KeywordLibrary extends WebDriverHelper {
 //				}
 //			}
 
-
 //			public  void retrieveEDMResult(WebDriver driver, KeywordModel keywordModel) throws InterruptedException 
 //			{
 //				for(int i=0;i<keywordModel.resultSize;i++)
@@ -6026,8 +5957,6 @@ public class KeywordLibrary extends WebDriverHelper {
 //							}
 //					}
 //			}
-						
-
 
 //						 public void verifyAuthSummaryMedicalEDMDyna(WebDriver driver, KeywordModel keywordModel) throws InterruptedException 
 //				         {
@@ -6199,8 +6128,6 @@ public class KeywordLibrary extends WebDriverHelper {
 //
 //				      }
 
-
-
 //			  public  String[] StoreAPIndNames(WebDriver driver, KeywordModel keywordModel)
 //					       
 //					       {
@@ -6222,7 +6149,6 @@ public class KeywordLibrary extends WebDriverHelper {
 //							}
 //							return keywordModel.indNameList;
 //						}
-						
 
 //			public  void verifyAPMedicalRFI(WebDriver driver, KeywordModel keywordModel) throws InterruptedException 
 //				          {
@@ -6358,7 +6284,6 @@ public class KeywordLibrary extends WebDriverHelper {
 //				           }
 //
 //				       }
-
 
 //			 public  void verifyAPMedicalRFIDyna(WebDriver driver, KeywordModel keywordModel) throws InterruptedException 
 //			               {
@@ -6534,984 +6459,1080 @@ public class KeywordLibrary extends WebDriverHelper {
 //										"clicked on medical rfi link " + keywordModel.dataValue, Status.PASS, keywordModel);
 //							}				
 //				
-					
 
-					public void clickCheckBox(WebDriver driver, KeywordModel keywordModel) {
-						List<String> result = Arrays.asList(keywordModel.dataValue.replaceAll("\\s", "").split("#"));
-						Boolean click = false;
-						if (keywordModel.dynaElement != null) {
-							try {
-								if (keywordModel.dynaElement.isDisplayed()) {
-									for (String a : result) {
-										String temp = keywordModel.dynaElement.getAttribute("value");
-										if (temp.equalsIgnoreCase(a)) {
-											findElementByType(driver, keywordModel).click();
-											ReportUtilities.Log(driver,"Clicking on the Element " + keywordModel.objectName,
-													"With @value " + a + "Clicked on the object", Status.PASS, keywordModel);
-											click = true;
-											break;
-										}
-									}
-									if (click == false) {
-										ReportUtilities.Log(driver,"Data: " + (keywordModel.dataValue) + "is not available for" + keywordModel.objectName,
-												"Passing the execution on to next steps.", Status.PASS, keywordModel);
-									}
-								}
-							} catch (NoSuchElementException p) {
-								keywordModel.error = true;
-								keywordModel.displayError = true;
-								ReportUtilities.Log(driver,"Cannot Click on the object.", "The check box " + keywordModel.objectName
-										+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL, keywordModel);
-								throw new RuntimeException(p);
-							}
-						} else {
-							try {
-								if (findElementByType(driver, keywordModel).isDisplayed()) {
-									for (String a : result) {
-										String temp = findElementByType(driver, keywordModel).getAttribute("value");
-										if (temp.equalsIgnoreCase(a)) {
-											findElementByType(driver, keywordModel).click();
-											ReportUtilities.Log(driver,"Clicking on the Element " + keywordModel.objectName,
-													"With @value " + a + "Clicked on the object", Status.PASS, keywordModel);
-											click = true;
-											break;
-										}
-									}
-									if (click == false) {
-										ReportUtilities.Log(driver,"Data: " + (keywordModel.dataValue) + "is not available for" + keywordModel.objectName,
-												"Passing the execution on to next steps.", Status.PASS, keywordModel);
-									}
-								}
-							} catch (NoSuchElementException p) {
-								keywordModel.error = true;
-								keywordModel.displayError = true;
-								ReportUtilities.Log(driver,"Cannot Click on the object.", "The check box " + keywordModel.objectName
-										+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL, keywordModel);
-								throw new RuntimeException(p);
-							}
-						}
-					}
-
-public void initialiseEDMResult(WebDriver driver, KeywordModel keywordModel)
-			{
-			
-				
-				int count = driver.findElements(By.xpath("(//div[contains(@class,'33percent')])")).size();
-				String[] prog = new String[count-1];
-				for (int j=0,i=2;i<=count;i++,j++)
-				{
-					prog[j] =  driver.findElement(By.xpath("(//div[contains(@class,'33percent')])["+i+"]")).getText();
-				}		//edmResult = new String[];
-
-				for (int i=0;i<count-1;i++)
-				{
-					if(prog[i].equalsIgnoreCase("Medical"))
-					{
-						int med_count = driver.findElements(By.xpath("//div[contains(@class,'MedicalGrid')]")).size();
-						keywordModel.resultSize = keywordModel.resultSize + (med_count * 4);
-					}
-					else if (prog[i].equalsIgnoreCase("SNAP"))	
-					{
-						int snap_count = driver.findElements(By.xpath("//*[@id='tblSNAPEligibilitySummary']//tbody/tr[@role='row']")).size();
-						keywordModel.resultSize = keywordModel.resultSize + (snap_count * 6);	
-					}
-					
-					else if (prog[i].equalsIgnoreCase("CASH"))	
-					{
-						int cash_count = driver.findElements(By.xpath("//*[@id='tblCASHEligibilitySummary_wrapper']//tbody/tr[@role='row']")).size();
-						keywordModel.resultSize = keywordModel.resultSize + (cash_count * 6);	
-					}
-					
-					else if (prog[i].equalsIgnoreCase("TA-DVS"))
-					{
-						int tadvs_count = driver.findElements(By.xpath("//*[@id='tblTADVSEligibilitySummary']//tbody/tr[@role='row']")).size();
-						keywordModel.resultSize =keywordModel.resultSize + (tadvs_count * 5);	
-					}
-					
-					else if (prog[i].equalsIgnoreCase("ERDC"))	
-					{
-						int erdc_count = driver.findElements(By.xpath("(//table[@id='tblERDCEligibilitySummary'])//tbody/tr[@role='row']")).size();
-						keywordModel.resultSize = keywordModel.resultSize + (erdc_count * 7);	
-					}
-					
-					else if (prog[i].equalsIgnoreCase("DSNAP"))	
-					{
-						int dsnap_count = driver.findElements(By.xpath("//*[@id='tblDSNAPEligibilitySummary']//tbody/tr[@role='row']")).size();
-						keywordModel.resultSize =keywordModel.resultSize + (dsnap_count * 7);	
-					}
-					
-					else if (prog[i].equalsIgnoreCase("Presumptive Eligiblity"))	
-					{
-						int hpe_count = driver.findElements(By.xpath("//table[@id='tblPEEligibilitySummary']")).size();
-						keywordModel.resultSize =keywordModel.resultSize + (hpe_count * 4);	
-					}
-
-				}
-				
-				System.out.println(keywordModel.resultSize);
-				keywordModel.edmResult = new String[keywordModel.resultSize];
-				
-				for(int i=0;i<keywordModel.resultSize;i++)
-				{
-					keywordModel.edmResult[i]="P";
-						
-					}
-
-			}
-
-
-public  void storeEDMResult(WebDriver driver, KeywordModel keywordModel) {
-	
-	
-	for(int i=0;i<keywordModel.resultSize;i++)
-	{
-		if(i!=keywordModel.resultCounter)
-		{
-			keywordModel.edmResult[i]="F";
-			keywordModel.resultCounter=i;
-			break;
-		}
-	}
-}
-
-
-public  void retrieveEDMResult(WebDriver driver, KeywordModel keywordModel) throws InterruptedException 
-{
-	for(int i=0;i<keywordModel.resultSize;i++)
-		{
-			if(keywordModel.edmResult[i].equalsIgnoreCase("F"))
-				{
-					System.out.println("Failures found in EDBC result");
-					driver.wait();
-					break;
-				}
-		}
-}
-			
-
-
-			 public void verifyAuthSummaryMedicalEDMDyna(WebDriver driver, KeywordModel keywordModel) throws InterruptedException 
-	         {
-	          String dataValue = keywordModel.dataValue;
-	          String indivName = "";
-	          
-	          String[] indivEligibilityDetails = null;
-	          String status = "";
-	          String toa = "";
-	          String beginDt = "";
-	          String endDt = "";
-	          int num = 100;
-	         
-	          String[] indivDetail = null;
-	          String calBeginDate="";
-	          String calEndDate="";
-	         
-	          
-	          try
-	          {
-	              if (dataValue.contains(";"))
-	              {
-	                  indivEligibilityDetails = dataValue.split(";");
-	              }
-	              else
-	              {
-	                  indivEligibilityDetails = new String[1];
-	                  indivEligibilityDetails[0] = dataValue;
-	              }
-
-	             
-	              int indSize = driver.findElements(By.xpath("//div[contains(@class,'rpIndividualName')]")).size();
-	              String[] indNameList = new String[indSize];
-
-	              driver.findElement(By.xpath("//a[@id = 'viewAuthorizationHistory']")).click();
-	              Thread.sleep(3000);
-	              driver.findElement(By.xpath("//input[@id='btnSearch']")).click();
-	              Thread.sleep(3000);
-	              int count = driver.findElements(By.xpath("//div[contains(@class,'MedicalGrid')]")).size();
-	              System.out.println("Total Medical EDMs on Auth History is : " + count);
-
-
-	              for (int i = 1; i <= indSize; i++)
-	              {
-	                  indNameList[i - 1] = driver.findElement(By.xpath("(//div[contains(@class,'rpIndividualName')])[" + i + "]")).getText();
-
-	              }
-
-	              int[] temp = new int[count];
-	              for (int l = 0; l < count; l++)
-	              {
-	                  temp[l] = num;
-	                  num = num + 1;
-	              }
-
-	              int x = 0;
-	              int j = 0;
-	            
-	              for (j = 1; j <= count; j++)
-	              {
-
-	                  indivName = driver.findElement(By.xpath("(//div[contains(@class,'MedicalGrid')]//div[4])[" + j + "]")).getText();
-
-
-	                  for (int k = 1; k <= indSize; k++)
-	                  {
-	                 	 String ind_name = indNameList[k - 1];		
-
-	                      if (ind_name.contains(indivName) /*&& indivDetail[0].Equals("Indiv"+k+"")*/)
-	                      {
-	                          x = j;
-	                          for (int i = 0, z = 0; i < count && z < temp.length; i++, z++)
-	                          {
-	                              indivDetail = indivEligibilityDetails[i].split("\\|");
-
-	                              if (indivDetail[0].equals("Indiv" + k + "") && temp[z] != i)
-	                              {
-	                                  temp[z] = i;
-
-	                                  break;
-	                              }
-	                          }
-	                          break;
-	                      }
-	                   
-
-	                  }
-
-	                  calBeginDate = calMABeginDate(indivDetail[3], driver, keywordModel);
-	                  calEndDate = calMAEndDate(indivDetail[4], driver, keywordModel);
-
-	                  toa = driver.findElement(By.xpath("(//div[contains(@class,'MedicalGrid')]//div[3])[" + x + "]")).getText();
-	                 
-	                  beginDt = driver.findElement(By.xpath("(//div[contains(@class,'MedicalGrid')]//div[5])[" + x + "]")).getText();
-	                 
-	                  endDt = driver.findElement(By.xpath("(//div[contains(@class,'MedicalGrid')]//div[6])[" + x + "]")).getText();
-	                  
-	                  status = driver.findElement(By.xpath("(//div[contains(@class,'MedicalGrid')]//div[8])[" + x + "]")).getText();
-	                 
-	                  
-	                  if (status.contains(indivDetail[1]))
-	                  {
-	                      
-	                      System.out.println(" Eligibility Status for record " + j + " are as expected");
-	                      ReportUtilities.Log(driver,"Verifying Status for record "+ j,"The eligibility Status are  as expected for record  " + j + " having text "  + status,Status.PASS , keywordModel);
-	                  }
-	                  else
-	                  {
-	                      
-	                      System.out.println(" Eligibility Status for record " + j + " has failed");
-	                      ReportUtilities.Log(driver,"Verifying Status for record " + j, "The eligibility Status are not as expected for record  " + j + " having text " + status, Status.FAIL, keywordModel);
-	                      storeEDMResult(driver, keywordModel);
-	                     // driver.wait();
-	                  }
-	                  if (toa.contains(indivDetail[2]))
-	                  {
-	                     
-	                      System.out.println("TOA, for the record " + j + " are as expected");
-	                      ReportUtilities.Log(driver,"Verifying TOA for record " + j, "The eligibility TOA are as expected for record  " + j + " having text " + toa, Status.PASS, keywordModel);
-	                  }
-	                  else
-	                  {
-	                     
-	                      System.out.println("TOA, for the record " + j + " has failed");
-	                      ReportUtilities.Log(driver,"Verifying TOA for record " + j,"The eligibility TOA are not as expected for record  [" + j + "]having text " + toa, Status.FAIL, keywordModel);
-	                      storeEDMResult(driver, keywordModel);
-	                      //driver.wait();
-	                  }
-	                  if (beginDt.contains(calBeginDate))
-	                  {
-	                     
-	                      System.out.println("Begin Date for the record " + j + " are as expected");
-	                      ReportUtilities.Log(driver,"Verifying Begin Date for record " + j,"The Begin Date are as expected for record  " + j + " having text " + beginDt, Status.PASS, keywordModel);
-	                  }
-	                  else
-	                  {
-	                     
-	                      System.out.println("Begin Date for the record " + j + " has failed");
-	                      ReportUtilities.Log(driver,"Verifying Begin Date for record " + j, "The Begin Date are not as expected for record  " + j + " having text " + beginDt, Status.FAIL, keywordModel);
-	                     storeEDMResult(driver, keywordModel);
-	                      // driver.wait();
-	                  }
-	                  if (endDt.contains(calEndDate))
-	                  {
-	                      
-	                      System.out.println("End Date for the record " + j + " are as expected");
-	                      ReportUtilities.Log(driver,"Verifying End Date for record " + j, "The End Date are as expected for record  " + j + " having text " + endDt, Status.PASS, keywordModel);
-	                  }
-	                  else
-	                  {
-	                      
-	                      System.out.println(" End Date for the record " + j + " has failed");
-	                      ReportUtilities.Log(driver,"Verifying End Date for record " + j, "The End Date are not as expected for record  " + j + " having text " + endDt, Status.FAIL, keywordModel);
-	                      storeEDMResult(driver, keywordModel);
-	                      //driver.wait();
-	                  }
-
-	                
-
-	              }
-	              
-
-	          }
-	          catch (Exception e)
-	          {
-	        	  ReportUtilities.Log(driver,"Verifying the medical EDM records " + keywordModel.objectName , "The values are not displayed as expected", Status.FAIL, keywordModel);
-	               driver.wait();
-	          }
-
-	      }
-
-
-
- /* public  String[] StoreAPIndNames(WebDriver driver, KeywordModel keywordModel)
-		       
-		       {
-		           try
-		           {
-		               int indSize = findElementsByType(driver, keywordModel).size();
-
-		               keywordModel.indNameList = new String[indSize];
-					for (int i = 1; i <= indSize; i++)
-					{
-						keywordModel.indNameList[i - 1] = driver.findElement(By.xpath("(//table[@id='tableUsersProgram']//div[@class='caption'])[" + i + "]")).getText();
-					}
-
-				}
-				catch (Exception e)
-				{
-					System.out.println("Storing AP individual names has failed");
-
-				}
-				return keywordModel.indNameList;
-			}*/
-			
-/*
-public  void verifyAPMedicalRFI(WebDriver driver, KeywordModel keywordModel) throws InterruptedException 
-	          {
-	           String dataValue = keywordModel.dataValue;
-	           String indivName = "";
-	           String programName = "";
-	           String RFI = "";
-	           String DueDate = "";
-	           String[] indivEligibilityDetails = null;
-	          
-	           int num = 100;
-	          
-	           String[] indivDetail = null;
-	           
-	       
-	           
-	           try
-	           {
-	               if (dataValue.contains(";"))
-	               {
-	                   indivEligibilityDetails = dataValue.split(";");
-	               }
-	               else
-	               {
-	                   indivEligibilityDetails = new String[1];
-	                   indivEligibilityDetails[0] = dataValue;
-	               }
-
-
-				int count = driver.findElements(By.xpath("//*[@id='0~ProofListToSubmitGrid~']//tbody/tr")).size();
-
-
-
-				int[] temp = new int[count];
-				for (int l = 0; l < count; l++)
-				{
-					temp[l] = num;
-					num = num + 1;
-				}
-
-				int x = 0;
-				int j = 0;
-
-				for (j = 1; j <= count; j++)
-				{
-
-					indivName = driver.findElement(By.xpath("(//*[contains(@id,'ProofListToSubmit~HouseHoldMemeberName~td')])[" + j + "]")).getText();
-
-
-					for (int k = 1; k <= keywordModel.indNameList.length; k++)
-					{
-						String ind_name = keywordModel.indNameList[k - 1];
-
-						if (ind_name.contains(indivName) /*&& indivDetail[0].Equals("Indiv"+k+""))
-						{
-							x = j;
-							for (int i = 0, z = 0; i < count && z < temp.length; i++, z++)
-							{
-								indivDetail = indivEligibilityDetails[i].split("\\|");
-
-								if (indivDetail[0].equals("Indiv" + k + "") && temp[z] != i)  //3
-								{
-									temp[z] = i;
-
-									break;
-								}
-							}
+	public void clickCheckBox(WebDriver driver, KeywordModel keywordModel) {
+		List<String> result = Arrays.asList(keywordModel.dataValue.replaceAll("\\s", "").split("#"));
+		Boolean click = false;
+		if (keywordModel.dynaElement != null) {
+			try {
+				if (keywordModel.dynaElement.isDisplayed()) {
+					for (String a : result) {
+						String temp = keywordModel.dynaElement.getAttribute("value");
+						if (temp.equalsIgnoreCase(a)) {
+							findElementByType(driver, keywordModel).click();
+							ReportUtilities.Log(driver, "Clicking on the Element " + keywordModel.objectName,
+									"With @value " + a + "Clicked on the object", Status.PASS, keywordModel);
+							click = true;
 							break;
 						}
+					}
+					if (click == false) {
+						ReportUtilities.Log(driver,
+								"Data: " + (keywordModel.dataValue) + "is not available for" + keywordModel.objectName,
+								"Passing the execution on to next steps.", Status.PASS, keywordModel);
+					}
+				}
+			} catch (NoSuchElementException p) {
+				keywordModel.error = true;
+				keywordModel.displayError = true;
+				ReportUtilities.Log(
+						driver, "Cannot Click on the object.", "The check box " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
+				throw new RuntimeException(p);
+			}
+		} else {
+			try {
+				if (findElementByType(driver, keywordModel).isDisplayed()) {
+					for (String a : result) {
+						String temp = findElementByType(driver, keywordModel).getAttribute("value");
+						if (temp.equalsIgnoreCase(a)) {
+							findElementByType(driver, keywordModel).click();
+							ReportUtilities.Log(driver, "Clicking on the Element " + keywordModel.objectName,
+									"With @value " + a + "Clicked on the object", Status.PASS, keywordModel);
+							click = true;
+							break;
+						}
+					}
+					if (click == false) {
+						ReportUtilities.Log(driver,
+								"Data: " + (keywordModel.dataValue) + "is not available for" + keywordModel.objectName,
+								"Passing the execution on to next steps.", Status.PASS, keywordModel);
+					}
+				}
+			} catch (NoSuchElementException p) {
+				keywordModel.error = true;
+				keywordModel.displayError = true;
+				ReportUtilities.Log(
+						driver, "Cannot Click on the object.", "The check box " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
+				throw new RuntimeException(p);
+			}
+		}
+	}
 
+	public void initialiseEDMResult(WebDriver driver, KeywordModel keywordModel) {
 
+		int count = driver.findElements(By.xpath("(//div[contains(@class,'33percent')])")).size();
+		String[] prog = new String[count - 1];
+		for (int j = 0, i = 2; i <= count; i++, j++) {
+			prog[j] = driver.findElement(By.xpath("(//div[contains(@class,'33percent')])[" + i + "]")).getText();
+		} // edmResult = new String[];
+
+		for (int i = 0; i < count - 1; i++) {
+			if (prog[i].equalsIgnoreCase("Medical")) {
+				int med_count = driver.findElements(By.xpath("//div[contains(@class,'MedicalGrid')]")).size();
+				keywordModel.resultSize = keywordModel.resultSize + (med_count * 4);
+			} else if (prog[i].equalsIgnoreCase("SNAP")) {
+				int snap_count = driver
+						.findElements(By.xpath("//*[@id='tblSNAPEligibilitySummary']//tbody/tr[@role='row']")).size();
+				keywordModel.resultSize = keywordModel.resultSize + (snap_count * 6);
+			}
+
+			else if (prog[i].equalsIgnoreCase("CASH")) {
+				int cash_count = driver
+						.findElements(By.xpath("//*[@id='tblCASHEligibilitySummary_wrapper']//tbody/tr[@role='row']"))
+						.size();
+				keywordModel.resultSize = keywordModel.resultSize + (cash_count * 6);
+			}
+
+			else if (prog[i].equalsIgnoreCase("TA-DVS")) {
+				int tadvs_count = driver
+						.findElements(By.xpath("//*[@id='tblTADVSEligibilitySummary']//tbody/tr[@role='row']")).size();
+				keywordModel.resultSize = keywordModel.resultSize + (tadvs_count * 5);
+			}
+
+			else if (prog[i].equalsIgnoreCase("ERDC")) {
+				int erdc_count = driver
+						.findElements(By.xpath("(//table[@id='tblERDCEligibilitySummary'])//tbody/tr[@role='row']"))
+						.size();
+				keywordModel.resultSize = keywordModel.resultSize + (erdc_count * 7);
+			}
+
+			else if (prog[i].equalsIgnoreCase("DSNAP")) {
+				int dsnap_count = driver
+						.findElements(By.xpath("//*[@id='tblDSNAPEligibilitySummary']//tbody/tr[@role='row']")).size();
+				keywordModel.resultSize = keywordModel.resultSize + (dsnap_count * 7);
+			}
+
+			else if (prog[i].equalsIgnoreCase("Presumptive Eligiblity")) {
+				int hpe_count = driver.findElements(By.xpath("//table[@id='tblPEEligibilitySummary']")).size();
+				keywordModel.resultSize = keywordModel.resultSize + (hpe_count * 4);
+			}
+
+		}
+
+		System.out.println(keywordModel.resultSize);
+		keywordModel.edmResult = new String[keywordModel.resultSize];
+
+		for (int i = 0; i < keywordModel.resultSize; i++) {
+			keywordModel.edmResult[i] = "P";
+
+		}
+
+	}
+
+	public void storeEDMResult(WebDriver driver, KeywordModel keywordModel) {
+
+		for (int i = 0; i < keywordModel.resultSize; i++) {
+			if (i != keywordModel.resultCounter) {
+				keywordModel.edmResult[i] = "F";
+				keywordModel.resultCounter = i;
+				break;
+			}
+		}
+	}
+
+	public void retrieveEDMResult(WebDriver driver, KeywordModel keywordModel) throws InterruptedException {
+		for (int i = 0; i < keywordModel.resultSize; i++) {
+			if (keywordModel.edmResult[i].equalsIgnoreCase("F")) {
+				System.out.println("Failures found in EDBC result");
+				driver.wait();
+				break;
+			}
+		}
+	}
+
+	public void verifyAuthSummaryMedicalEDMDyna(WebDriver driver, KeywordModel keywordModel)
+			throws InterruptedException {
+		String dataValue = keywordModel.dataValue;
+		String indivName = "";
+
+		String[] indivEligibilityDetails = null;
+		String status = "";
+		String toa = "";
+		String beginDt = "";
+		String endDt = "";
+		int num = 100;
+
+		String[] indivDetail = null;
+		String calBeginDate = "";
+		String calEndDate = "";
+
+		try {
+			if (dataValue.contains(";")) {
+				indivEligibilityDetails = dataValue.split(";");
+			} else {
+				indivEligibilityDetails = new String[1];
+				indivEligibilityDetails[0] = dataValue;
+			}
+
+			int indSize = driver.findElements(By.xpath("//div[contains(@class,'rpIndividualName')]")).size();
+			String[] indNameList = new String[indSize];
+
+			driver.findElement(By.xpath("//a[@id = 'viewAuthorizationHistory']")).click();
+			Thread.sleep(3000);
+			driver.findElement(By.xpath("//input[@id='btnSearch']")).click();
+			Thread.sleep(3000);
+			int count = driver.findElements(By.xpath("//div[contains(@class,'MedicalGrid')]")).size();
+			System.out.println("Total Medical EDMs on Auth History is : " + count);
+
+			for (int i = 1; i <= indSize; i++) {
+				indNameList[i - 1] = driver
+						.findElement(By.xpath("(//div[contains(@class,'rpIndividualName')])[" + i + "]")).getText();
+
+			}
+
+			int[] temp = new int[count];
+			for (int l = 0; l < count; l++) {
+				temp[l] = num;
+				num = num + 1;
+			}
+
+			int x = 0;
+			int j = 0;
+
+			for (j = 1; j <= count; j++) {
+
+				indivName = driver.findElement(By.xpath("(//div[contains(@class,'MedicalGrid')]//div[4])[" + j + "]"))
+						.getText();
+
+				for (int k = 1; k <= indSize; k++) {
+					String ind_name = indNameList[k - 1];
+
+					if (ind_name.contains(indivName) /* && indivDetail[0].Equals("Indiv"+k+"") */) {
+						x = j;
+						for (int i = 0, z = 0; i < count && z < temp.length; i++, z++) {
+							indivDetail = indivEligibilityDetails[i].split("\\|");
+
+							if (indivDetail[0].equals("Indiv" + k + "") && temp[z] != i) {
+								temp[z] = i;
+
+								break;
+							}
+						}
+						break;
 					}
 
-
-					programName = driver.findElement(By.xpath("(//*[contains(@id,'ProofListToSubmit~Program~td')])[" + x + "]")).getText();
-
-					RFI = driver.findElement(By.xpath("(//*[contains(@id,'ProofListToSubmit~ProofType~td')])[" + x + "]")).getText();
-
-					DueDate = driver.findElement(By.xpath("(//*[contains(@id,'ProofListToSubmit~VerificationChecklistDueDateNeeded~td')])[" + x + "]")).getText();
-
-					//   RFIDate = verifyAPRFIDate(indivDetail[3]);
-
-	                   if (programName.equals(indivDetail[1]))
-	                   {
-	                       
-	                       System.out.println(" Program Name for record " + j + " are as expected");
-	                       ReportUtilities.Log(driver,"Verifying Program Name for record "+ j,"The Program Names are  as expected for record  " + j + " having text "  + programName, Status.PASS, keywordModel);
-	                   }
-	                   else
-	                   {
-	                       
-	                       System.out.println(" Program Name for record " + j + " has failed");
-	                       ReportUtilities.Log(driver,"Verifying Program Name for record " + j, "The Program Name are not as expected for record  " + j + " having text " + programName, Status.FAIL, keywordModel);
-	                       driver.wait();
-	                   }
-	                   if (RFI.equals(indivDetail[2]))
-	                   {
-	                      
-	                       System.out.println("RFI, for the record " + j + " are as expected");
-	                       ReportUtilities.Log(driver,"Verifying RFI for record " + j, "The RFI are as expected for record  " + j + " having text " + RFI, Status.PASS, keywordModel);
-	                       
-	                   }
-	                   else
-	                   {
-	                      
-	                       System.out.println("RFI, for the record " + j + " has failed");
-	                       ReportUtilities.Log(driver,"Verifying RFI for record " + j,"The eligibility TOA are not as expected for record  [" + j + "]having text " + RFI, Status.FAIL, keywordModel);
-	                       driver.wait();
-	                   }
-	                   if (DueDate.equals(indivDetail[3]))
-	                   {
-	                      
-	                       System.out.println("Due Date for the record " + j + " are as expected");
-	                       ReportUtilities.Log(driver,"Verifying Due Date for record " + j,"The Begin Date are as expected for record  " + j + " having text " + DueDate, Status.PASS, keywordModel);
-	                   }
-	                   else
-	                   {
-	                      
-	                       System.out.println("Due Date for the record " + j + " has failed");
-	                       ReportUtilities.Log(driver,"Verifying Due Date for record " + j, "The Begin Date are not as expected for record  " + j + " having text " + DueDate, Status.FAIL, keywordModel);
-	                       driver.wait();
-	                   }
-	                  
-
-	               }
-	               
-
-	           }
-	           catch (Exception e)
-	           {
-	        	   ReportUtilities.Log(driver,"Verifying the Medical RFI records " + keywordModel.objectName , "The values are not displayed as expected", Status.FAIL, keywordModel);
-	                driver.wait();
-	           }
-
-	       }*/
-
-/*
- public  void verifyAPMedicalRFIDyna(WebDriver driver, KeywordModel keywordModel) throws InterruptedException 
-               {
-                String dataValue = keywordModel.dataValue;
-                String indivName = "";
-                String programName = "";
-                String RFI = "";
-                String DueDate = "";
-                String[] indivEligibilityDetails = null;
-                String RFIDate="";
-                int num = 100;
-               
-                String[] indivDetail = null;
-                
-            
-                
-                try
-                {
-                    if (dataValue.contains(";"))
-                    {
-                        indivEligibilityDetails = dataValue.split(";");
-                    }
-                    else
-                    {
-                        indivEligibilityDetails = new String[1];
-                        indivEligibilityDetails[0] = dataValue;
-                    }
-
-                   
-                    int count = driver.findElements(By.xpath("//*[@id='0~ProofListToSubmitGrid~']//tbody/tr")).size();
-                   
-
-
-                    int[] temp = new int[count];
-                    for (int l = 0; l < count; l++)
-                    {
-                        temp[l] = num;
-                        num = num + 1;
-                    }
-
-                    int x = 0;
-                    int j = 0;
-                  
-                    for (j = 1; j <= count; j++)
-                    {
-
-                        indivName = driver.findElement(By.xpath("(//*[contains(@id,'ProofListToSubmit~HouseHoldMemeberName~td')])[" + j + "]")).getText();
-
-
-                        for (int k = 1; k <= keywordModel.indNameList.length; k++)
-                        {
-                            String ind_name = keywordModel.indNameList[k - 1];
-
-                            if (ind_name.contains(indivName) /*&& indivDetail[0].Equals("Indiv"+k+""))
-                            {
-                                x = j;
-                                for (int i = 0, z = 0; i < count && z < temp.length; i++, z++)
-                                {
-                                    indivDetail = indivEligibilityDetails[i].split("\\|");
-
-                                    if (indivDetail[0].equals("Indiv" + k + "") && temp[z] != i)  //3
-                                    {
-                                        temp[z] = i;
-                                     
-                                        break;
-                                    }
-                                }
-                                break;
-                            }
-                          
-
-                        }
-                      
-
-                        programName = driver.findElement(By.xpath("(//*[contains(@id,'ProofListToSubmit~Program~td')])[" + x + "]")).getText();
-                    
-                        RFI = driver.findElement(By.xpath("(//*[contains(@id,'ProofListToSubmit~ProofType~td')])[" + x + "]")).getText();
-                      
-                        DueDate = driver.findElement(By.xpath("(//*[contains(@id,'ProofListToSubmit~VerificationChecklistDueDateNeeded~td')])[" + x + "]")).getText();
-                      
-                        RFIDate = verifyAPRFIDate(indivDetail[3], driver, keywordModel);
-
-                        if (programName.equals(indivDetail[1]))
-                        {
-                            
-                            System.out.println(" Program Name for record " + j + " are as expected");
-                            ReportUtilities.Log(driver,"Verifying Program Name for record "+ j,"The Program Names are  as expected for record  " + j + " having text "  + programName, Status.PASS, keywordModel);
-                        }
-                        else
-                        {
-                            
-                            System.out.println(" Program Name for record " + j + " has failed");
-                            ReportUtilities.Log(driver,"Verifying Program Name for record " + j, "The Program Name are not as expected for record  " + j + " having text " + programName, Status.FAIL, keywordModel);
-                           storeEDMResult(driver, keywordModel);
-                            // driver.wait();
-                        }
-                        if (RFI.equals(indivDetail[2]))
-                        {
-                           
-                            System.out.println("RFI, for the record " + j + " are as expected");
-                            ReportUtilities.Log(driver,"Verifying RFI for record " + j, "The RFI are as expected for record  " + j + " having text " + RFI, Status.PASS, keywordModel);
-                            
-                        }
-                        else
-                        {
-                           
-                            System.out.println("RFI, for the record " + j + " has failed");
-                            ReportUtilities.Log(driver,"Verifying RFI for record " + j,"The eligibility TOA are not as expected for record  [" + j + "]having text " + RFI, Status.FAIL, keywordModel);
-                            storeEDMResult(driver, keywordModel);
-                           // driver.wait();
-                        }
-                        if (DueDate.equals(RFIDate))
-                        {
-                           
-                            System.out.println("Due Date for the record " + j + " are as expected");
-                            ReportUtilities.Log(driver,"Verifying Due Date for record " + j,"The Begin Date are as expected for record  " + j + " having text " + DueDate, Status.PASS, keywordModel);
-                        }
-                        else
-                        {
-                           
-                            System.out.println("Due Date for the record " + j + " has failed");
-                            ReportUtilities.Log(driver,"Verifying Due Date for record " + j, "The Begin Date are not as expected for record  " + j + " having text " + DueDate, Status.FAIL, keywordModel);
-                           storeEDMResult(driver, keywordModel);
-                         //  driver.wait();
-                        }
-                       
-
-                    }
-                    
-
-                }
-                catch (Exception e)
-                {
-                	ReportUtilities.Log(driver,"Verifying the Medical RFI records " + keywordModel.objectName , "The values are not displayed as expected", Status.FAIL, keywordModel);
-                     driver.wait();
-                }
-
-            }
-*/
-   public void clickAnnualIncomeEditIcon(WebDriver driver, KeywordModel keywordModel) {
-					int icount = Integer.parseInt(keywordModel.dataValue);
-					String indCompleteName = driver.findElement(By.xpath("(//div[contains(@class,'rpIndividualName')])["+icount+"]")).getText();
-					String[] arrayName = indCompleteName.split(" ");
-					String indName = arrayName[0]+" "+arrayName[1];
-					System.out.println("Clicking 100% Annual income edit icon for ind "+indName);
-					String newXpathString ="(//td[contains(text(),'"+indName+"')]/following-sibling::td[4]//img[@class='editRecord'])["+keywordModel.jcount+"]";
-					driver.findElement(By.xpath(newXpathString)).click();
-					ReportUtilities.Log(driver,"clicking on 100% annual income edit icon " + keywordModel.dataValue,
-							"clicked on 100% annual income edit icon " + keywordModel.dataValue, Status.PASS, keywordModel);
 				}
 
- public void clickMedicalNoticeReasonlink(WebDriver driver, KeywordModel keywordModel) {
-					int icount = Integer.parseInt(keywordModel.dataValue);
-					String indCompleteName = driver.findElement(By.xpath("(//div[contains(@class,'rpIndividualName')])["+icount+"]")).getText();
-					String[] arrayName = indCompleteName.split(" ");
-					String indName = arrayName[0]+" "+arrayName[1];
-					System.out.println("Clicking medical notice reason link for ind "+indName);
-					String newXpathString ="(//div[contains(@class,'MedicalGrid')]/div[contains(text(),'"+indName+"')]/following-sibling::div[5]/a[1])["+keywordModel.jcount+"]" ;
-					driver.findElement(By.xpath(newXpathString)).click();
-					ReportUtilities.Log(driver,"clicking on medical notice reason link " + keywordModel.dataValue,
-							"clicked on medical notice reason link " + keywordModel.dataValue, Status.PASS, keywordModel);
+				calBeginDate = calMABeginDate(indivDetail[3], driver, keywordModel);
+				calEndDate = calMAEndDate(indivDetail[4], driver, keywordModel);
+
+				toa = driver.findElement(By.xpath("(//div[contains(@class,'MedicalGrid')]//div[3])[" + x + "]"))
+						.getText();
+
+				beginDt = driver.findElement(By.xpath("(//div[contains(@class,'MedicalGrid')]//div[5])[" + x + "]"))
+						.getText();
+
+				endDt = driver.findElement(By.xpath("(//div[contains(@class,'MedicalGrid')]//div[6])[" + x + "]"))
+						.getText();
+
+				status = driver.findElement(By.xpath("(//div[contains(@class,'MedicalGrid')]//div[8])[" + x + "]"))
+						.getText();
+
+				if (status.contains(indivDetail[1])) {
+
+					System.out.println(" Eligibility Status for record " + j + " are as expected");
+					ReportUtilities.Log(driver, "Verifying Status for record " + j,
+							"The eligibility Status are  as expected for record  " + j + " having text " + status,
+							Status.PASS, keywordModel);
+				} else {
+
+					System.out.println(" Eligibility Status for record " + j + " has failed");
+					ReportUtilities.Log(driver, "Verifying Status for record " + j,
+							"The eligibility Status are not as expected for record  " + j + " having text " + status,
+							Status.FAIL, keywordModel);
+					storeEDMResult(driver, keywordModel);
+					// driver.wait();
+				}
+				if (toa.contains(indivDetail[2])) {
+
+					System.out.println("TOA, for the record " + j + " are as expected");
+					ReportUtilities.Log(driver, "Verifying TOA for record " + j,
+							"The eligibility TOA are as expected for record  " + j + " having text " + toa, Status.PASS,
+							keywordModel);
+				} else {
+
+					System.out.println("TOA, for the record " + j + " has failed");
+					ReportUtilities.Log(driver, "Verifying TOA for record " + j,
+							"The eligibility TOA are not as expected for record  [" + j + "]having text " + toa,
+							Status.FAIL, keywordModel);
+					storeEDMResult(driver, keywordModel);
+					// driver.wait();
+				}
+				if (beginDt.contains(calBeginDate)) {
+
+					System.out.println("Begin Date for the record " + j + " are as expected");
+					ReportUtilities.Log(driver, "Verifying Begin Date for record " + j,
+							"The Begin Date are as expected for record  " + j + " having text " + beginDt, Status.PASS,
+							keywordModel);
+				} else {
+
+					System.out.println("Begin Date for the record " + j + " has failed");
+					ReportUtilities.Log(driver, "Verifying Begin Date for record " + j,
+							"The Begin Date are not as expected for record  " + j + " having text " + beginDt,
+							Status.FAIL, keywordModel);
+					storeEDMResult(driver, keywordModel);
+					// driver.wait();
+				}
+				if (endDt.contains(calEndDate)) {
+
+					System.out.println("End Date for the record " + j + " are as expected");
+					ReportUtilities.Log(driver, "Verifying End Date for record " + j,
+							"The End Date are as expected for record  " + j + " having text " + endDt, Status.PASS,
+							keywordModel);
+				} else {
+
+					System.out.println(" End Date for the record " + j + " has failed");
+					ReportUtilities.Log(driver, "Verifying End Date for record " + j,
+							"The End Date are not as expected for record  " + j + " having text " + endDt, Status.FAIL,
+							keywordModel);
+					storeEDMResult(driver, keywordModel);
+					// driver.wait();
 				}
 
-		public  void clickMedicalRFIlink(WebDriver driver, KeywordModel keywordModel) {
-					int icount = Integer.parseInt(keywordModel.dataValue);
-					String indCompleteName = driver.findElement(By.xpath("(//div[contains(@class,'rpIndividualName')])["+icount+"]")).getText();
-					String[] arrayName = indCompleteName.split(" ");
-					String indName = arrayName[0]+" "+arrayName[1];
-					System.out.println("Clicking on medical rfi link for ind "+indName);
-					String newXpathString ="(//div[contains(@class,'MedicalGrid')]/div[contains(text(),'"+indName+"')]/following-sibling::div[5]/a[2])["+keywordModel.jcount+"]" ;
-					driver.findElement(By.xpath(newXpathString)).click();
-					ReportUtilities.Log(driver,"clicking on medical rfi link " + keywordModel.dataValue,
-							"clicked on medical rfi link " + keywordModel.dataValue, Status.PASS, keywordModel);
-				}				
-					
+			}
 
-					
-					/**
-					 * Method Name: WaitforPagewithJs Return Type: Nothing Description: Waits for
-					 * the page to load with document.ready state as parameter
-					 */
+		} catch (Exception e) {
+			ReportUtilities.Log(driver, "Verifying the medical EDM records " + keywordModel.objectName,
+					"The values are not displayed as expected", Status.FAIL, keywordModel);
+			driver.wait();
+		}
 
-		/*			public void WaitforPagewithJs(WebDriver driver, KeywordModel keywordModel) throws Exception {
+	}
 
-						do {
-							JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
-							keywordModel.Pageloadstatus = jsExecutor.executeScript("return document.readyState").toString();
-							// System.out.println("Pageloadstatus:: " + Pageloadstatus + " " +
-							// Driver.formName);
-						} while (!(keywordModel.Pageloadstatus.equalsIgnoreCase("complete")));
-						Thread.sleep(10000);
-						
-					}*/
+	/*
+	 * public String[] StoreAPIndNames(WebDriver driver, KeywordModel keywordModel)
+	 * 
+	 * { try { int indSize = findElementsByType(driver, keywordModel).size();
+	 * 
+	 * keywordModel.indNameList = new String[indSize]; for (int i = 1; i <= indSize;
+	 * i++) { keywordModel.indNameList[i - 1] = driver.findElement(By.xpath(
+	 * "(//table[@id='tableUsersProgram']//div[@class='caption'])[" + i +
+	 * "]")).getText(); }
+	 * 
+	 * } catch (Exception e) {
+	 * System.out.println("Storing AP individual names has failed");
+	 * 
+	 * } return keywordModel.indNameList; }
+	 */
 
+	/*
+	 * public void verifyAPMedicalRFI(WebDriver driver, KeywordModel keywordModel)
+	 * throws InterruptedException { String dataValue = keywordModel.dataValue;
+	 * String indivName = ""; String programName = ""; String RFI = ""; String
+	 * DueDate = ""; String[] indivEligibilityDetails = null;
+	 * 
+	 * int num = 100;
+	 * 
+	 * String[] indivDetail = null;
+	 * 
+	 * 
+	 * 
+	 * try { if (dataValue.contains(";")) { indivEligibilityDetails =
+	 * dataValue.split(";"); } else { indivEligibilityDetails = new String[1];
+	 * indivEligibilityDetails[0] = dataValue; }
+	 * 
+	 * 
+	 * int count =
+	 * driver.findElements(By.xpath("//*[@id='0~ProofListToSubmitGrid~']//tbody/tr")
+	 * ).size();
+	 * 
+	 * 
+	 * 
+	 * int[] temp = new int[count]; for (int l = 0; l < count; l++) { temp[l] = num;
+	 * num = num + 1; }
+	 * 
+	 * int x = 0; int j = 0;
+	 * 
+	 * for (j = 1; j <= count; j++) {
+	 * 
+	 * indivName = driver.findElement(By.xpath(
+	 * "(//*[contains(@id,'ProofListToSubmit~HouseHoldMemeberName~td')])[" + j +
+	 * "]")).getText();
+	 * 
+	 * 
+	 * for (int k = 1; k <= keywordModel.indNameList.length; k++) { String ind_name
+	 * = keywordModel.indNameList[k - 1];
+	 * 
+	 * if (ind_name.contains(indivName) /*&& indivDetail[0].Equals("Indiv"+k+"")) {
+	 * x = j; for (int i = 0, z = 0; i < count && z < temp.length; i++, z++) {
+	 * indivDetail = indivEligibilityDetails[i].split("\\|");
+	 * 
+	 * if (indivDetail[0].equals("Indiv" + k + "") && temp[z] != i) //3 { temp[z] =
+	 * i;
+	 * 
+	 * break; } } break; }
+	 * 
+	 * 
+	 * }
+	 * 
+	 * 
+	 * programName = driver.findElement(By.xpath(
+	 * "(//*[contains(@id,'ProofListToSubmit~Program~td')])[" + x + "]")).getText();
+	 * 
+	 * RFI = driver.findElement(By.xpath(
+	 * "(//*[contains(@id,'ProofListToSubmit~ProofType~td')])[" + x +
+	 * "]")).getText();
+	 * 
+	 * DueDate = driver.findElement(By.xpath(
+	 * "(//*[contains(@id,'ProofListToSubmit~VerificationChecklistDueDateNeeded~td')])["
+	 * + x + "]")).getText();
+	 * 
+	 * // RFIDate = verifyAPRFIDate(indivDetail[3]);
+	 * 
+	 * if (programName.equals(indivDetail[1])) {
+	 * 
+	 * System.out.println(" Program Name for record " + j + " are as expected");
+	 * ReportUtilities.Log(driver,"Verifying Program Name for record "+
+	 * j,"The Program Names are  as expected for record  " + j + " having text " +
+	 * programName, Status.PASS, keywordModel); } else {
+	 * 
+	 * System.out.println(" Program Name for record " + j + " has failed");
+	 * ReportUtilities.Log(driver,"Verifying Program Name for record " + j,
+	 * "The Program Name are not as expected for record  " + j + " having text " +
+	 * programName, Status.FAIL, keywordModel); driver.wait(); } if
+	 * (RFI.equals(indivDetail[2])) {
+	 * 
+	 * System.out.println("RFI, for the record " + j + " are as expected");
+	 * ReportUtilities.Log(driver,"Verifying RFI for record " + j,
+	 * "The RFI are as expected for record  " + j + " having text " + RFI,
+	 * Status.PASS, keywordModel);
+	 * 
+	 * } else {
+	 * 
+	 * System.out.println("RFI, for the record " + j + " has failed");
+	 * ReportUtilities.Log(driver,"Verifying RFI for record " +
+	 * j,"The eligibility TOA are not as expected for record  [" + j +
+	 * "]having text " + RFI, Status.FAIL, keywordModel); driver.wait(); } if
+	 * (DueDate.equals(indivDetail[3])) {
+	 * 
+	 * System.out.println("Due Date for the record " + j + " are as expected");
+	 * ReportUtilities.Log(driver,"Verifying Due Date for record " +
+	 * j,"The Begin Date are as expected for record  " + j + " having text " +
+	 * DueDate, Status.PASS, keywordModel); } else {
+	 * 
+	 * System.out.println("Due Date for the record " + j + " has failed");
+	 * ReportUtilities.Log(driver,"Verifying Due Date for record " + j,
+	 * "The Begin Date are not as expected for record  " + j + " having text " +
+	 * DueDate, Status.FAIL, keywordModel); driver.wait(); }
+	 * 
+	 * 
+	 * }
+	 * 
+	 * 
+	 * } catch (Exception e) {
+	 * ReportUtilities.Log(driver,"Verifying the Medical RFI records " +
+	 * keywordModel.objectName , "The values are not displayed as expected",
+	 * Status.FAIL, keywordModel); driver.wait(); }
+	 * 
+	 * }
+	 */
+
+	/*
+	 * public void verifyAPMedicalRFIDyna(WebDriver driver, KeywordModel
+	 * keywordModel) throws InterruptedException { String dataValue =
+	 * keywordModel.dataValue; String indivName = ""; String programName = "";
+	 * String RFI = ""; String DueDate = ""; String[] indivEligibilityDetails =
+	 * null; String RFIDate=""; int num = 100;
+	 * 
+	 * String[] indivDetail = null;
+	 * 
+	 * 
+	 * 
+	 * try { if (dataValue.contains(";")) { indivEligibilityDetails =
+	 * dataValue.split(";"); } else { indivEligibilityDetails = new String[1];
+	 * indivEligibilityDetails[0] = dataValue; }
+	 * 
+	 * 
+	 * int count =
+	 * driver.findElements(By.xpath("//*[@id='0~ProofListToSubmitGrid~']//tbody/tr")
+	 * ).size();
+	 * 
+	 * 
+	 * 
+	 * int[] temp = new int[count]; for (int l = 0; l < count; l++) { temp[l] = num;
+	 * num = num + 1; }
+	 * 
+	 * int x = 0; int j = 0;
+	 * 
+	 * for (j = 1; j <= count; j++) {
+	 * 
+	 * indivName = driver.findElement(By.xpath(
+	 * "(//*[contains(@id,'ProofListToSubmit~HouseHoldMemeberName~td')])[" + j +
+	 * "]")).getText();
+	 * 
+	 * 
+	 * for (int k = 1; k <= keywordModel.indNameList.length; k++) { String ind_name
+	 * = keywordModel.indNameList[k - 1];
+	 * 
+	 * if (ind_name.contains(indivName) /*&& indivDetail[0].Equals("Indiv"+k+"")) {
+	 * x = j; for (int i = 0, z = 0; i < count && z < temp.length; i++, z++) {
+	 * indivDetail = indivEligibilityDetails[i].split("\\|");
+	 * 
+	 * if (indivDetail[0].equals("Indiv" + k + "") && temp[z] != i) //3 { temp[z] =
+	 * i;
+	 * 
+	 * break; } } break; }
+	 * 
+	 * 
+	 * }
+	 * 
+	 * 
+	 * programName = driver.findElement(By.xpath(
+	 * "(//*[contains(@id,'ProofListToSubmit~Program~td')])[" + x + "]")).getText();
+	 * 
+	 * RFI = driver.findElement(By.xpath(
+	 * "(//*[contains(@id,'ProofListToSubmit~ProofType~td')])[" + x +
+	 * "]")).getText();
+	 * 
+	 * DueDate = driver.findElement(By.xpath(
+	 * "(//*[contains(@id,'ProofListToSubmit~VerificationChecklistDueDateNeeded~td')])["
+	 * + x + "]")).getText();
+	 * 
+	 * RFIDate = verifyAPRFIDate(indivDetail[3], driver, keywordModel);
+	 * 
+	 * if (programName.equals(indivDetail[1])) {
+	 * 
+	 * System.out.println(" Program Name for record " + j + " are as expected");
+	 * ReportUtilities.Log(driver,"Verifying Program Name for record "+
+	 * j,"The Program Names are  as expected for record  " + j + " having text " +
+	 * programName, Status.PASS, keywordModel); } else {
+	 * 
+	 * System.out.println(" Program Name for record " + j + " has failed");
+	 * ReportUtilities.Log(driver,"Verifying Program Name for record " + j,
+	 * "The Program Name are not as expected for record  " + j + " having text " +
+	 * programName, Status.FAIL, keywordModel); storeEDMResult(driver,
+	 * keywordModel); // driver.wait(); } if (RFI.equals(indivDetail[2])) {
+	 * 
+	 * System.out.println("RFI, for the record " + j + " are as expected");
+	 * ReportUtilities.Log(driver,"Verifying RFI for record " + j,
+	 * "The RFI are as expected for record  " + j + " having text " + RFI,
+	 * Status.PASS, keywordModel);
+	 * 
+	 * } else {
+	 * 
+	 * System.out.println("RFI, for the record " + j + " has failed");
+	 * ReportUtilities.Log(driver,"Verifying RFI for record " +
+	 * j,"The eligibility TOA are not as expected for record  [" + j +
+	 * "]having text " + RFI, Status.FAIL, keywordModel); storeEDMResult(driver,
+	 * keywordModel); // driver.wait(); } if (DueDate.equals(RFIDate)) {
+	 * 
+	 * System.out.println("Due Date for the record " + j + " are as expected");
+	 * ReportUtilities.Log(driver,"Verifying Due Date for record " +
+	 * j,"The Begin Date are as expected for record  " + j + " having text " +
+	 * DueDate, Status.PASS, keywordModel); } else {
+	 * 
+	 * System.out.println("Due Date for the record " + j + " has failed");
+	 * ReportUtilities.Log(driver,"Verifying Due Date for record " + j,
+	 * "The Begin Date are not as expected for record  " + j + " having text " +
+	 * DueDate, Status.FAIL, keywordModel); storeEDMResult(driver, keywordModel); //
+	 * driver.wait(); }
+	 * 
+	 * 
+	 * }
+	 * 
+	 * 
+	 * } catch (Exception e) {
+	 * ReportUtilities.Log(driver,"Verifying the Medical RFI records " +
+	 * keywordModel.objectName , "The values are not displayed as expected",
+	 * Status.FAIL, keywordModel); driver.wait(); }
+	 * 
+	 * }
+	 */
+	public void clickAnnualIncomeEditIcon(WebDriver driver, KeywordModel keywordModel) {
+		int icount = Integer.parseInt(keywordModel.dataValue);
+		String indCompleteName = driver
+				.findElement(By.xpath("(//div[contains(@class,'rpIndividualName')])[" + icount + "]")).getText();
+		String[] arrayName = indCompleteName.split(" ");
+		String indName = arrayName[0] + " " + arrayName[1];
+		System.out.println("Clicking 100% Annual income edit icon for ind " + indName);
+		String newXpathString = "(//td[contains(text(),'" + indName
+				+ "')]/following-sibling::td[4]//img[@class='editRecord'])[" + keywordModel.jcount + "]";
+		driver.findElement(By.xpath(newXpathString)).click();
+		ReportUtilities.Log(driver, "clicking on 100% annual income edit icon " + keywordModel.dataValue,
+				"clicked on 100% annual income edit icon " + keywordModel.dataValue, Status.PASS, keywordModel);
+	}
+
+	public void clickMedicalNoticeReasonlink(WebDriver driver, KeywordModel keywordModel) {
+		int icount = Integer.parseInt(keywordModel.dataValue);
+		String indCompleteName = driver
+				.findElement(By.xpath("(//div[contains(@class,'rpIndividualName')])[" + icount + "]")).getText();
+		String[] arrayName = indCompleteName.split(" ");
+		String indName = arrayName[0] + " " + arrayName[1];
+		System.out.println("Clicking medical notice reason link for ind " + indName);
+		String newXpathString = "(//div[contains(@class,'MedicalGrid')]/div[contains(text(),'" + indName
+				+ "')]/following-sibling::div[5]/a[1])[" + keywordModel.jcount + "]";
+		driver.findElement(By.xpath(newXpathString)).click();
+		ReportUtilities.Log(driver, "clicking on medical notice reason link " + keywordModel.dataValue,
+				"clicked on medical notice reason link " + keywordModel.dataValue, Status.PASS, keywordModel);
+	}
+
+	public void clickMedicalRFIlink(WebDriver driver, KeywordModel keywordModel) {
+		int icount = Integer.parseInt(keywordModel.dataValue);
+		String indCompleteName = driver
+				.findElement(By.xpath("(//div[contains(@class,'rpIndividualName')])[" + icount + "]")).getText();
+		String[] arrayName = indCompleteName.split(" ");
+		String indName = arrayName[0] + " " + arrayName[1];
+		System.out.println("Clicking on medical rfi link for ind " + indName);
+		String newXpathString = "(//div[contains(@class,'MedicalGrid')]/div[contains(text(),'" + indName
+				+ "')]/following-sibling::div[5]/a[2])[" + keywordModel.jcount + "]";
+		driver.findElement(By.xpath(newXpathString)).click();
+		ReportUtilities.Log(driver, "clicking on medical rfi link " + keywordModel.dataValue,
+				"clicked on medical rfi link " + keywordModel.dataValue, Status.PASS, keywordModel);
+	}
+
+	/**
+	 * Method Name: WaitforPagewithJs Return Type: Nothing Description: Waits for
+	 * the page to load with document.ready state as parameter
+	 */
+
+	/*
+	 * public void WaitforPagewithJs(WebDriver driver, KeywordModel keywordModel)
+	 * throws Exception {
+	 * 
+	 * do { JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+	 * keywordModel.Pageloadstatus =
+	 * jsExecutor.executeScript("return document.readyState").toString(); //
+	 * System.out.println("Pageloadstatus:: " + Pageloadstatus + " " + //
+	 * Driver.formName); } while
+	 * (!(keywordModel.Pageloadstatus.equalsIgnoreCase("complete")));
+	 * Thread.sleep(10000);
+	 * 
+	 * }
+	 */
 
 //****************************Ky_Keywords from here	*****************************************				
-					public void WaitElementClickable(WebDriver driver, KeywordModel keywordModel)
-					{
+	public void WaitElementClickable(WebDriver driver, KeywordModel keywordModel) {
 
-						try
-						{
-
-							WebElement element=findElementByType(driver, keywordModel);
-							WebDriverWait wait = new WebDriverWait(driver, 5000);
-							wait.until(ExpectedConditions.elementToBeClickable(element));
-							scrollToElement(driver, keywordModel);
-						}
-						catch (Exception e)
-						{
-							throw e;
-						}
-					}
-					
-					public void WaitElementVisible(WebDriver driver, KeywordModel keywordModel)
-					{
-						
-						
-
-												try
-												{
-													WebElement element=findElementByType(driver, keywordModel);
-							WebDriverWait wait1 = new WebDriverWait(driver, 5000);
-				            wait1.until(ExpectedConditions.visibilityOf(element));
-				            scrollToElement(driver, keywordModel);
-						}
-						catch (Exception e)
-						{
-							throw e;
-						}
-					}
-					
-					public void Navigate(WebDriver driver, String url) throws Exception
-					{
-						
-						try
-						{
-
-							if (!(url.startsWith("http://") || url.startsWith("https://")))
-								throw new Exception("URL is invalid format and cannot open page");
-							driver.navigate().to(url);
-							
-						}
-						catch (Exception e)
-						{
-							throw e;
-						}
-
-
-					}
-					
-					
-					
-					//****************************Ky_Keywords ends here	*****************************************
-					
-					
-//***********************************MDOT_Keywords starts************************************
-					
-/*Method selects the radio button based on the data passed in the data sheet.
-	 *creator : Prasanna Kumar 712352
-*/
-					
-	public void clickRadioButtonByName(WebDriver driver,KeywordModel keywordModel) {
-						
 		try {
-			String[] actualObject=keywordModel.objectID.split(":"); 
-			
-			//*[@id='BYFUNC']//child::*[@value='N']//parent::span[@class="mat-radio-container"]
-			driver.findElement(By.xpath("//*[@id='"+actualObject[1]+"']//child::*[@value='"+keywordModel.dataValue+"']//parent::span[@class=\"mat-radio-container\"]")).click();
+
+			WebElement element = findElementByType(driver, keywordModel);
+			WebDriverWait wait = new WebDriverWait(driver, 5000);
+			wait.until(ExpectedConditions.elementToBeClickable(element));
+			scrollToElement(driver, keywordModel);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	public void WaitElementVisible(WebDriver driver, KeywordModel keywordModel) {
+
+		try {
+			WebElement element = findElementByType(driver, keywordModel);
+			WebDriverWait wait1 = new WebDriverWait(driver, 5000);
+			wait1.until(ExpectedConditions.visibilityOf(element));
+			scrollToElement(driver, keywordModel);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	public void Navigate(WebDriver driver, String url) throws Exception {
+
+		try {
+
+			if (!(url.startsWith("http://") || url.startsWith("https://")))
+				throw new Exception("URL is invalid format and cannot open page");
+			driver.navigate().to(url);
+
+		} catch (Exception e) {
+			throw e;
+		}
+
+	}
+
+	// ****************************Ky_Keywords ends here
+	// *****************************************
+
+//***********************************MDOT_Keywords starts************************************
+
+	/*
+	 * Method selects the radio button based on the data passed in the data sheet.
+	 * creator : Prasanna Kumar 712352
+	 */
+
+	public void clickRadioButtonByName(WebDriver driver, KeywordModel keywordModel) {
+
+		try {
+			String[] actualObject = keywordModel.objectID.split(":");
+
+			// *[@id='BYFUNC']//child::*[@value='N']//parent::span[@class="mat-radio-container"]
+			driver.findElement(By.xpath("//*[@id='" + actualObject[1] + "']//child::*[@value='" + keywordModel.dataValue
+					+ "']//parent::span[@class=\"mat-radio-container\"]")).click();
 //			driver.findElement(By.xpath("//*[@id='"+actualObject[1]+"']//child::*[@value='"+keywordModel.dataValue+"']")).click();
-			ReportUtilities.Log(driver,"Selecting by visible text in the radio button " + keywordModel.objectName,
-					"Selected the value " + keywordModel.dataValue + " in the options ", Status.PASS , keywordModel);
-							
-			}
-		catch(NoSuchElementException p){
+			ReportUtilities.Log(driver, "Selecting by visible text in the radio button " + keywordModel.objectName,
+					"Selected the value " + keywordModel.dataValue + " in the options ", Status.PASS, keywordModel);
+
+		} catch (NoSuchElementException p) {
 			keywordModel.error = true;
 			keywordModel.displayError = true;
-			ReportUtilities.Log(driver,"Cannot select any value on the object.", "The Element " + keywordModel.objectName
-					+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
-			throw new RuntimeException(p);				
-			}
+			ReportUtilities.Log(
+					driver, "Cannot select any value on the object.", "The Element " + keywordModel.objectName
+							+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+					Status.FAIL, keywordModel);
+			throw new RuntimeException(p);
 		}
-		
-	
-	/*Method uses robot class to automate windows application used for uploading the attachments.
-	 *creator : Prasanna Kumar 712352
+	}
+
+	/*
+	 * Method uses robot class to automate windows application used for uploading
+	 * the attachments. creator : Prasanna Kumar 712352
 	 */
-	
-	public void robotUploadDocuments(WebDriver driver,KeywordModel keywordModel) throws AWTException {
+
+	public void robotUploadDocuments(WebDriver driver, KeywordModel keywordModel) throws AWTException {
 		Robot robot = new Robot();
 		try {
-		
-		     StringSelection ss = new StringSelection(keywordModel.dataValue);
-		     Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss, null);
-		     
-		   //imitate mouse events like ENTER, CTRL+C, CTRL+V
-		     robot.delay(250);
-		     robot.keyPress(KeyEvent.VK_ENTER);
-		     robot.keyRelease(KeyEvent.VK_ENTER);
-		     robot.keyPress(KeyEvent.VK_CONTROL);
-		     robot.keyPress(KeyEvent.VK_V);
-		     robot.keyRelease(KeyEvent.VK_V);
-		     robot.keyRelease(KeyEvent.VK_CONTROL);
-		     robot.keyPress(KeyEvent.VK_ENTER);
-		     robot.delay(90);
-		     robot.keyRelease(KeyEvent.VK_ENTER);
+
+			StringSelection ss = new StringSelection(keywordModel.dataValue);
+			Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss, null);
+
+			// imitate mouse events like ENTER, CTRL+C, CTRL+V
+			robot.delay(250);
+			robot.keyPress(KeyEvent.VK_ENTER);
+			robot.keyRelease(KeyEvent.VK_ENTER);
+			robot.keyPress(KeyEvent.VK_CONTROL);
+			robot.keyPress(KeyEvent.VK_V);
+			robot.keyRelease(KeyEvent.VK_V);
+			robot.keyRelease(KeyEvent.VK_CONTROL);
+			robot.keyPress(KeyEvent.VK_ENTER);
+			robot.delay(90);
+			robot.keyRelease(KeyEvent.VK_ENTER);
 		}
-		
-		catch(NoSuchElementException p) {
+
+		catch (NoSuchElementException p) {
 			keywordModel.error = true;
 			keywordModel.displayError = true;
-			ReportUtilities.Log(driver,"Cannot upload the documents.", "The Element " + keywordModel.objectName
-					+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+			ReportUtilities.Log(
+					driver, "Cannot upload the documents.", "The Element " + keywordModel.objectName
+							+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+					Status.FAIL, keywordModel);
 			throw new RuntimeException(p);
 		}
-		
+
 	}
-	
-	/*Method used for uploading the attachments.
-	 *creator : Prasanna Kumar 712352
+
+	/*
+	 * Method used for uploading the attachments. creator : Prasanna Kumar 712352
 	 */
-	
-	public void uploadDocuments(WebDriver driver,KeywordModel keywordModel) throws InterruptedException  {
+
+	public void uploadDocuments(WebDriver driver, KeywordModel keywordModel) throws InterruptedException {
 
 		try {
-		
-			WebElement element = findElementByType(driver,keywordModel);
-			//JavascriptExecutor js = (JavascriptExecutor) driver;
+
+			WebElement element = findElementByType(driver, keywordModel);
+			// JavascriptExecutor js = (JavascriptExecutor) driver;
 			// Setting value for "style" attribute to make textbox visible
-			//js.executeScript("arguments[0].style.display='block';", element);
-			//element.sendKeys(keywordModel.dataValue);
-			
-			String absolutepath=new File(keywordModel.dataValue).getAbsolutePath();
-	        element.sendKeys(absolutepath);
-	        
+			// js.executeScript("arguments[0].style.display='block';", element);
+			// element.sendKeys(keywordModel.dataValue);
+
+			String absolutepath = new File(keywordModel.dataValue).getAbsolutePath();
+			element.sendKeys(absolutepath);
+
 		}
-		
-		catch(NoSuchElementException p) {
+
+		catch (NoSuchElementException p) {
 			keywordModel.error = true;
 			keywordModel.displayError = true;
-			ReportUtilities.Log(driver,"Cannot upload the documents.", "The Element " + keywordModel.objectName
-					+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
+			ReportUtilities.Log(
+					driver, "Cannot upload the documents.", "The Element " + keywordModel.objectName
+							+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+					Status.FAIL, keywordModel);
 			throw new RuntimeException(p);
 		}
-		
+
 	}
-	
-	/*Method used for generating alpha numeric random number of fixed length .
-	 *creator : Prasanna Kumar 712352
+
+	/*
+	 * Method used for generating alpha numeric random number of fixed length .
+	 * creator : Prasanna Kumar 712352
 	 */
-	
-	public void enterRandomAlphaNumber(WebDriver driver,KeywordModel keywordModel) {
-		
+
+	public void enterRandomAlphaNumber(WebDriver driver, KeywordModel keywordModel) {
+
 		try {
-			
+
 			findElementByType(driver, keywordModel).clear();
-			
-			//Length:6;StartsWith:T
-			//Above is the format example to be passed in the test data sheet
-			
+
+			// Length:6;StartsWith:T
+			// Above is the format example to be passed in the test data sheet
+
 			String[] randomDetails = keywordModel.dataValue.split(";");
 			int length = Integer.parseInt(randomDetails[0].split(":")[1]);
 			String startsWith = randomDetails[1].split(":")[1];
-		
+
 			String Chars = "0123456789";
 			StringBuilder builder = new StringBuilder();
 			while (length-- != 0) {
 				int character = (int) (Math.random() * Chars.length());
-				builder.append(Chars.charAt(character));	
+				builder.append(Chars.charAt(character));
 			}
-			
-			if(startsWith=="") {
-				keywordModel.dataValue = builder.toString();
-			}
-			else {
-			keywordModel.dataValue = startsWith + builder.toString();
-			}
-			
-			findElementByType(driver,keywordModel).sendKeys(keywordModel.dataValue);
-			
-		}
-		catch(NoSuchElementException p) {
-			
-			keywordModel.error = true;
-			keywordModel.displayError = true;
-			ReportUtilities.Log(driver,"Cannot generate random alpha numeric number.", "The Element " + keywordModel.objectName
-					+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
-			throw new RuntimeException(p);
-		}
-		
-	}
-	
-	/*Method used for getting current system date .
-	 *creator : Prasanna Kumar 712352
-	 */
-	
-	public void enterPresentDate(WebDriver driver, KeywordModel keywordModel) throws Exception{
-		
-		try {
-			if(findElementByType(driver,keywordModel).isDisplayed()) {
-				
-				findElementByType(driver,keywordModel).clear();
-				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-				LocalDate now = LocalDate.now(); 
-				System.out.println(dtf.format(now));   
-				findElementByType(driver,keywordModel).sendKeys(dtf.format(now));
-			}			
-		}
-		catch(NoSuchElementException p) {
-			keywordModel.error = true;
-			keywordModel.displayError = true;
-			ReportUtilities.Log(driver,"Cannot generate current system date.", "The Element " + keywordModel.objectName
-					+ " is NOT displayed on the current screen" + keywordModel.ScreenName, Status.FAIL , keywordModel);
-			throw new RuntimeException(p);
-		}
-	}
-	
-	/*Method used for Storing Session Amount Without $ Symbol .
-     *creator : Manoj Kumar 670560
-     */
 
-    public void storeSessionAmount(WebDriver driver, KeywordModel keywordModel) {
-        try {
-            if (findElementByType(driver, keywordModel).isDisplayed()) {
-                WebElement webElement = findElementByType(driver, keywordModel);
-                String elementValue = webElement.getText();
-                // elementValue = elementValue.replace("/", "");
-            //    elementValue = elementValue.replace("Case: ", "").trim();
-            //    elementValue = elementValue.replace("Application: ", "").trim();
-                if (elementValue.contains("$")) {
-                    elementValue=elementValue.replace("$","");// For Storing SSN from UI
-                }
-            sessionManager.add(keywordModel.dataValue, elementValue, keywordModel);
-                System.out.println("Session has : " + elementValue + "in Key: " + keywordModel.dataValue);
-                ReportUtilities.Log(driver,"Storing the data in session: ", elementValue, Status.PASS , keywordModel);
-            }
-        } catch (NoSuchElementException p) {
-            keywordModel.error = true;
-            keywordModel.displayError = true;
-            ReportUtilities.Log(driver,"Cannot store data in session from the object.",
-                    "The Element " + keywordModel.objectName + " is NOT displayed on the current screen" + keywordModel.ScreenName,
-                    Status.FAIL , keywordModel);
-            throw new RuntimeException(p);
-        }
-    }
-    
-    /*Method wait for Element ( long Wait )
-     *creator : Manoj kumar 670560
-     *
-     */
-    public  void longWaitForElementPresent(WebDriver driver, KeywordModel keywordModel) throws InterruptedException
-    {
-        int counter = 0;
-        try
-        {
-            while (true)
-            {
-                counter++;
-               try
-                {
-                    Thread.sleep(1000);
-                    if(findElementByType(driver, keywordModel).isDisplayed())
-                    {     
-                        if(findElementByType(driver, keywordModel).isEnabled())
-                        {
-                            // Thread.sleep(10000);
-                            System.out.println("Object found - Small Wait: "+keywordModel.objectName+" at "+counter);
-                            ReportUtilities.Log(driver,"long Wait for Element , Element found  :",
-                                    "Locating the element + " + keywordModel.objectName, Status.PASS , keywordModel);
-                            break;
-                        }
-                    }
-                }
-               catch (Exception e)
-                {
-                    System.out.println("Object not found - long wait: "+keywordModel.objectName + "Retrying...");
-               }
-               if (counter >= 180)
-                {
-                    System.out.println("Object not found  - long wait: "+keywordModel.objectName);
-                   break;
-                }
-            }
-       }
-        catch(Exception e)
-        {
-            System.out.println("Object not found by long wait: "+keywordModel.objectName);
-            ReportUtilities.Log(driver,"long Wait for Element , Element not found  :",
-                    "Locating the element + " + keywordModel.objectName, Status.FAIL , keywordModel);
-        }
-   }
-    
+			if (startsWith == "") {
+				keywordModel.dataValue = builder.toString();
+			} else {
+				keywordModel.dataValue = startsWith + builder.toString();
+			}
+
+			findElementByType(driver, keywordModel).sendKeys(keywordModel.dataValue);
+
+		} catch (NoSuchElementException p) {
+
+			keywordModel.error = true;
+			keywordModel.displayError = true;
+			ReportUtilities.Log(
+					driver, "Cannot generate random alpha numeric number.", "The Element " + keywordModel.objectName
+							+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+					Status.FAIL, keywordModel);
+			throw new RuntimeException(p);
+		}
+
+	}
+
+	/*
+	 * Method used for getting current system date . creator : Prasanna Kumar 712352
+	 */
+
+	public void enterPresentDate(WebDriver driver, KeywordModel keywordModel) throws Exception {
+
+		try {
+			if (findElementByType(driver, keywordModel).isDisplayed()) {
+
+				findElementByType(driver, keywordModel).clear();
+				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+				LocalDate now = LocalDate.now();
+				System.out.println(dtf.format(now));
+				findElementByType(driver, keywordModel).sendKeys(dtf.format(now));
+			}
+		} catch (NoSuchElementException p) {
+			keywordModel.error = true;
+			keywordModel.displayError = true;
+			ReportUtilities.Log(
+					driver, "Cannot generate current system date.", "The Element " + keywordModel.objectName
+							+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+					Status.FAIL, keywordModel);
+			throw new RuntimeException(p);
+		}
+	}
+
+	/*
+	 * Method used for Storing Session Amount Without $ Symbol . creator : Manoj
+	 * Kumar 670560
+	 */
+
+	public void storeSessionAmount(WebDriver driver, KeywordModel keywordModel) {
+		try {
+			if (findElementByType(driver, keywordModel).isDisplayed()) {
+				WebElement webElement = findElementByType(driver, keywordModel);
+				String elementValue = webElement.getText();
+				// elementValue = elementValue.replace("/", "");
+				// elementValue = elementValue.replace("Case: ", "").trim();
+				// elementValue = elementValue.replace("Application: ", "").trim();
+				if (elementValue.contains("$")) {
+					elementValue = elementValue.replace("$", "");// For Storing SSN from UI
+				}
+				sessionManager.add(keywordModel.dataValue, elementValue, keywordModel);
+				System.out.println("Session has : " + elementValue + "in Key: " + keywordModel.dataValue);
+				ReportUtilities.Log(driver, "Storing the data in session: ", elementValue, Status.PASS, keywordModel);
+			}
+		} catch (NoSuchElementException p) {
+			keywordModel.error = true;
+			keywordModel.displayError = true;
+			ReportUtilities.Log(
+					driver, "Cannot store data in session from the object.", "The Element " + keywordModel.objectName
+							+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+					Status.FAIL, keywordModel);
+			throw new RuntimeException(p);
+		}
+	}
+
+	/*
+	 * Method wait for Element ( long Wait ) creator : Manoj kumar 670560
+	 *
+	 */
+	public void longWaitForElementPresent(WebDriver driver, KeywordModel keywordModel) throws InterruptedException {
+		int counter = 0;
+		try {
+			while (true) {
+				counter++;
+				try {
+					Thread.sleep(1000);
+					if (findElementByType(driver, keywordModel).isDisplayed()) {
+						if (findElementByType(driver, keywordModel).isEnabled()) {
+							// Thread.sleep(10000);
+							System.out.println(
+									"Object found - Small Wait: " + keywordModel.objectName + " at " + counter);
+							ReportUtilities.Log(driver, "long Wait for Element , Element found  :",
+									"Locating the element + " + keywordModel.objectName, Status.PASS, keywordModel);
+							break;
+						}
+					}
+				} catch (Exception e) {
+					System.out.println("Object not found - long wait: " + keywordModel.objectName + "Retrying...");
+				}
+				if (counter >= 180) {
+					System.out.println("Object not found  - long wait: " + keywordModel.objectName);
+					break;
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("Object not found by long wait: " + keywordModel.objectName);
+			ReportUtilities.Log(driver, "long Wait for Element , Element not found  :",
+					"Locating the element + " + keywordModel.objectName, Status.FAIL, keywordModel);
+		}
+	}
+
+//***********************************Mstars Keyword*****************************************
+	
+	public void selectByVisibleText(WebDriver driver, KeywordModel keywordModel) throws InterruptedException {
+		if (keywordModel.dynaElement != null) {
+			try {
+				if (keywordModel.dynaElement.isDisplayed()) {
+					findElementByType(driver, keywordModel).click();
+					Thread.sleep(1000);
+					driver.findElement(By.xpath("//mat-option/span[contains(text(),'" + keywordModel.dataValue + "')]"))
+							.click();
+
+					ReportUtilities.Log(driver, "Selecting by visible text in the dropdown " + keywordModel.objectName,
+							"Selected the value " + keywordModel.dataValue + " in the select box ", Status.PASS,
+							keywordModel);
+				}
+			} catch (NoSuchElementException p) {
+				keywordModel.error = true;
+				keywordModel.displayError = true;
+				ReportUtilities.Log(
+						driver, "Cannot select any value on the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
+				throw new RuntimeException(p);
+			}
+		} else {
+			try {
+				if (findElementByType(driver, keywordModel).isDisplayed()) {
+
+					findElementByType(driver, keywordModel).click();
+
+					Thread.sleep(1000);
+
+//					driver.findElement(By.xpath(
+//							"//mat-option/span[contains(text(),'" + keywordModel.dataValue + "')]//parent::mat-option"))
+//							.click();
+
+					WebElement element = driver.findElement(
+							By.xpath("//mat-option/span[contains(text(),'" + keywordModel.dataValue + "')]"));
+					JavascriptExecutor executor = (JavascriptExecutor) driver;
+					executor.executeScript("arguments[0].click();", element);
+
+					ReportUtilities.Log(driver, "Selecting by visible text in the dropdown " + keywordModel.objectName,
+							"Selected the value " + keywordModel.dataValue + " in the select box ", Status.PASS,
+							keywordModel);
+				}
+			} catch (NoSuchElementException p) {
+				keywordModel.error = true;
+				keywordModel.displayError = true;
+				ReportUtilities.Log(
+						driver, "Cannot select any value on the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
+				throw new RuntimeException(p);
+			}
+		}
+	}
+
+	public void selectByVisibleTextInput(WebDriver driver, KeywordModel keywordModel) throws InterruptedException {
+		if (keywordModel.dynaElement != null) {
+			try {
+				if (keywordModel.dynaElement.isDisplayed()) {
+					findElementByType(driver, keywordModel).click();
+					Thread.sleep(1000);
+//					driver.findElement(By.xpath("//mat-option/span[contains(text(),'" + keywordModel.dataValue + "')]")).click();
+					driver.findElement(By.xpath("//div[contains(@class,'ng-option')]/span[contains(text(),'"
+							+ keywordModel.dataValue + "')]")).click();
+
+					ReportUtilities.Log(driver, "Selecting by visible text in the dropdown " + keywordModel.objectName,
+							"Selected the value " + keywordModel.dataValue + " in the select box ", Status.PASS,
+							keywordModel);
+				}
+			} catch (NoSuchElementException p) {
+				keywordModel.error = true;
+				keywordModel.displayError = true;
+				ReportUtilities.Log(
+						driver, "Cannot select any value on the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
+				throw new RuntimeException(p);
+			}
+		} else {
+			try {
+				if (findElementByType(driver, keywordModel).isDisplayed()) {
+
+					findElementByType(driver, keywordModel).click();
+					Thread.sleep(1000);
+
+					driver.findElement(By.xpath("//div[contains(@class,'ng-option')]/span[contains(text(),'"
+							+ keywordModel.dataValue + "')]")).click();
+
+					ReportUtilities.Log(driver, "Selecting by visible text in the dropdown " + keywordModel.objectName,
+							"Selected the value " + keywordModel.dataValue + " in the select box ", Status.PASS,
+							keywordModel);
+				}
+			} catch (NoSuchElementException p) {
+				keywordModel.error = true;
+				keywordModel.displayError = true;
+				ReportUtilities.Log(
+						driver, "Cannot select any value on the object.", "The Element " + keywordModel.objectName
+								+ " is NOT displayed on the current screen" + keywordModel.ScreenName,
+						Status.FAIL, keywordModel);
+				throw new RuntimeException(p);
+			}
+		}
+	}
+
+	public void checkAccessibility(WebDriver driver, KeywordModel keywordModel) throws FileNotFoundException {
+		System.out.println(keywordModel.scenario + "Adarsh");
+
+		String strHelp = "";
+		String strImpact = "";
+		String strDescription = "";
+		String strHelpUrl = "";
+		String strId = "";
+		String strTags = "";
+		String strNodeHTLML;
+		String strNodeTarget;
+		StringBuilder axeResults = new StringBuilder();
+		String screenName = keywordModel.objectName;
+		String folderName = keywordModel.scenario;
+
+		AxeBuilder builder = new AxeBuilder();
+
+		axeResults.append("Screen Name,Help,Impact,Description,Help Url,Id,Tags");
+		axeResults.append(System.lineSeparator());
+
+		Results result = builder.analyze(driver);
+		List<Rule> violations = result.getViolations();
+
+		String url = driver.getCurrentUrl();
+		String PageID = url.substring(url.lastIndexOf("/") + 1, url.length());
+
+		System.out.println("Violation of the Screen " + screenName + ":" + violations.size());
+
+		if (violations.size() == 0) {
+
+			System.out.println("No violations found: " + screenName);
+		} else {
+
+			System.out.println("ADA violations exists on the page: " + screenName + PageID);
+		}
+
+		for (Rule element : violations) {
+			strHelp = element.getHelp();
+			strImpact = element.getImpact();
+			strDescription = "\"" + element.getDescription() + "\"";
+			strHelpUrl = element.getHelpUrl();
+			strId = element.getId();
+			strTags = "\"" + String.join(",", element.getTags()) + "\"";
+			;
+			axeResults.append(
+					screenName + "," + strHelp + "," + strImpact + "," + strDescription + "," + strId + "," + strTags);
+			axeResults.append(System.lineSeparator());
+			if (element.getNodes() != null && !element.getNodes().isEmpty()) {
+				for (CheckedNode item : element.getNodes()) {
+					if (item.getHtml().trim().length() > 0 && item.getTarget().toString().trim().length() > 0) {
+						axeResults.append(
+								screenName + "," + strHelp + "," + strImpact + "," + strDescription + "," + strHelpUrl
+										+ "," + "\"" + item.getHtml() + "\"" + "," + "\"" + item.getTarget() + "\"");
+						axeResults.append(System.lineSeparator());
+					}
+				}
+			}
+		}
+		File directory = new File(reportPath + folderName);
+		if (!directory.exists()) {
+			directory.mkdir();
+		}
+		BufferedWriter writer = null;
+		System.out.println(reportPath + "AccessibilityReport_" + screenName + "_" + ".csv");
+		File file = new File(reportPath + folderName + "//" + screenName + ".csv");
+		try {
+			writer = new BufferedWriter(new FileWriter(file));
+			writer.write(axeResults.toString());
+		} catch (Exception e1) {
+
+		} finally {
+			if (writer != null) {
+				try {
+					writer.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+
+	}
+
 //***********************************MDOT_Keywords stops************************************
 
 }
-
